@@ -5,7 +5,7 @@ const {club, user, team} = require('../../database/controllers');
 
 const getClubs = (req, res, next)=>{
     club
-        .getClubs()
+        .getClubs(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

@@ -53,10 +53,13 @@ module.exports = {
     },
 
 
-    newClub: async ({title, organisation, venue, user})=>(
+    newClub: async ({title,title_short,primary_color, secondary_color, organisation, venue})=>(
         //CHECK IF USER IS ADMIN
         new club({
                     title, 
+                    title_short, 
+                    primary_color, 
+                    secondary_color,  
                     organisation,
                     venue,
                 })

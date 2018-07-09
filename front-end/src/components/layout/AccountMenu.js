@@ -7,7 +7,6 @@ import LogoutDialog from '../login/LogoutDialog'
 import { withStyles } from '@material-ui/core/styles'
 import JSStyle from '../../assets/jss/JSStyle'
 
-import {typeOfUser} from '../../utilities/utils'
 
 class AccountMenu extends Component { 
     state = {

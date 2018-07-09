@@ -1,15 +1,22 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Grid, FormControlLabel, Switch, MenuItem, Select, InputLabel, FormControl, FormHelperText } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Grid, FormControlLabel, Switch } from '@material-ui/core';
+import Categories from '../Categories';
 
 class CompetitionNewDialog extends React.Component {
 state={
     title:'',
     isLeague:true,
     isCup:false,
-    category:'',
+    category:'Mens Junior',
 }
 handleChange=(e)=>{
+    console.log(document.getElementById('category').value)
+    
     this.setState({[e.target.name]:e.target.value})
+}
+handleCategory=(e)=>{
+    console.log('HANDLECAT',e.target)
+    this.setState({category:e.target.value})
 }
 onSave = ()=>{
     this.props.onSave(this.state)
@@ -75,35 +82,10 @@ render(){
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormControl >
-                        {/* TO-DO this label doesn't work the first time the dialog opens cos the id isn't in the dom, it works on subsequent turns */}
-                        <InputLabel htmlFor="category">Select Team Category</InputLabel>
-                        <Select
-                            value={this.state.category}
-                            onChange={this.handleChange}
-                            inputProps={{name: 'category', id:'category'}}
-                        >
-                        {/* TO-DO REPLACE WITH DATABASE CALL OR CREATE A HARD CODED OBJECT SOMEWHERE FOr NOW AND LEAVE IT HARD CODED */}
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={1}>Men's Senior</MenuItem>
-                            <MenuItem value={2}>Men's Junior</MenuItem>
-                            <MenuItem value={3}>Women's Senior</MenuItem>
-                            <MenuItem value={4}>Women's Junior</MenuItem>
-                            <MenuItem value={5}>Mens's Under 23</MenuItem>
-                            <MenuItem value={6}>Boys's Under 19</MenuItem>
-                            <MenuItem value={75}>Boys's Under 18</MenuItem>
-                            <MenuItem value={8}>Boys's Under 17</MenuItem>
-                            <MenuItem value={599}>Boys's Under 16</MenuItem>
-                            <MenuItem value={9}>Boys's Under 15</MenuItem>
-                            <MenuItem value={12}>Boys's Under 14</MenuItem>
-                            <MenuItem value={132}>Boys's Under 13</MenuItem>
-                            <MenuItem value={555}>Boys's Under 12</MenuItem>
-                            <MenuItem value={544}>Boys's Under 11</MenuItem>
-                        </Select>
-                        <FormHelperText>This will greatly help later when choosing teams for each division</FormHelperText>
-                    </FormControl>
+                    <Categories 
+                        category={this.state.category}
+                        onChange={this.handleCategory}
+                    />
                 </Grid>
             </Grid>
         </DialogContent>

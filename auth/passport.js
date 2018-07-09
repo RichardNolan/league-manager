@@ -139,7 +139,8 @@ const isLeagueSecretary = (req,res,next)=>{
 const isClubOfficial = (req,res,next)=>{
     if(
         req.user.isAdmin || 
-        req.user.isClubOfficial 
+        req.user.isClubOfficial  || 
+        req.user.isLeagueSecretary
     ) next()
     else throw {message:"Not a Club Official"}
 }
@@ -147,7 +148,8 @@ const isClubOfficial = (req,res,next)=>{
 const isTeamManager = (req,res,next)=>{
     if(
         req.user.isAdmin || 
-        req.user.isTeamManager 
+        req.user.isTeamManager  || 
+        req.user.isLeagueSecretary
     ) next()
     else throw {message:"Not a Team Manager"}
 }

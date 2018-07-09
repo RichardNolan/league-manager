@@ -5,7 +5,7 @@ const {fixture} = require('../../database/controllers/');
 
 const getFixtures = (req, res, next)=>{
     fixture
-        .getFixtures()
+        .getFixtures(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)
 }   

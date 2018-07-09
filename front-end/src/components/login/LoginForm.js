@@ -34,7 +34,6 @@ class LoginForm extends Component {
     }
 
     showsnack = () =>{
-        console.log("SNACK")
         this.setState({
             SnackbarMessage:'testing',
             SnackbarOpen:true

@@ -8,7 +8,7 @@ const {user} = require('../../database/controllers/');
 const getUsers = (req, res)=>{
     console.log("got to API")
     user
-        .getUsers({})
+        .getUsers(req.query || {})
         .then(users=>res.status(200).json(users))
         .catch(err=>console.log(err))
 

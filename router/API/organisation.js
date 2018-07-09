@@ -5,7 +5,7 @@ const {organisation} = require('../../database/controllers/');
 
 const getOrganisations = (req, res, next)=>{
     organisation
-        .getOrganisations({})
+        .getOrganisations(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

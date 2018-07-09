@@ -5,7 +5,7 @@ const {venue} = require('../../database/controllers/');
 
 const getVenues = (req, res, next)=>{
     venue
-        .getVenues()
+        .getVenues(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

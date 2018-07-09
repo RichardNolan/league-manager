@@ -3,8 +3,8 @@ import LoginLayout from "../components/login/LoginLayout";
 import ForgotPassword from "../components/login/ForgotPassword";
 import RegisterContainer from "../components/register/RegisterContainer";
 import NewLeague from '../components/leagues/NewLeague';
-
-const Home = ()=>null
+import Home from '../components/layout/Home'
+// const Home = ()=>null
 const Routes = [
     { 
         order:5,

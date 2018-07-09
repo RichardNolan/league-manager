@@ -4,7 +4,6 @@ const {ObjectId} = mongoose.Schema.Types
 const Schema = new mongoose.Schema({
     title: String,
     title_short: String,
-    primary_color: String,
     category: String,
     division:  {type: ObjectId, ref: 'division'},
     club: {type: ObjectId, ref: 'club'},

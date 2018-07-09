@@ -3,19 +3,21 @@ import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
 
 import USER from '../USER'
-
 import Competitions from '../components/competitions/Competitions'
+import Clubs from '../components/clubs/Clubs'
+import Club from '../components/clubs/Club'
+import Teams from '../components/teams/Teams'
 
 const Fixtures = ()=>{return null}
 const Results = ()=>{return null}
-const Teams = ()=>{return null}
+// const Teams = ()=>{return null}
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
 const Users = ()=>{return null}
 const Referees = ()=>{return null}
 const Venues = ()=>{return null}
 // const Competitions = ()=>{return null}
-const Clubs = ()=>{return null}
+// const Clubs = ()=>{return null}
 
 
 export const injectUser = Component=> props=> {
@@ -82,7 +84,7 @@ const Routes = [
         link: "Players",
         icon: DraftsIcon,
         pageTitle: "Players",
-        path: "/leaguesecretary/players", 
+        path: "/leaguesecretary/players/", 
         component: Players
     },
     { 
@@ -90,7 +92,7 @@ const Routes = [
         link: "Users",
         icon: DraftsIcon,
         pageTitle: "Users",
-        path: "/leaguesecretary/users", 
+        path: "/leaguesecretary/users/", 
         component: Users    /// WRAP IN HOC???
     },
     { 
@@ -98,16 +100,24 @@ const Routes = [
         link: "Teams",
         icon: DraftsIcon,
         pageTitle: "Teams",
-        path: "/leaguesecretary/teams", 
-        component: Teams
+        path: "/leaguesecretary/teams/", 
+        component: injectUser(Teams)    
+    },
+    { 
+        order:0,
+        link: "Clubs",
+        icon: DraftsIcon,
+        pageTitle: "Clubs",
+        path: "/leaguesecretary/clubs/:id", 
+        component: injectUser(Club)    
     },
     { 
         order:2,
         link: "Clubs",
         icon: DraftsIcon,
         pageTitle: "Clubs",
-        path: "/leaguesecretary/clubs", 
-        component: Clubs    /// WRAP IN HOC???
+        path: "/leaguesecretary/clubs/", 
+        component: injectUser(Clubs)    /// WRAP IN HOC???
     },
     {  
         order:1,

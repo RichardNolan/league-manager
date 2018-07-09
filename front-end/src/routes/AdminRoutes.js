@@ -1,4 +1,3 @@
-import MainLayout from "../components/layout/MainLayout";
 import LoadList from '../components/HOC/LoadList'
 
 import Organisations from "../components/organisation/Organisations";

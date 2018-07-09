@@ -5,7 +5,7 @@ const {table} = require('../../database/controllers/');
 
 const getTables = (req, res, next)=>{
     table
-        .find()
+        .find(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

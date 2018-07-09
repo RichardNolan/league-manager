@@ -5,7 +5,7 @@ const {referee} = require('../../database/controllers/');
 
 const getReferees = (req,res, next)=>{
     referee
-        .getReferees()
+        .getReferees(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

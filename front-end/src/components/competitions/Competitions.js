@@ -1,6 +1,6 @@
 import React from 'react'
-import { getRequest, post, fetchQuery, getStandard } from '../../utilities/fetch'
-import { AppBar, Toolbar,Button,Menu,MenuItem,Typography,Grid, Paper } from '@material-ui/core';
+import {  post, fetchQuery } from '../../utilities/fetch'
+import { AppBar, Toolbar,Button,Menu,MenuItem,Typography,Grid } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
 import LeagueIcon from '@material-ui/icons/Menu';
@@ -8,11 +8,9 @@ import CupIcon from '@material-ui/icons/DeviceHub';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { withStyles } from '@material-ui/core/styles';
 import CompetitionNewDialog from './CompetitionNewDialog';
-import CompetitionButton from './CompetitionButton';
 import LeagueContainer from '../leagues/LeagueContainer';
 import CupContainer from '../cups/CupContainer';
 import NewLeague from '../leagues/NewLeague';
-
 // import injectUser from '../../USER'
 
 
@@ -139,7 +137,7 @@ class Competitions extends React.Component {
                 </AppBar>  
                 
                 <Grid container>
-                    <Grid item>   
+                    <Grid item>  
                         { isNewCompetition && competitionType==='league' && <NewLeague competition={competitions[competition]} {...this.props}/> }
                         { !isNewCompetition && competitionType==='league' && <LeagueContainer competition={competitions[competition]._id} {...this.props}/> }
                         { !isNewCompetition && competitionType==='cup' && <CupContainer competition={competitions[competition]}  {...this.props}/> }

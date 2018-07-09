@@ -29,14 +29,12 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting teams"}))
     ),
 
-    newTeam: ({title, club, title_short, primary_color, manager})=>(
-        //CHECK IF USER IS ADMIN - should be done at api as middleware
+    newTeam: ({title, club, title_short, category})=>(
         new team({
                     title, 
                     club,
                     title_short,
-                    primary_color,
-                    manager,
+                    category,
                 })
                 .save()
                 .then(result=>result)
