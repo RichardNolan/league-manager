@@ -16,8 +16,8 @@ class Categories extends React.Component {
     };
   
     handleClose = (cat)=> {
-        this.props.onChange(cat)
         this.setState({ anchorEl: null });
+        if(typeof cat==='string') this.props.onChange(cat)
     };
     render(){
         const { anchorEl } = this.state;
@@ -31,6 +31,7 @@ class Categories extends React.Component {
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                 >
+                    <MenuItem onClick={()=>this.handleClose('')} key={'x'}>{''}</MenuItem>
                     {teamCategories.map((cat,key)=><MenuItem onClick={()=>this.handleClose(cat)} key={key}>{cat}</MenuItem>)}
                     
                 </Menu>
@@ -40,6 +41,10 @@ class Categories extends React.Component {
 }
 
 export default withStyles(styles)(Categories);
+
+
+
+
             //  <FormControl className={props.classes.fullWidth} >
             //     {/* TO-DO this label doesn't work the first time the dialog opens cos the id isn't in the dom, it works on subsequent turns */}
             //     <InputLabel htmlFor="category">Select Team Category</InputLabel>

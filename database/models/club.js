@@ -5,6 +5,7 @@ const Schema = new mongoose.Schema({
     title: String,
     title_short:String,
     primary_color: String,
+    secondary_color: String,
     crest:String,
     organisation: {type: ObjectId, ref: 'organisation'},
     venues:  [{type: ObjectId, ref: 'venue'}],

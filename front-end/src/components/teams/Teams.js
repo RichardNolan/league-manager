@@ -29,14 +29,13 @@ class Teams extends Component {
         let body = {
             title: newTeam.title,
             category: newTeam.category,
-            club: this.props.club._id || newTeam.club
+            club: this.props.club && this.props.club._id || newTeam.club
         }
         console.log(body)
         fetch('http://localhost:9000/api/team', post(body))            
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)
-                console.log(res)
                 let teams = [...this.state.teams]
                 teams.push(res)         
                 this.setState({teams, team_title:res.title})    

@@ -34,7 +34,7 @@ module.exports = {
     ),
 
 
-    // TRYING ASYNC/AWAIT AND PROMISES TO SEE WHICH WORKS
+    // TRYING ASYNC/AWAIT AND PROMISES TO SEE WHICH WORKS BEST
 
     updateClub: async (id, data)=>{
         let Club = await club
@@ -53,15 +53,14 @@ module.exports = {
     },
 
 
-    newClub: async ({title,title_short,primary_color, secondary_color, organisation, venue})=>(
-        //CHECK IF USER IS ADMIN
+    newClub: ({title,title_short,primary_color, secondary_color, organisation, crest})=>(
         new club({
                     title, 
                     title_short, 
                     primary_color, 
-                    secondary_color,  
+                    secondary_color, 
+                    crest, 
                     organisation,
-                    venue,
                 })
                 .save()
                 .then(result=>result)

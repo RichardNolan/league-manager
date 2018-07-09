@@ -40,6 +40,10 @@ class Clubs extends Component {
         this.closeNewClubDialog()
         let body = {
             title: newClub.title,
+            title_short: newClub.title_short,
+            crest: newClub.crest,
+            primary_color: newClub.primary_color,
+            secondary_color: newClub.secondary_color,
             organisation: this.props.user.organisation
         }
         fetch('http://localhost:9000/api/club', post(body))            
@@ -77,7 +81,14 @@ class Clubs extends Component {
 
         let clubsMetro = clubs && clubs.length>0
                     ?   clubs.map((club,key)=>(
-                            <ClubButton color={club.primary_color} stripe='white' text={club.title} component={Link} to={club._id} key={key}/>
+                            <ClubButton 
+                                color={club.primary_color || 'red'} 
+                                stripe={club.secondary_color || 'white'} 
+                                text={club.title} 
+                                component={Link} 
+                                to={club._id} 
+                                key={key}
+                            />
                         ))
                     :   <LinearProgress />
         return (

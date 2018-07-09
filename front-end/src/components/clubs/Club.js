@@ -28,10 +28,12 @@ class Club extends Component {
 
     render() {
         let clubName = this.state.club && (this.state.club.title || null)
+        let clubCrest = this.state.club && this.state.club.crest && (<img src={this.state.club.crest} style={{width:'100px'}} /> || null)
         return (
             <div>
                 {this.state.progressBar && <LinearProgress/>}
                 <h1>{clubName}</h1>
+{clubCrest}
                 <Teams param={{club:this.props.match.params.id}} club={this.state.club}/>
             </div>
         );

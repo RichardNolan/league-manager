@@ -1,6 +1,7 @@
 import React from 'react'
 import {  post, fetchQuery } from '../../utilities/fetch'
-import { AppBar, Toolbar,Button,Menu,MenuItem,Typography,Grid } from '@material-ui/core';
+import { AppBar, Toolbar,Button,Menu,MenuItem,Typography,Grid, LinearProgress } from '@material-ui/core';
+import {Link} from 'react-router-dom'
 
 import AddIcon from '@material-ui/icons/Add';
 import LeagueIcon from '@material-ui/icons/Menu';
@@ -11,6 +12,8 @@ import CompetitionNewDialog from './CompetitionNewDialog';
 import LeagueContainer from '../leagues/LeagueContainer';
 import CupContainer from '../cups/CupContainer';
 import NewLeague from '../leagues/NewLeague';
+import PlusFab from'../PlusFab'
+import ClubButton from '../clubs/ClubButton';
 // import injectUser from '../../USER'
 
 
@@ -18,15 +21,6 @@ const styles = (theme)=>( {
     root: {
         flexGrow: 1,
     },
-    // flex:{
-    //     flex:1,        
-    //     justifyContent: 'spaceBetween',
-    // },
-    // fab: {
-    //     right: theme.spacing.unit * 2,
-    //     zIndex: theme.zIndex.tooltip,
-    // },
-
 })
 
 class Competitions extends React.Component {
@@ -96,46 +90,36 @@ class Competitions extends React.Component {
         let {classes} = this.props
         let {competition, competitions,isNewCompetition} = this.state
 
-        let competitionsMenuItems =  competitions.map((competition, key)=>(
-            <MenuItem key={key} 
-                onClick={e=>this.chooseCompetition(e, key, competition.title)} 
-            >
-                {competition.type === 'league' ? <LeagueIcon/> : <CupIcon/>}
-                {competition.title}
-            </MenuItem>
-        ))
+        // let competitionsMenuItems =  competitions.map((competition, key)=>(
+        //     <MenuItem key={key} 
+        //         onClick={e=>this.chooseCompetition(e, key, competition.title)} 
+        //     >
+        //         {competition.type === 'league' ? <LeagueIcon/> : <CupIcon/>}
+        //         {competition.title}
+        //     </MenuItem>
+        // ))
+
+        // TO-DO MAKE A COMPETITIONS BUTTON THAT CAN BE SMALL OR NORMAL
         let competitionType = competition!==null && competitions[competition].type
-        return (
-            <div className={classes.root}>
-                <AppBar position="static" color="default">
-                    <Toolbar>
-                        <Button onClick={this.handleOpenMenu} variant="fab" mini color="primary">
-                            <ArrowDropDown/>
-                        </Button>
-                        <Menu
-                            anchorEl={this.state.anchorEl}
-                            open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleClose}
-                        >
-                            {competitionsMenuItems}
-                        </Menu>
-                        
-                        <Typography variant="headline" color="inherit">
-                            {this.state.competition_title || "Choose an Competition"}
-                        </Typography>
-                        <div>
-                            <Button variant="fab" color="secondary">
-                                <AddIcon onClick={this.openNewCompetitionDialog}/>
-                            </Button>
-                            <CompetitionNewDialog 
-                                open={this.state.newCompetitionDialogOpen}
-                                onClose={this.closeNewCompetitionDialog.bind(this)} 
-                                onSave={this.saveNewCompetition.bind(this)}
+        console.log('competitionType', competitionType)
+        let competitionsMetro = competitions && competitions.length>0
+                    ?   competitions.map((competition,key)=>(
+                            <ClubButton 
+                                competition={competition}
+                                size={isNewCompetition ? 'small' : 'normal'}
+                                color={competition.primary_color} 
+                                stripe='white' 
+                                text={competition.title} 
+                                component={Link} 
+                                to={competition.type==='league' ? 'league/'+competition._id : '/'} 
+                                key={key}
                             />
-                        </div>
-                    </Toolbar>
-                </AppBar>  
-                
+                        ))
+                    :   <LinearProgress />
+        return (
+            <div className={classes.root}>         
+                <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} />   
+                {competitionsMetro}
                 <Grid container>
                     <Grid item>  
                         { isNewCompetition && competitionType==='league' && <NewLeague competition={competitions[competition]} {...this.props}/> }
@@ -150,3 +134,31 @@ class Competitions extends React.Component {
 }
 
 export default withStyles(styles)(Competitions)
+{/* <AppBar position="static" color="default">
+    <Toolbar>
+        <Button onClick={this.handleOpenMenu} variant="fab" mini color="primary">
+            <ArrowDropDown/>
+        </Button>
+        <Menu
+            anchorEl={this.state.anchorEl}
+            open={Boolean(this.state.anchorEl)}
+            onClose={this.handleClose}
+        >
+            {competitionsMenuItems}
+        </Menu>
+        
+        <Typography variant="headline" color="inherit">
+            {this.state.competition_title || "Choose an Competition"}
+        </Typography>
+        <div>
+            <Button variant="fab" color="secondary">
+                <AddIcon onClick={this.openNewCompetitionDialog}/>
+            </Button>
+            <CompetitionNewDialog 
+                open={this.state.newCompetitionDialogOpen}
+                onClose={this.closeNewCompetitionDialog.bind(this)} 
+                onSave={this.saveNewCompetition.bind(this)}
+            />
+        </div>
+    </Toolbar>
+</AppBar>   */}

@@ -1,20 +1,27 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Grid} from '@material-ui/core';
 import Categories from '../Categories';
+import ClubMenu from '../clubs/ClubMenu';
 
 class TeamNewDialog extends React.Component {
     state={
-        title:''
+        title:'',
+        category:'',
+        club:'',
     }
     handleChange=(e)=>{
         this.setState({[e.target.name]:e.target.value})
     }
     onSave = ()=>{
         this.props.onSave(this.state)
-        this.setState({title:'', category:null})
+        this.setState({title:'', category:'', club:''})
     }
-    handleCategory(cat){        
-        this.setState({category:cat})
+    handleCategory(category){        
+        this.setState({category})
+    }
+    handleClub(club){ 
+        console.log(club)       
+        this.setState({club})
     }
     render(){
         return (       
@@ -31,7 +38,15 @@ class TeamNewDialog extends React.Component {
                 </DialogContentText>
                 <Grid container>
                     {/* TO-DO make the menu and see what has to be returned */}
-                    {this.props.club ? null : 'MENU FOR CLUB'}
+                    {
+                        this.props.club 
+                            ? null 
+                            : <ClubMenu 
+                                organisation={this.props.user.organisation} 
+                                club={this.state.club} 
+                                onChange={this.handleClub.bind(this)} 
+                              />
+                    }
                     <Grid item xs={12}>
                         <TextField
                             autoFocus

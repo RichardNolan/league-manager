@@ -10,13 +10,11 @@ state={
     category:'Mens Junior',
 }
 handleChange=(e)=>{
-    console.log(document.getElementById('category').value)
     
     this.setState({[e.target.name]:e.target.value})
 }
-handleCategory=(e)=>{
-    console.log('HANDLECAT',e.target)
-    this.setState({category:e.target.value})
+handleCategory=(cat)=>{
+    this.setState({category:cat})
 }
 onSave = ()=>{
     this.props.onSave(this.state)
