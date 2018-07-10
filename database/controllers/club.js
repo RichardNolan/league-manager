@@ -13,6 +13,7 @@ module.exports = {
         club
             .find(criteria)
             .populate({ path: 'organisation' })
+            // .then(aggregate)
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting clubs"}))
     ),

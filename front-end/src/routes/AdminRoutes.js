@@ -14,7 +14,8 @@ const Routes = [
         link: "Organisations",
         icon: DraftsIcon,
         pageTitle: "Organisations",
-        path: "/admin/organisations", 
+        path: "/organisations/", 
+        // route: "/admin/organisations/", 
         component:Organisations, 
     },
     { 
@@ -22,7 +23,7 @@ const Routes = [
         link: "Users",
         icon: DraftsIcon,
         pageTitle: "Users",
-        path: "/admin/users", 
+        path: "/users/", 
         component: LoadList('user')(Users), 
     },
     {  
@@ -30,7 +31,7 @@ const Routes = [
         link: "Admin Dashboard",
         icon: SendIcon,
         pageTitle: "Administration Dashboard",
-        path: "/admin", 
+        path: "", 
         component: Home  
     },
     // {  

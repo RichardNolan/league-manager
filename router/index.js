@@ -17,7 +17,7 @@ router.get('/test', Authenticate, function(req, res) {
 
 
 router.use((req,res)=>{
-    res.send(404);
+    res.sendStatus(404);
 });
 
 module.exports = router;

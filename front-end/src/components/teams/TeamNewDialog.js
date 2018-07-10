@@ -23,7 +23,7 @@ class TeamNewDialog extends React.Component {
         console.log(club)       
         this.setState({club})
     }
-    render(){
+    render(){ 
         return (       
             <Dialog
             open={this.props.open}
@@ -39,10 +39,10 @@ class TeamNewDialog extends React.Component {
                 <Grid container>
                     {/* TO-DO make the menu and see what has to be returned */}
                     {
-                        this.props.club 
+                        this.props.club || this.props.match.params.club
                             ? null 
                             : <ClubMenu 
-                                organisation={this.props.user.organisation} 
+                                organisation={(this.props.user && this.props.user.organisation) || null} 
                                 club={this.state.club} 
                                 onChange={this.handleClub.bind(this)} 
                               />

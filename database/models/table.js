@@ -1,12 +1,35 @@
 const mongoose = require('../database');
 const {ObjectId} = mongoose.Schema.Types
 
-const TableSchema = new mongoose.Schema({
-    team: {type: ObjectId, ref: 'team'},
+const tableSchema = new mongoose.Schema({
+    p:Number,
+    w:Number,
+    d:Number,
+    l:Number,
+    f:Number,
+    a:Number,
+    gd:Number,
+    pts:Number,
+    hp:Number,
+    hw:Number,
+    hd:Number,
+    hl:Number,
+    hf:Number,
+    ha:Number,
+    hgd:Number,
+    hpts:Number,
+    ap:Number,
+    aw:Number,
+    ad:Number,
+    al:Number,
+    af:Number,
+    aa:Number,
+    agd:Number,
+    apts:Number,
 })
 const Schema = new mongoose.Schema({
-    table: Array,
-    // table: [TableSchema],
+    table: tableSchema,
+    team: {type: ObjectId, ref: 'team'},
     division:  {type: ObjectId, ref: 'division'},
 })
 

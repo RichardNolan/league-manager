@@ -7,6 +7,7 @@ import Competitions from '../components/competitions/Competitions'
 import Clubs from '../components/clubs/Clubs'
 import Club from '../components/clubs/Club'
 import Teams from '../components/teams/Teams'
+import TeamContainer from '../components/teams/TeamContainer'
 
 const Fixtures = ()=>{return null}
 const Results = ()=>{return null}
@@ -35,7 +36,7 @@ const Routes = [
         link: "Venues",
         icon: DraftsIcon,
         pageTitle: "Venues",
-        path: "/leaguesecretary/venues", 
+        path: "/venues/", 
         component: Venues
     },
     { 
@@ -43,7 +44,7 @@ const Routes = [
         link: "Referees",
         icon: DraftsIcon,
         pageTitle: "Referees",
-        path: "/leaguesecretary/referees", 
+        path: "/referees/", 
         component: Referees
     },
     { 
@@ -51,7 +52,7 @@ const Routes = [
         link: "Competitions",
         icon: DraftsIcon,
         pageTitle: "Competitions",
-        path: "/leaguesecretary/competitions", 
+        path: "/competitions/", 
         // component: Competitions
         component: injectUser(Competitions)
     },
@@ -60,7 +61,7 @@ const Routes = [
         link: "Tables",
         icon: DraftsIcon,
         pageTitle: "Tables",
-        path: "/leaguesecretary/tables", 
+        path: "/tables/", 
         component: Tables
     },
     { 
@@ -68,7 +69,7 @@ const Routes = [
         link: "Results",
         icon: DraftsIcon,
         pageTitle: "Results",
-        path: "/leaguesecretary/results", 
+        path: "/results/", 
         component: Results
     },
     { 
@@ -76,7 +77,7 @@ const Routes = [
         link: "Fixtures",
         icon: DraftsIcon,
         pageTitle: "Fixtures",
-        path: "/leaguesecretary/fixtures", 
+        path: "/fixtures/", 
         component: Fixtures
     },
     { 
@@ -84,7 +85,7 @@ const Routes = [
         link: "Players",
         icon: DraftsIcon,
         pageTitle: "Players",
-        path: "/leaguesecretary/players/", 
+        path: "/players/", 
         component: Players
     },
     { 
@@ -92,15 +93,23 @@ const Routes = [
         link: "Users",
         icon: DraftsIcon,
         pageTitle: "Users",
-        path: "/leaguesecretary/users/", 
+        path: "/users/", 
         component: Users    /// WRAP IN HOC???
+    },
+    { 
+        order:0,
+        link: "Teams",
+        icon: DraftsIcon,
+        pageTitle: "Teams",
+        path: "/teams/:id", 
+        component: injectUser(TeamContainer)    
     },
     { 
         order:3,
         link: "Teams",
         icon: DraftsIcon,
         pageTitle: "Teams",
-        path: "/leaguesecretary/teams/", 
+        path: "/teams/", 
         component: injectUser(Teams)    
     },
     { 
@@ -108,7 +117,7 @@ const Routes = [
         link: "Clubs",
         icon: DraftsIcon,
         pageTitle: "Clubs",
-        path: "/leaguesecretary/clubs/:id", 
+        path: "/clubs/:id", 
         component: injectUser(Club)    
     },
     { 
@@ -116,7 +125,7 @@ const Routes = [
         link: "Clubs",
         icon: DraftsIcon,
         pageTitle: "Clubs",
-        path: "/leaguesecretary/clubs/", 
+        path: "/clubs/", 
         component: injectUser(Clubs)    /// WRAP IN HOC???
     },
     {  
@@ -124,7 +133,7 @@ const Routes = [
         link: "Dashboard",
         icon: SendIcon,
         pageTitle: "League Secretary",
-        path: "/leaguesecretary", 
+        path: "/", 
     },
     {  
         order:0,

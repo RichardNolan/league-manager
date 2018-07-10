@@ -3,6 +3,8 @@ import { Zoom, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 
+import USER from '../USER'
+
 const styles = (theme)=>( {
     root: {
         flexGrow: 1,
@@ -30,27 +32,34 @@ class PlusFab extends Component {
         this.setState({open:false})
         this.props.onSave(item)
     }
-    render() {
+    render() {        
+        // if(!this.props.user)return null;  
         let PromptDialog = this.props.dialog
         return (
-            <Fragment>
-                
-                <Zoom
-                    in={true}
-                    unmountOnExit
-                >
-                    <Button variant="fab" color="secondary" className={this.props.classes.fab} onClick={this.open.bind(this)} >
-                        <AddIcon/>
-                    </Button>
-                </Zoom>
+               
+        <USER.Consumer>
+            { ( {user} )=>{
+            return (user.success ? (
+                    <Fragment>
+                        <Zoom
+                            in={true}
+                            unmountOnExit
+                        >
+                            <Button variant="fab" color="secondary" className={this.props.classes.fab} onClick={this.open.bind(this)} >
+                                <AddIcon/>
+                            </Button>
+                        </Zoom>
 
-                <PromptDialog 
-                    {...this.props}
-                    open={this.state.open}
-                    onClose={this.close.bind(this)} 
-                    onSave={this.save.bind(this)}
-                />
-            </Fragment>
+                        <PromptDialog 
+                            {...this.props}
+                            user={user}
+                            open={this.state.open}
+                            onClose={this.close.bind(this)} 
+                            onSave={this.save.bind(this)}
+                        />
+                    </Fragment>
+            ) : null )}  }
+        </USER.Consumer>
         );
     }
 }

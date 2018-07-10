@@ -7,6 +7,7 @@ import Header from '../layout/HeaderLayout'
 import withStyles from "@material-ui/core/styles/withStyles";
 import JSStyle from '../../assets/jss/JSStyle'
 import defaultRoutes from '../../routes/HomeRoutes'
+import LoginLayout from "../login/LoginLayout";
 
 
 class MainLayout extends Component {
@@ -16,7 +17,7 @@ class MainLayout extends Component {
 
         const Routes = (
             <Switch>
-              {routes && routes.map((prop, key) => <Route path={prop.path+"/"} component={prop.component} key={key} exact={false} /> )} 
+              {routes && routes.map((prop, key) => <Route path={`${this.props.match.url}${prop.path}`} component={prop.component} key={key} exact={false} /> )} 
             </Switch>
           );
 
@@ -25,11 +26,12 @@ class MainLayout extends Component {
             <div className={classes.wrapper}> 
                 <Header />
                 <Hidden smDown>
-                    <Sidebar routes={routes} /> 
+                    <Sidebar routes={routes} {...this.props} /> 
                 </Hidden>               
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
                    {Routes}
+                   {/* <Route path={`${this.props.match.url}login`} component={LoginLayout} exact={true} />  */}
                 </main> 
             </div>
             </Fragment>

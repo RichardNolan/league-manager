@@ -32,6 +32,7 @@ class Competitions extends React.Component {
             competitions:[],
             competition : null,
             competition_title: '',
+            progressBar:false,
         }
     }
     
@@ -59,6 +60,7 @@ class Competitions extends React.Component {
         let body = {
             title:newCompetition.title,
             type:newCompetition.type,
+            category:newCompetition.category,
             organisation:this.props.user.organisation
         }
         fetch('http://localhost:9000/api/competition', post(body))            
@@ -75,14 +77,16 @@ class Competitions extends React.Component {
         this.fetchData()
     }
 
-    fetchData(){        
+    fetchData(){     
+        this.setState({progressBar:true})   
         fetchQuery('http://localhost:9000/api/competition', {organisation:this.props.user.organisation})
             .then(res=>res.json())
             .then(res=>{
-                this.setState({competitions:res})
+                this.setState({competitions:res,progressBar:false})
             })
             .catch(err=>{
                 console.log(err)
+                this.setState({progressBar:false})
             })
     }
 
@@ -90,18 +94,8 @@ class Competitions extends React.Component {
         let {classes} = this.props
         let {competition, competitions,isNewCompetition} = this.state
 
-        // let competitionsMenuItems =  competitions.map((competition, key)=>(
-        //     <MenuItem key={key} 
-        //         onClick={e=>this.chooseCompetition(e, key, competition.title)} 
-        //     >
-        //         {competition.type === 'league' ? <LeagueIcon/> : <CupIcon/>}
-        //         {competition.title}
-        //     </MenuItem>
-        // ))
-
         // TO-DO MAKE A COMPETITIONS BUTTON THAT CAN BE SMALL OR NORMAL
         let competitionType = competition!==null && competitions[competition].type
-        console.log('competitionType', competitionType)
         let competitionsMetro = competitions && competitions.length>0
                     ?   competitions.map((competition,key)=>(
                             <ClubButton 
@@ -115,9 +109,10 @@ class Competitions extends React.Component {
                                 key={key}
                             />
                         ))
-                    :   <LinearProgress />
+                    :   null
         return (
-            <div className={classes.root}>         
+            <div className={classes.root}>
+                {this.state.progressBar && <LinearProgress/>}         
                 <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} />   
                 {competitionsMetro}
                 <Grid container>
@@ -134,31 +129,3 @@ class Competitions extends React.Component {
 }
 
 export default withStyles(styles)(Competitions)
-{/* <AppBar position="static" color="default">
-    <Toolbar>
-        <Button onClick={this.handleOpenMenu} variant="fab" mini color="primary">
-            <ArrowDropDown/>
-        </Button>
-        <Menu
-            anchorEl={this.state.anchorEl}
-            open={Boolean(this.state.anchorEl)}
-            onClose={this.handleClose}
-        >
-            {competitionsMenuItems}
-        </Menu>
-        
-        <Typography variant="headline" color="inherit">
-            {this.state.competition_title || "Choose an Competition"}
-        </Typography>
-        <div>
-            <Button variant="fab" color="secondary">
-                <AddIcon onClick={this.openNewCompetitionDialog}/>
-            </Button>
-            <CompetitionNewDialog 
-                open={this.state.newCompetitionDialogOpen}
-                onClose={this.closeNewCompetitionDialog.bind(this)} 
-                onSave={this.saveNewCompetition.bind(this)}
-            />
-        </div>
-    </Toolbar>
-</AppBar>   */}

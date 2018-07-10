@@ -18,6 +18,7 @@ class Teams extends Component {
     state={
         teams: this.props.teams || [],
         progressBar:false,
+        clubID: this.props.club && this.props.club._id || this.props.match.params.club,
     }
     
     componentDidMount(){
@@ -29,7 +30,8 @@ class Teams extends Component {
         let body = {
             title: newTeam.title,
             category: newTeam.category,
-            club: this.props.club && this.props.club._id || newTeam.club
+            club: this.state.club || newTeam.club,
+            organisation: (this.props.club && this.props.club.organisation) || (this.props.user && this.props.user.organisation),
         }
         console.log(body)
         fetch('http://localhost:9000/api/team', post(body))            
@@ -48,8 +50,10 @@ class Teams extends Component {
     }
 
     fetchData(){   
-        this.setState({progressBar:true})    
-        fetchQuery('http://localhost:9000/api/team', this.props.param || {} )
+        this.setState({progressBar:true})   
+        let query = this.state.clubID ? {club:this.state.clubID || (this.state.club && this.state.club._id)} : null
+        
+        fetchQuery('http://localhost:9000/api/team', query  )
             .then(res=>res.json())
             .then(res=>{
                 let result = {teams:res, progressBar:false}
@@ -68,7 +72,7 @@ class Teams extends Component {
         let {teams} = this.state
         let teamsMetro = teams && teams.length>0
                     ?   teams.map((team,key)=>(
-                            <Button component={Link} to={'../teams/'+team._id} key={key}>
+                            <Button component={Link} to={'/team/'+team._id} key={key}>
                                 {team.title}
                             </Button>
                         ))
@@ -79,7 +83,12 @@ class Teams extends Component {
             <div className={classes.root}>
             {this.state.progressBar && <LinearProgress/>}
 
-            <PlusFab onSave={this.saveNewTeam.bind(this)} dialog={TeamNewDialog} {...this.props}/>   
+            <PlusFab 
+                onSave={this.saveNewTeam.bind(this)} 
+                dialog={TeamNewDialog} 
+                {...this.props}
+                // level='isOfficial'
+            />   
                
             <Grid container>
                 <Grid item>   

@@ -9,7 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom'
 
 
-const Sidebar = ({classes, routes})=>{
+const Sidebar = (props)=>{
+    let {classes, routes} = props
     const menuItems = routes
         .filter(link=>link.order!==0)
         .sort((a,b)=>{
@@ -17,7 +18,13 @@ const Sidebar = ({classes, routes})=>{
             else return 1
         })
         .map((route, key)=>(
-        <MenuItem className={classes.menuItem} key={key} component={Link} to={route.path} from={window.location.pathname}>
+        <MenuItem 
+            className={classes.menuItem} 
+            key={key} 
+            component={Link} 
+            to={`${props.match.url}${route.path}`}
+            from={window.location.pathname}
+        >
             <ListItemIcon className={classes.icon}>
                 <SendIcon/>
                 {/* <img src={'/images/icons/'+route.icon+'.svg'} /> */}

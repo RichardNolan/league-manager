@@ -51,7 +51,7 @@ class LoginContainer extends Component {
         .then(res=>{
             this.setState({progressBar:false}) 
             let type_of_user = res.user && typeOfUser(res.user)
-            res.redirectTo = type_of_user ? '/'+(type_of_user.substring(2,type_of_user.length)).toLowerCase() : '/'
+            res.redirectTo = type_of_user ? '/'+(type_of_user.substring(2,type_of_user.length)).toLowerCase()+'' : '/'
 
             // IF rememberMe is ticked - SAVE THE LOGIN RESPONSE TO LOCALSTORAGE
             rememberMe ? ls.set(res) : ls.clear()

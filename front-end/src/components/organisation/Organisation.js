@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { getStandard } from '../../utilities/fetch'
 
+import {Link, Route} from 'react-router-dom'
 import CompetitionsPanel from '../competitions/CompetitionsPanel';
 import ClubsPanel from '../clubs/ClubsPanel';
+import Clubs from '../clubs/Clubs';
 import RefereesPanel from '../referees/RefereesPanel';
 import UsersPanel from '../users/UsersPanel';
 import { Grid, LinearProgress } from '@material-ui/core';
@@ -21,6 +23,7 @@ const styles = {
 class Organisation extends Component {
     state={
         loader:false,
+        id: (this.props.user && this.props.user.organisation) || this.props.organisation || this.props.match.params.organisationID,
         organisation:{
             competitions:[],
             clubs:[],
@@ -32,7 +35,7 @@ class Organisation extends Component {
 
     fetchData(){   
         this.setState({loader:true})     
-        fetch('http://localhost:9000/api/organisation/'+this.props._id, getStandard())            
+        fetch('http://localhost:9000/api/organisation/'+this.state.id, getStandard())            
         .then(res=>res.json())
         .then(organisation=>this.setState({organisation, loader:false}))
         .catch(err=>{
@@ -52,23 +55,35 @@ class Organisation extends Component {
     render() {
         let org = this.state.organisation
         return (
-            <Grid container spacing={32}>
-                <Grid item sm={12} md={12}>
-                    {this.state.loader ? <LinearProgress /> : null }
-                </Grid>
-                <Grid item sm={12} md={6}>
-                    <CompetitionsPanel competitions={org.competitions} title={org.title}/>
-                </Grid>
-                <Grid item sm={12} md={6}>
-                    <ClubsPanel clubs={org.clubs} title={org.title}/>
-                </Grid>
-                <Grid item sm={12} md={6}>
-                    <RefereesPanel referees={org.referees} title={org.title}/>
-                </Grid>
-                <Grid item sm={12} md={6}>
-                    <UsersPanel users={org.users} title={org.title}/>
-                </Grid>
-            </Grid>
+            <Fragment>
+                {this.state.loader ? <LinearProgress /> : null }
+                <Route path={`${this.props.match.path}/clubs/`} component={Clubs} exact={false} />
+                {/* <Route path="/organisations/:organisation/clubs/" component={Clubs} exact={false} /> */}
+                <Route path={`${this.props.match.path}`} exact={true} component={()=>(
+                    <Grid container spacing={32}>
+                        <Grid item sm={12} md={12}>
+                            <Link 
+                                to={`${this.props.location.pathname}clubs/`}  
+                                from={this.props.location.pathname}
+                            >
+                                Clubs
+                            </Link>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <CompetitionsPanel competitions={org.competitions} title={org.title}/>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <ClubsPanel clubs={org.clubs} title={org.title}/>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <RefereesPanel referees={org.referees} title={org.title}/>
+                        </Grid>
+                        <Grid item sm={12} md={6}>
+                            <UsersPanel users={org.users} title={org.title}/>
+                        </Grid>
+                    </Grid>
+                )} />
+            </Fragment>
         );
     }
 }

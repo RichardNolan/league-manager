@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core';
+import { Grid, Paper, List, ListItem, ListItemText, LinearProgress } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles'
-
+import {fetchQuery} from '../../../utilities/fetch'
 const styles = (theme)=> ({
     root:{
 
@@ -28,7 +28,9 @@ const styles = (theme)=> ({
 
 class DivideTeams extends React.Component {
    state={
-       divisions:this.props.divisionsObject
+       divisions:this.props.divisionsObject, 
+       progressBar:false,
+       teams:[],
    }
 
     allowDrag = (e)=> {
@@ -39,6 +41,14 @@ class DivideTeams extends React.Component {
         e.dataTransfer.setData("text", e.target.id)
     }
     
+    lookup = id=> {
+        if(this.state.teams) {
+            let selectedTeam = this.state.teams.filter(team=>team._id===id)
+            if(selectedTeam.length===1 && selectedTeam[0].title) return selectedTeam[0].club.title_short
+        }
+        return ''
+    }
+
     onDrop = (e)=> {
         e.preventDefault()
         let team =  e.dataTransfer.getData("text")
@@ -48,7 +58,12 @@ class DivideTeams extends React.Component {
         let {divisions} = this.state
         if(!divisions[division]) divisions[division] = []
         // TO-DO REMOVE TEAM FROM ALL ARRAYS BEFORE PROCEEDING OTHERWISE IF MOVING FROM ONE DIVISION TO ANOTHER THAT TEAM IS IN BOTH
-        divisions[division].push(team)
+for(let d in divisions){
+    let index = divisions[d].findIndex(t=>t._id===team)
+    if(index>-1) divisions[d].splice(index,1)
+}
+        let teamObj = {_id:team, title:this.lookup(team)}
+        divisions[division].push(teamObj)
 
         this.setState({divisions})        
         this.props.onChange('divisionsObject', divisions) 
@@ -57,17 +72,33 @@ class DivideTeams extends React.Component {
     componentDidMount(){
        // TO-DO going back and adding another division wipes this 
         let {divisions} = this.state
-        if(divisions){
-            for(let division in divisions){
-                for(let team in divisions[division]){
-                    document.getElementById(division).appendChild(document.getElementById(divisions[division][team]))
-                }
-            }
+        console.log(this.props)
+        let org = (this.props.competition && this.props.competition.organisation) || null
+        if(org){
+            fetchQuery('http://localhost:9000/api/team', {organisation:org, category:this.props.competition.league.category})
+                .then(res=>res.json())
+                .then(res=>{
+                    this.setState({teams:res})
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
         }
+
+        // THIS LOADS DIVISIONS ON BACK - NEEDS TO BE RE-JIGGED AS TEAMS ARE NOT A STRING NOW
+        // if(divisions){
+        //     for(let division in divisions){
+        //         for(let team in divisions[division]){
+        //             document.getElementById(division).appendChild(document.getElementById(divisions[division][team]))
+        //         }
+        //     }
+        // }
+
     }
 
 render(){
     let {classes} = this.props
+
     let divisions = this.props.divisions 
         ?   this.props.divisions.map((division, key)=>{            
                 return division.value
@@ -85,23 +116,23 @@ render(){
             })
         :   null
 
-        let teams = [1,2,8,3,4,5,0,6,7,9]
 
-     teams = teams.map((team, key)=>{
+    let teams = this.state.teams.map((team, key)=>{
         return (
-                <ListItem key={key} draggable={true} onDragStart={this.onDragStart} id={'team-'+key} className={classes.team}>
-                    <ListItemText primary={'team-'+key}/>
+                <ListItem key={key} draggable={true} onDragStart={this.onDragStart} id={team._id} className={classes.team}>
+                    <ListItemText primary={team.club.title_short}/>
                 </ListItem>
                 )
         })
     return (
         <Grid container>
+            {this.state.progressBar && <LinearProgress/>}
             <Grid item md>
                 <Grid container spacing={16}>
                     {divisions}
                 </Grid>
             </Grid>
-            <Grid item md>
+            <Grid item md>    
                 <List dense={true} className={classes.teams}>
                   {teams}
                 </List>

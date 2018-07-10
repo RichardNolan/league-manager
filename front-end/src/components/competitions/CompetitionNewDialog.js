@@ -7,7 +7,7 @@ state={
     title:'',
     isLeague:true,
     isCup:false,
-    category:'Mens Junior',
+    category:'',
 }
 handleChange=(e)=>{
     
@@ -18,7 +18,7 @@ handleCategory=(cat)=>{
 }
 onSave = ()=>{
     this.props.onSave(this.state)
-    this.setState({title:'', isLeague:true, isCup:false})
+    this.setState({title:'', isLeague:true, isCup:false, category:''})
 }
 changeSwitch=(e)=>{
     let type = e.target.checked ? Object.assign({

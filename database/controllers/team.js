@@ -1,4 +1,5 @@
 const { team } = require('../models/')
+const { table } = require('../models/')
 
     
 module.exports = {
@@ -15,8 +16,21 @@ module.exports = {
         team
             .findById(id)
             .populate({ path: 'club' })
-            .populate({ path: 'division' })
-            .then(data=>data)
+            .populate({ path: 'division', populate:{path:'teams'}, populate:{path:'tables'} })
+            .then(team=>{
+                // let requests = []
+                // none of this is returned
+                return table.find({division:team.division._id})
+                    .then(table=>{
+                        team.table = table
+                        team.hi = "HELLO"
+                        console.log(team)
+                        return team
+                    })
+                    .catch(err=>console.log(err))
+                // Promise.all(requests).then().catch()
+                // return team
+            })
             .catch(err=>console.log({error:true, message:err}))
     ),
 
@@ -29,25 +43,17 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting teams"}))
     ),
 
-    newTeam: ({title, club, title_short, category})=>(
+    newTeam: ({title, club, title_short, category, organisation})=>(
         new team({
                     title, 
                     club,
                     title_short,
                     category,
+                    organisation,
                 })
                 .save()
                 .then(result=>result)
                 .catch(err=>console.log({error:true, message:"Error creating team"}))
     ),
 
-    // getTeamFixtures: (id)=>(
-    //     team
-    //         .findById(id)
-    //         .then(async data=>{
-    //             // data.fixtures = await fixture.getFixtures({$or:{home_team_id:id, away_team_id:id}}) //I THINK THATS RIGHT
-    //             return data
-    //         })
-    //         .catch(err=>console.log({error:true, message:err}))
-    // ),
 }

@@ -27,17 +27,18 @@ module.exports = {
             .catch(err=>console.log({error:true, message:err}))
     ),
 
-    newCompetition: ({title, type, organisation})=>(
+    newCompetition: ({title, type, organisation, category})=>(
          new competition({
                     title, 
                     type,
-                    organisation,
+                    organisation
                 })
                 .save()
                 .then(response=>{
                     let newLeagueOrCup = {
                         competition : response._id,
                         title : response.title,
+                        category:category,
                     }
                     if(response.type==='league') {
                         return league

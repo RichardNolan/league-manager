@@ -63,7 +63,7 @@ class NewLeague extends Component {
             divisions:this.state.divisionsObject
         }
         
-        fetch('http://localhost:9000/api/league',post(league))
+        fetch('http://localhost:9000/api/league', post(league))
             .then(res=>res.json())
             .then(res=>{
                 console.log(res)
@@ -102,6 +102,7 @@ class NewLeague extends Component {
                         onChange={this.onChange.bind(this)} 
                         divisions={this.state.divisions}
                         divisionsObject={this.state.divisionsObject}
+                        competition={this.props.competition}
                     />
                 </Paper>
 

@@ -18,13 +18,17 @@ const methods = {
                 !teamObj[home_team] && (teamObj[home_team] = Object.assign({}, blank))
                 !teamObj[away_team] && (teamObj[away_team] = Object.assign({}, blank))
 
+                //TEAM NAME
                 !teamObj[home_team].team && (teamObj[home_team].team = home_team)
                 !teamObj[away_team].team && (teamObj[away_team].team = away_team)
+
+                // PLAYED
                 teamObj[home_team].p = teamObj[home_team].p+1
                 teamObj[home_team].hp = teamObj[home_team].hp+1
                 teamObj[away_team].p = teamObj[away_team].p+1
                 teamObj[away_team].ap = teamObj[away_team].ap+1
 
+                // SCORES FOR/AGAINST/DIFFERENCE - HOME TEAM
                 teamObj[home_team].f = teamObj[home_team].f+score.home_score
                 teamObj[home_team].hf = teamObj[home_team].hf+score.home_score
                 teamObj[home_team].a = teamObj[home_team].a+score.away_score
@@ -32,6 +36,7 @@ const methods = {
                 teamObj[home_team].gd = teamObj[home_team].f-teamObj[home_team].a
                 teamObj[home_team].hgd = teamObj[home_team].hf-teamObj[home_team].ha
 
+                // SCORES FOR/AGAINST/DIFFERENCE - AWAY TEAM
                 teamObj[away_team].f = teamObj[away_team].f+score.away_score
                 teamObj[away_team].af = teamObj[away_team].af+score.away_score
                 teamObj[away_team].a = teamObj[away_team].a+score.home_score
