@@ -1,33 +1,24 @@
-import React from 'react'
+// import React from 'react'
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
-
-import USER from '../USER'
 import Competitions from '../components/competitions/Competitions'
 import Clubs from '../components/clubs/Clubs'
 import Club from '../components/clubs/Club'
+import Users from '../components/users/Users'
 import Teams from '../components/teams/Teams'
 import TeamContainer from '../components/teams/TeamContainer'
 
+import {injectUser} from '../utilities/utils'
+
+
+
 const Fixtures = ()=>{return null}
 const Results = ()=>{return null}
-// const Teams = ()=>{return null}
+
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
-const Users = ()=>{return null}
 const Referees = ()=>{return null}
 const Venues = ()=>{return null}
-// const Competitions = ()=>{return null}
-// const Clubs = ()=>{return null}
-
-
-export const injectUser = Component=> props=> {
-    return(
-        <USER.Consumer>
-            { ( {user} )=><Component user={user.user} {...props} />}
-        </USER.Consumer>
-    )
-}
 
 
 const Routes = [
@@ -53,7 +44,6 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Competitions",
         path: "/competitions/", 
-        // component: Competitions
         component: injectUser(Competitions)
     },
     { 
@@ -89,12 +79,12 @@ const Routes = [
         component: Players
     },
     { 
-        order:4,
+        order:2,
         link: "Users",
         icon: DraftsIcon,
         pageTitle: "Users",
         path: "/users/", 
-        component: Users    /// WRAP IN HOC???
+        component: injectUser(Users), 
     },
     { 
         order:0,
@@ -102,7 +92,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Teams",
         path: "/teams/:id", 
-        component: injectUser(TeamContainer)    
+        component: TeamContainer    
     },
     { 
         order:3,
@@ -110,7 +100,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Teams",
         path: "/teams/", 
-        component: injectUser(Teams)    
+        component: Teams
     },
     { 
         order:0,
@@ -118,7 +108,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Clubs",
         path: "/clubs/:id", 
-        component: injectUser(Club)    
+        component: Club
     },
     { 
         order:2,
@@ -126,22 +116,15 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Clubs",
         path: "/clubs/", 
-        component: injectUser(Clubs)    /// WRAP IN HOC???
+        component: Clubs   
     },
     {  
         order:1,
         link: "Dashboard",
         icon: SendIcon,
         pageTitle: "League Secretary",
-        path: "/", 
-    },
-    {  
-        order:0,
-        link: "Home",
-        icon: SendIcon,
-        pageTitle: "Homepage",
-        path: "/", 
-    },
+        path: "", 
+    }
 ];
 
 export default Routes;

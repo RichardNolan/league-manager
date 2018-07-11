@@ -28,13 +28,6 @@ const Routes = [
         icon: SendIcon,
         pageTitle: "Referee",
         path: "/referee", 
-    },
-    {  
-        order:0,
-        link: "Home",
-        icon: SendIcon,
-        pageTitle: "Homepage",
-        path: "/", 
-    },
+    }
 ];
 export default Routes;

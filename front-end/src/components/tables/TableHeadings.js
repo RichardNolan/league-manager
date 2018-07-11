@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { TableHead, TableRow, TableCell, Tooltip } from '@material-ui/core';
+import { TableHead, TableRow, TableCell } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 
 const TableHeadings = (props)=>{
@@ -13,21 +13,21 @@ const TableHeadings = (props)=>{
                     <TableCell>Team</TableCell>
                     {size>0 && (
                         <Fragment>
-                            <TableCell numeric>P</TableCell>
-                            <TableCell numeric>W</TableCell>
-                            <TableCell numeric>D</TableCell>
-                            <TableCell numeric>L</TableCell>
+                            <TableCell>P</TableCell>
+                            <TableCell>W</TableCell>
+                            <TableCell>D</TableCell>
+                            <TableCell>L</TableCell>
                         </Fragment>
                     )}
-                    {size===2 && <TableCell numeric>GD</TableCell>}
+                    {size===2 && <TableCell>GD</TableCell>}
                     {size>2 && (
                         <Fragment>
-                            <TableCell numeric>F</TableCell>
-                            <TableCell numeric>A</TableCell>
-                            <TableCell numeric>GD</TableCell>
+                            <TableCell>F</TableCell>
+                            <TableCell>A</TableCell>
+                            <TableCell>GD</TableCell>
                         </Fragment>
                     )}
-                    <TableCell numeric>Pts</TableCell>
+                    <TableCell>Pts</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -74,8 +74,10 @@ const TableHeadings = (props)=>{
 
 const styles = {
     divde:{
+        color:'red'
     }
 }
 
 
+// export default TableHeadings;
 export default withStyles(styles)(TableHeadings);

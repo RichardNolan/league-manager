@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Authenticate, isAdmin, isMe } = require('../../auth/passport');
+const { Authenticate, isLeagueSecretary, isMe } = require('../../auth/passport');
 
 const {user} = require('../../database/controllers/');
 
@@ -52,7 +52,7 @@ router.use((req,res,next)=>{
 
 
 
-router.get('/', Authenticate, isAdmin, getUsers);
+router.get('/', Authenticate, isLeagueSecretary, getUsers);
 router.get('/:id', Authenticate, isMe, getUser);
 router.get('/setteam', Authenticate, isMe, setTeam);
 

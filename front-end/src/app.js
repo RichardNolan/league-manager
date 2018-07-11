@@ -5,12 +5,14 @@ import { Router, Route, Switch } from "react-router-dom";
 import ls from './utilities/localStorage'
 import {setAuthorization} from './utilities/fetch'
 
-import Routes from "./routes";
 import USER from './USER'
+
+// THE MANY ROUTES SAMPLE
+import Routes from "./routes";
+const routes = Routes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key} />)
 
 const hist = createBrowserHistory();
 
-const routes = Routes.map((prop, key) => <Route path={prop.path} component={prop.component} key={key} />)
 
 class App extends Component {
     constructor(){
@@ -19,7 +21,8 @@ class App extends Component {
         this.addUser = (user)=>{
             this.setState({user})
         }
-
+// TO-DO CAN I GET THE EXPIRED DATE ON THE TOKEN TO CHECK ITS STILL VALID?
+// OR MAYBE SAVE THE USERNAME AND PW TO LS AND LOGIN AUTOMATICALLY FROM HERE 
         this.state = {
             user: {
                 success: ls.get('success'),
@@ -39,6 +42,7 @@ class App extends Component {
                 <Router history={hist}>   
                     <Switch>
                         {routes}
+                        {/* <Route path="/" component={MainLayout} /> */}
                     </Switch>
                 </Router>
                 </USER.Provider>                

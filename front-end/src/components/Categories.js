@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, withStyles, Button, Menu } from '@material-ui/core';
+import { MenuItem, withStyles, Button, Menu } from '@material-ui/core';
 import teamCategories from '../utilities/categories'
 const styles={
     fullWidth:{

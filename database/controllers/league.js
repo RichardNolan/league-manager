@@ -1,6 +1,6 @@
 const { league } = require('../models/')
 const division = require('./division')
-const team = require('../models/team')
+const {team, table} = require('../models')
 
 const aggregate =  async data=>{
     data.divisions = await division.getDivisions({league:data._id})
@@ -16,9 +16,9 @@ module.exports = {
     ),
 
     getLeague: (id)=>(
-        league.findById(id)
-            .populate({path: 'divisions', populate: { path: 'teams' }})
-            .then(aggregate)
+        league.findOne({competition:id})
+            .populate({path: 'divisions'})
+            // .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
 
@@ -47,6 +47,10 @@ module.exports = {
                                 if(err) console.log(err)
                                 else console.log(res)
                             })
+                            new table({team:t._id, division})
+                                .save()
+                                .then(result=>result)
+                                .catch(err=>console.log({error:true, message:"Error creating table entry"}))
                             // TO-DO
                             // could this be done with a promise instead of a callback? the do a promises array again????
                         })

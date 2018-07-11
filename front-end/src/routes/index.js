@@ -9,6 +9,7 @@ import RefereeRoutes from './RefereeRoutes'
 import TeamManagerRoutes from './TeamManagerRoutes'
 import USER from '../USER'
 
+
 // This wrapper wraps every route in the USER context before proceeding - except the Home route
 // This wrapper passes the relevant routes through to the MainLayout for display and menus
 // This wrapper also will only render the route if the relevant boolean value is saved with the user (isAdmin, isReferee, etc)
@@ -25,7 +26,8 @@ const Wrapper = (props)=>{
         </USER.Consumer>
     )
 }
- 
+
+
 
 const Routes = [
     { 

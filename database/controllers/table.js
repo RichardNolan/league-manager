@@ -6,6 +6,8 @@ module.exports = {
     getTables: (criteria={})=>(
         table
             .find(criteria)
+            .populate({ path: 'team', populate:{ path: 'club' } })
+            .populate({ path: 'division' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting tables"}))
     ),
@@ -13,6 +15,8 @@ module.exports = {
     getTable: (id)=>(
         table
             .findById(id)
+            .populate({ path: 'team' })
+            .populate({ path: 'division' })
             .then(data=>{
                 data.table = sortTable(data.table)
                 return data
@@ -34,5 +38,12 @@ module.exports = {
             .findOneAndUpdate({division:division_id}, { $set: { table: data }}, {new:false, upsert:true})
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting tables"}))
+    ),
+    
+    newTable: async (entry)=>(
+        new table(entry)
+                .save()
+                .then(result=>result)
+                .catch(err=>console.log({error:true, message:"Error creating organisation"}))
     ),
 }

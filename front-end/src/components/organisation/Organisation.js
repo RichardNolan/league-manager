@@ -6,10 +6,10 @@ import CompetitionsPanel from '../competitions/CompetitionsPanel';
 import ClubsPanel from '../clubs/ClubsPanel';
 import Clubs from '../clubs/Clubs';
 import RefereesPanel from '../referees/RefereesPanel';
-import UsersPanel from '../users/UsersPanel';
 import { Grid, LinearProgress } from '@material-ui/core';
 
 import withStyles from '@material-ui/core/styles/withStyles'
+import Competitions from '../competitions/Competitions';
 
 const styles = {
     flex:{
@@ -57,6 +57,7 @@ class Organisation extends Component {
         return (
             <Fragment>
                 {this.state.loader ? <LinearProgress /> : null }
+                <Route path={`${this.props.match.path}/competitions/`} component={Competitions} exact={false} />
                 <Route path={`${this.props.match.path}/clubs/`} component={Clubs} exact={false} />
                 {/* <Route path="/organisations/:organisation/clubs/" component={Clubs} exact={false} /> */}
                 <Route path={`${this.props.match.path}`} exact={true} component={()=>(
@@ -67,6 +68,12 @@ class Organisation extends Component {
                                 from={this.props.location.pathname}
                             >
                                 Clubs
+                            </Link> | 
+                            <Link 
+                                to={`${this.props.location.pathname}competitions/`}  
+                                from={this.props.location.pathname}
+                            >
+                                competitions
                             </Link>
                         </Grid>
                         <Grid item sm={12} md={6}>
@@ -79,7 +86,6 @@ class Organisation extends Component {
                             <RefereesPanel referees={org.referees} title={org.title}/>
                         </Grid>
                         <Grid item sm={12} md={6}>
-                            <UsersPanel users={org.users} title={org.title}/>
                         </Grid>
                     </Grid>
                 )} />

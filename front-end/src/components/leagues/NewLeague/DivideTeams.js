@@ -71,8 +71,7 @@ for(let d in divisions){
 
     componentDidMount(){
        // TO-DO going back and adding another division wipes this 
-        let {divisions} = this.state
-        console.log(this.props)
+        // let {divisions} = this.state
         let org = (this.props.competition && this.props.competition.organisation) || null
         if(org){
             fetchQuery('http://localhost:9000/api/team', {organisation:org, category:this.props.competition.league.category})

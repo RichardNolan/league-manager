@@ -104,7 +104,7 @@ class ForgotMessage extends Component {
                             </FormGroup>
                         </CardContent>
                         <CardActions className={classes.actions} disableActionSpacing>     
-                            <Button className={classes.button} component={Link} to='/' from={window.location.pathname}>Cancel</Button>                        
+                            <Button className={classes.button} component={Link} to='/login' from={window.location.pathname}>Cancel</Button>                        
                             <Button variant="contained" color="primary" className={classes.signin} onClick={this.onSendPassword} >
                                 Send me new password
                             </Button>

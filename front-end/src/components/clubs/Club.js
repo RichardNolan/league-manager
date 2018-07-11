@@ -3,7 +3,7 @@ import Teams from '../teams/Teams'
 import {Link, Route} from 'react-router-dom'
 import ClubBanner from './ClubBanner'
 
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Paper } from '@material-ui/core';
 
 
 class Club extends Component {
@@ -42,14 +42,14 @@ class Club extends Component {
                 >
                     Teams
                 </Link>
-
-                <Route path="/club/:club/teams/" component={Teams} exact={false} />
-                <Route exact path="/club/:club/" exact={true} component={()=>(
-                    <Fragment>
-                        {/* <Teams param={{club:this.props.match.params.id}} club={this.state.club}/> */}
-                        this is the home page
-                    </Fragment>
-                )} />
+                <Paper>
+                    <Route path="/club/:club/teams/" component={Teams} exact={false} />
+                    <Route path="/club/:club/" exact={true} component={()=>(
+                        <Fragment>
+                            this is the home page
+                        </Fragment>
+                    )} />
+                </Paper>
             </div>
         );
     }

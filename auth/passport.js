@@ -164,7 +164,8 @@ const isMember = (req,res,next)=>{
 
 const isMe = (req,res,next)=>{
     if(
-        req.user.isAdmin || 
+        req.user.isAdmin ||  
+        req.user.isLeagueSecretary || 
         req.user._id === req.params.id 
     ) next()
     else throw {message:"Not a Member"}

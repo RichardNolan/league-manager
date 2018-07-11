@@ -11,11 +11,10 @@ const TableDataRow = (props) => {
     
     let {size, team} = props
 
-     
     if(size>=0 && size<4){
         return(
                 <TableRow>
-                    <TableCell component="th" scope="row">{team.team || team.title}</TableCell>
+                    <TableCell component="th" scope="row">{team.title || team.team}</TableCell>
                     {size>0 && (
                         <Fragment>
                             <TableCell numeric>{team.p}</TableCell>

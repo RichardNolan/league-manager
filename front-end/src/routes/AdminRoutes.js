@@ -1,11 +1,11 @@
-import LoadList from '../components/HOC/LoadList'
 
 import Organisations from "../components/organisation/Organisations";
 import Users from "../components/users/Users";
-
+import {injectUser} from '../utilities/utils'
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import React from 'react'
+
 
 const Home = ()=><div>Admin</div>
 const Routes = [
@@ -24,7 +24,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Users",
         path: "/users/", 
-        component: LoadList('user')(Users), 
+        component: injectUser(Users), 
     },
     {  
         order:1,

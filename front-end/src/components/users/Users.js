@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import {Table,TableHead,TableBody,TableFooter,TableRow,TableCell} from '@material-ui/core'
 import User from './User'
+import { fetchQuery } from '../../utilities/fetch';
 
 
 // when I changea user in the User component, it doesn't update in any state anywhere above the dialog as its all props.
@@ -10,36 +11,56 @@ import User from './User'
 
 // + this breaks when I browse away and back
 
-const Users = (props) => {
-     let userList = props.list ?   props.list.map((user, key)=>(
-                                        <TableRow key={key}>
-                                            <User user={user} />
-                                        </TableRow>
-                                    ))
-                                :   []
+class Users extends React.Component {
+    state= {
+        user: this.props.user || {},
+        users:[],
+    }
 
-    // TO-DO POSSIBLY SOME PAGINATION HERE
-    return (
-        <Fragment>
-        <Table>
-            <TableHead>
+    componentDidMount(){
+        this.fetchUsers()
+    }
+
+    fetchUsers(){
+        let query = {}
+        if(this.state.user.isLeagueSecretary) query.organisation = this.state.user.organisation 
+        fetchQuery('http://localhost:9000/api/user/', query)
+            .then(res=>res.json())
+            .then(users=>this.setState({users}))
+            .catch(err=>console.log(err))
+    }
+
+    render(){
+        let userList = this.state.users ?   this.state.users.map((user, key)=>(
+                                            <TableRow key={key}>
+                                                <User user={user} />
+                                            </TableRow>
+                                        ))
+                                    :   []
+
+        // TO-DO POSSIBLY SOME PAGINATION HERE
+        return (
+            <Fragment>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Email</TableCell>
+                        <TableCell>Action</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {userList}
+                </TableBody>
+                <TableFooter>
                 <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Action</TableCell>
+                    <TableCell colSpan={6}>{'footer'}</TableCell>
                 </TableRow>
-            </TableHead>
-            <TableBody>
-                {userList}
-            </TableBody>
-            <TableFooter>
-            <TableRow>
-                <TableCell colSpan={6}>{'footer'}</TableCell>
-            </TableRow>
-            </TableFooter>
-        </Table>
-        </Fragment>
-    );
+                </TableFooter>
+            </Table>
+            </Fragment>
+        );
+    }
 };
 
 export default Users;

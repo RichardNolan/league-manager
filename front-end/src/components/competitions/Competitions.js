@@ -1,12 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {  post, fetchQuery } from '../../utilities/fetch'
-import { AppBar, Toolbar,Button,Menu,MenuItem,Typography,Grid, LinearProgress } from '@material-ui/core';
-import {Link} from 'react-router-dom'
+import League from '../leagues/League'
+import { Grid, LinearProgress } from '@material-ui/core';
+import {Link, Route} from 'react-router-dom'
 
-import AddIcon from '@material-ui/icons/Add';
-import LeagueIcon from '@material-ui/icons/Menu';
-import CupIcon from '@material-ui/icons/DeviceHub';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import { withStyles } from '@material-ui/core/styles';
 import CompetitionNewDialog from './CompetitionNewDialog';
 import LeagueContainer from '../leagues/LeagueContainer';
@@ -24,16 +21,14 @@ const styles = (theme)=>( {
 })
 
 class Competitions extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
+    state = {
+            organisation:  this.props.organisation || this.props.match.params.organisationID || this.props.match.params.organisation || (this.props.user && this.props.user.organisation),
             newCompetitionDialogOpen:false,
             isNewCompetition:false,
             competitions:[],
             competition : null,
             competition_title: '',
             progressBar:false,
-        }
     }
     
     openNewCompetitionDialog = () => {
@@ -61,7 +56,7 @@ class Competitions extends React.Component {
             title:newCompetition.title,
             type:newCompetition.type,
             category:newCompetition.category,
-            organisation:this.props.user.organisation
+            organisation:this.state.organisation
         }
         fetch('http://localhost:9000/api/competition', post(body))            
             .then(res=>res.json())
@@ -79,7 +74,7 @@ class Competitions extends React.Component {
 
     fetchData(){     
         this.setState({progressBar:true})   
-        fetchQuery('http://localhost:9000/api/competition', {organisation:this.props.user.organisation})
+        fetchQuery('http://localhost:9000/api/competition', {organisation:this.state.organisation})
             .then(res=>res.json())
             .then(res=>{
                 this.setState({competitions:res,progressBar:false})
@@ -92,36 +87,49 @@ class Competitions extends React.Component {
 
     render() {
         let {classes} = this.props
-        let {competition, competitions,isNewCompetition} = this.state
+        let {competition, competitions,isNewCompetition, organisation} = this.state
 
         // TO-DO MAKE A COMPETITIONS BUTTON THAT CAN BE SMALL OR NORMAL
         let competitionType = competition!==null && competitions[competition].type
         let competitionsMetro = competitions && competitions.length>0
                     ?   competitions.map((competition,key)=>(
                             <ClubButton 
+                                organisation={organisation}
                                 competition={competition}
                                 size={isNewCompetition ? 'small' : 'normal'}
                                 color={competition.primary_color} 
                                 stripe='white' 
                                 text={competition.title} 
                                 component={Link} 
-                                to={competition.type==='league' ? 'league/'+competition._id : '/'} 
+                                to={competition.type==='league' ? `${this.props.match.url}${competition._id}/league/` : `${this.props.match.path}${competition._id}/cup/`} 
                                 key={key}
                             />
                         ))
                     :   null
         return (
             <div className={classes.root}>
-                {this.state.progressBar && <LinearProgress/>}         
-                <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} />   
-                {competitionsMetro}
-                <Grid container>
-                    <Grid item>  
-                        { isNewCompetition && competitionType==='league' && <NewLeague competition={competitions[competition]} {...this.props}/> }
-                        { !isNewCompetition && competitionType==='league' && <LeagueContainer competition={competitions[competition]._id} {...this.props}/> }
-                        { !isNewCompetition && competitionType==='cup' && <CupContainer competition={competitions[competition]}  {...this.props}/> }
-                    </Grid>
-                </Grid>
+
+                {this.state.progressBar && <LinearProgress/>}     
+                
+
+                <Route path={`${this.props.match.url}/:competition/league/`} component={League} exact={false} />
+                <Route 
+                    path={`${this.props.match.path}`} 
+                    exact={true} 
+                    component={()=>(
+                        <Fragment>     
+                            <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} />  
+                            {competitionsMetro}
+                            <Grid container>
+                                <Grid item>  
+                                    { isNewCompetition && competitionType==='league' && <NewLeague competition={competitions[competition]} {...this.props}/> }
+                                    { !isNewCompetition && competitionType==='league' && <LeagueContainer competition={competitions[competition]._id} {...this.props}/> }
+                                    { !isNewCompetition && competitionType==='cup' && <CupContainer competition={competitions[competition]}  {...this.props}/> }
+                                </Grid>
+                            </Grid>
+                        </Fragment>
+                )} />
+               
             </div>
         )
     }

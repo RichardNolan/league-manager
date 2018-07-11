@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { post, fetchQuery } from '../../utilities/fetch'
-import { Button,Grid, LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import ClubNewDialog from './ClubNewDialog';
@@ -23,7 +23,7 @@ class Clubs extends Component {
     state={
         clubs:[],
         newClubDialogOpen: false,
-        organisation:  this.props.organisation || this.props.match.params.organisationID || (this.props.user && this.props.user.organisation) 
+        organisation:  this.props.organisation || this.props.match.params.organisationID || (this.props.user && this.props.user.organisation),
     }
     
     componentDidMount(){
@@ -59,7 +59,6 @@ class Clubs extends Component {
     
     fetchData(){   
         let {organisation} = this.state
-        console.log(organisation)
         fetchQuery('http://localhost:9000/api/club', { organisation} )
             .then(res=>res.json())
             .then(res=>{

@@ -39,7 +39,7 @@ class TeamNewDialog extends React.Component {
                 <Grid container>
                     {/* TO-DO make the menu and see what has to be returned */}
                     {
-                        this.props.club || this.props.match.params.club
+                        this.props.club || (this.props.match && this.props.match.params.club)
                             ? null 
                             : <ClubMenu 
                                 organisation={(this.props.user && this.props.user.organisation) || null} 

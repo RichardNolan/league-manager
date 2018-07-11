@@ -18,12 +18,13 @@ const styles = theme=> ({
   });
 
 const UsersPanel = (props) => {
-    let {classes, list=[]} = props
-    let userList = list
-                        .sort((a,b)=>{
-                            if(a.title>b.title) return 1
-                            else return -1
-                        })
+    let {classes} = props
+    // let organisation = props.organisation
+    // let userList = list
+    //                     .sort((a,b)=>{
+    //                         if(a.title>b.title) return 1
+    //                         else return -1
+    //                     })
                        
     return (
         <Fragment>
@@ -43,7 +44,7 @@ const UsersPanel = (props) => {
                     subheader={"Competitions being run by "+props.title}
                 />
                 <CardContent>
-                <Users list={userList} />
+                <Users {...props}/>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
                     <IconButton aria-label="Add to favorites">

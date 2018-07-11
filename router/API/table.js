@@ -5,13 +5,13 @@ const {table} = require('../../database/controllers/');
 
 const getTables = (req, res, next)=>{
     table
-        .find(req.query || {})
+        .getTables(req.query || {})
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }
 const getTable = (req, res, next)=>{
     table
-        .findById(req.params.id)
+        .getTable(req.params.id)
         .then(data=>res.status(200).json(data))
         .catch(next)    
 }

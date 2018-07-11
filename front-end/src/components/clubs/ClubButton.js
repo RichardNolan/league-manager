@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardMedia, Typography, Button, CardContent, CardActions, ButtonBase } from '@material-ui/core';
+import { Typography, ButtonBase } from '@material-ui/core';
 
 
 const styles = theme => ({

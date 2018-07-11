@@ -1,5 +1,5 @@
 import React from 'react';
-import { post, getStandard} from '../../utilities/fetch'
+import {getStandard} from '../../utilities/fetch'
 import ClubBanner from '../clubs/ClubBanner'
 class Team extends React.Component {
     state={
@@ -18,6 +18,7 @@ class Team extends React.Component {
 
         return (
             <div>
+                <ClubBanner club={club} />
                 {this.state.id}
             </div>
         );

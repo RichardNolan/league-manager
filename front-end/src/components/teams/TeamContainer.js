@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Team from './Team'
 
-import fetchQuery, { getStandard } from '../../utilities/fetch'
+import { getStandard } from '../../utilities/fetch'
 
 class TeamContainer extends Component {
     state ={
