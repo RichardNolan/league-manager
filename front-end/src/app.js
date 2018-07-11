@@ -42,7 +42,6 @@ class App extends Component {
                 <Router history={hist}>   
                     <Switch>
                         {routes}
-                        {/* <Route path="/" component={MainLayout} /> */}
                     </Switch>
                 </Router>
                 </USER.Provider>                

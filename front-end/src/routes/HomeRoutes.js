@@ -12,7 +12,7 @@ const Routes = [
     { 
         order:0,
         link: "League",
-        path: "competition/:competition/league/", 
+        path: "competitions/:competition/league/", 
         component: League 
     },
     { 
