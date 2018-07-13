@@ -7,14 +7,15 @@ import USER from '../USER'
 
 const styles = (theme)=>( {
     root: {
-        flexGrow: 1,
-    },
-    fab: {
-      position: 'fixed',
-      bottom: theme.spacing.unit * 4,
-      right: theme.spacing.unit * 4,
+        // flexGrow: 1,
+        position:'relative',
     },
 
+    FAB: {
+        position: 'absolute',
+        top: 0 ,
+        right: theme.spacing.unit * 4,
+      },
 })
 
 class PlusFab extends Component {
@@ -40,12 +41,12 @@ class PlusFab extends Component {
         <USER.Consumer>
             { ( {user} )=>{
             return (user.success ? (
-                    <Fragment>
+                    <div className={this.props.classes.root}>
                         <Zoom
                             in={true}
                             unmountOnExit
                         >
-                            <Button variant="fab" color="secondary" className={this.props.classes.fab} onClick={this.open.bind(this)} >
+                            <Button variant="fab" color="secondary" className={this.props.classes.FAB} onClick={this.open.bind(this)} >
                                 <AddIcon/>
                             </Button>
                         </Zoom>
@@ -57,7 +58,7 @@ class PlusFab extends Component {
                             onClose={this.close.bind(this)} 
                             onSave={this.save.bind(this)}
                         />
-                    </Fragment>
+                    </div>
             ) : null )}  }
         </USER.Consumer>
         );

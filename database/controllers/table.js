@@ -3,14 +3,17 @@ const { table } = require('../models/')
 const {sortTable} = require('../../methods/table')
     
 module.exports = {
-    getTables: (criteria={})=>(
-        table
+    getTables: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return table
             .find(criteria)
             .populate({ path: 'team', populate:{ path: 'club' } })
             .populate({ path: 'division' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting tables"}))
-    ),
+    },
 
     getTable: (id)=>(
         table

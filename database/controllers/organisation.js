@@ -13,12 +13,15 @@ const aggregate = async data=>{
 }
 
 module.exports = {
-    getOrganisations: (criteria={})=>(
-        organisation
+    getOrganisations: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return organisation
             .find(criteria)
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting organisations"}))
-    ),
+    },
 
     getOrganisation: (id)=>(      
         organisation

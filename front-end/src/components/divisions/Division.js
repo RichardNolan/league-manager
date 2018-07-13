@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Tab, Typography } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
 import Teams from '../teams/Teams';
+import Fixtures from "../fixtures/Fixtures";
+import Results from "../results/Results";
 
 const styles = theme => ({
     root: {
@@ -12,7 +14,7 @@ const styles = theme => ({
       marginBottom: theme.spacing.unit*3,
     },
     tabPanel:{
-        padding: theme.spacing.unit*3,
+        // padding: theme.spacing.unit*3,
     }
   });
 
@@ -30,24 +32,27 @@ const tabs = [
     {
         tab:2,
         label:'Fixtures',
-        component: LeagueTable
+        component: Fixtures
     },
     {
         tab:3,
         label:'Results',
-        component: LeagueTable
+        component: Results
     },
 ]
 
 class Division extends Component {
     state = {
       value: 0,
+      teams:[],
     }
 
     handleTabs = (e, value) => {
       this.setState({ value });
     }
+    
   
+
     render() {
         let {classes} = this.props
         let {value} = this.state
@@ -57,7 +62,12 @@ class Division extends Component {
                     <Typography component="div" style={{ padding: 8 * 3 }} color='inherit'>
                         {this.props.division.title}
                     </Typography>                    
-                    <Tabs value={value} onChange={this.handleTabs}>
+                    <Tabs 
+                        value={value} 
+                        onChange={this.handleTabs}
+                        scrollable
+                        scrollButtons="auto"
+                    >
                         {tabs.map((tab, key)=><Tab label={tab.label} key={key} />)}
                     </Tabs>
                 </AppBar>
@@ -67,7 +77,7 @@ class Division extends Component {
                         let Panel = tab.component
                         return (
                             <div className={classes.tabPanel} key={key}>
-                                <Panel division={this.props.division._id} />
+                                <Panel division={this.props.division._id}  />
                             </div>
                         )
                     })

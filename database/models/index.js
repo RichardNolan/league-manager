@@ -9,6 +9,7 @@ const venue = require('./venue');
 const user = require('./user');
 const score = require('./score');
 const table = require('./table');
+const time_slot = require('./time_slot');
 const club = require('./club');
 const competition = require('./competition');
 
@@ -25,5 +26,6 @@ module.exports = {
     fixture,
     referee,
     user,
-    venue
+    venue,
+    time_slot,
 }

@@ -31,14 +31,14 @@ class LeagueTable extends React.Component {
                     console.error(err)
                     this.setState({progressBar:false})
                 })
-        }else if(teams){
-            console.log("list of teams")
-            if(teams[0] && typeof teams[0] === 'string'){
-                // sent an array of teams
-                // convert each el into an object with that el
-                teams = teams.map(t=>({team:t}))
-            }
-            this.setState({teams})
+        // }else if(teams){
+        //     console.log("list of teams")
+        //     if(teams[0] && typeof teams[0] === 'string'){
+        //         // sent an array of teams
+        //         // convert each el into an object with that el
+        //         teams = teams.map(t=>({team:t}))
+        //     }
+        //     this.setState({teams})
         }
     }
     

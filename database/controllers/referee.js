@@ -10,14 +10,17 @@ const aggregate = async data=>{
 }
 
 module.exports = {
-    getReferees: (criteria={})=>(
-        referee
+    getReferees: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return referee
             .find(criteria)
             .populate({ path: 'organisation' })
             .populate({ path: 'user' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting referees"}))
-    ),
+    },
 
     getReferee: (id)=>(
         referee

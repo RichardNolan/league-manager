@@ -33,7 +33,7 @@ export const getRequest = body=>(
     )
 )
 
-export const fetchQuery = (url,params)=>{
+export const fetchQuery = (url,params, options)=>{
     url = new URL(url)
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     return fetch(url, getStandard())

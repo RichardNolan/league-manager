@@ -43,6 +43,7 @@ const createSchedule = (
     season_start = moment().add(1, 'months'), // DEFAULT: 1 month from today
     season_end = moment().add(10, 'months'),  // DEFAULT: 10 months from today
 )=>{
+
     // Make both start and end dates MOMENT instances
     if( isValidDate(season_start, season_end) ){
         season_start = moment(season_start)
@@ -59,22 +60,20 @@ const createSchedule = (
     // ALL THE ABOVE COULD BE TRANSLATED INO MOMENTS duration OBJECT
     // OR USE THE MOMENT-RANGE LIBRARY
 
-
     // set the first day as the default matchday
     const matchday = time_units==="weeks" ? season_start.day() : 0
-   
     // create blank schedule
     // const schedule = []
     const schedule = {}
     // loop through the rounds
     for(let i=0; i<num_rounds; i++){
-
         // fixture date for each round is gotten by manipulating a copy of the date of the first day of the season
         let fixture_date = 
             season_start
             .clone()                                                // season_start is mutable - so clone it
             .add((time_units_per_game*i), time_units)               // add INCREMENT*(ROUND-1) UNITS on to this date (2*0)'days' or (2*6)'days'
             .startOf(time_units)                                    // then go to the start of that day/week
+            .add(12,'hours')                                        // prevents daylight savings messing up the schedule. The time starts out at 12pm but finishes at 11am, but it doesn't matter.                
             .add(matchday, 'days')                                  // then forward to the matchday
             //COULD MAYBE CHECK THE DATE HERE AGAINST BLACKLISTED DATES, LIKE XMAS
         
@@ -95,7 +94,8 @@ const createSchedule = (
         .add(matchday, 'days') 
         all_dates.push(potential_date.valueOf())                
     }
-    return {schedule, all_dates}
+    // return {schedule, all_dates} // THIS ALL_DATES OBJECT IS SIMPLY EVERY DAY THAT A MATCH COULD BE PLAYED IE EVERY SATURDAY IN THE TIMELINE
+    return schedule
 }
 
 module.exports = {

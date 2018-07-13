@@ -12,14 +12,17 @@ const aggregate = async data=>{
 }
 
 module.exports = {
-    getDivisions: (criteria={})=>(
-        division.find(criteria)
+    getDivisions: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return division.find(criteria)
             .populate({ path: 'league' })
             // .populate({ path: 'teams' })
             // .populate({ path: 'table' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting divivions"}))
-    ),
+    },
 
     getDivision: (id)=>(
         division.findById(id)

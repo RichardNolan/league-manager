@@ -8,12 +8,15 @@ const aggregate =  async data=>{
 }
     
 module.exports = {
-    getLeagues: (criteria={})=>(
-        league.find(criteria)
+    getLeagues: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return league.find(criteria)
             .populate({path: 'divisions'})
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting leagues"}))
-    ),
+    },
 
     getLeague: (id)=>(
         league.findOne({competition:id})

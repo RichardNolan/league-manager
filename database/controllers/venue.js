@@ -2,13 +2,16 @@ const { venue } = require('../models/')
 
     
 module.exports = {
-    getVenues: (criteria={})=>(
-        venue
+    getVenues: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return venue
             .find(criteria)
             // .populate({ path: 'club' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting venues"}))
-    ),
+    },
 
     getVenue: (id)=>(
         venue

@@ -57,13 +57,18 @@ class Teams extends Component {
                     ? {club:this.state.clubID || (this.state.club && this.state.club._id)} 
                     : null
               )
-        
+        // probably build this into the function call for pagination particularly for results and fixtures
+        // query.limit = 10
+        // query.skip = 5
         fetchQuery('http://localhost:9000/api/team', query  )
             .then(res=>res.json())
             .then(res=>{
                 let result = {teams:res, progressBar:false}
                 if(res.length===0) this.setState(Object.assign(result, {snackOpen:true, snackMessage:'No results found'}))
-                else this.setState(result)  
+                else {
+                    this.setState(result)
+                    if(this.props.returnTeams && typeof this.props.returnTeams === 'function') this.props.returnTeams(res)
+                }
             })
             .catch(err=>{
                 console.error(err)  
@@ -89,15 +94,14 @@ class Teams extends Component {
             <div className={classes.root}>
             {this.state.progressBar && <LinearProgress/>}
 
-            <PlusFab 
+            {!this.props.nofab && <PlusFab 
                 onSave={this.saveNewTeam.bind(this)} 
                 dialog={TeamNewDialog} 
                 {...this.props}
-            />   
+            />   }
                
             <Grid container>
                 <Grid item>   
-                   <p>This will be done as metro style tiles. </p>
                    {teamsMetro}
                 </Grid>
             </Grid>

@@ -17,8 +17,11 @@ const getFixture = (req, res, next)=>{
         .catch(next)
 }
 
-const newFixture = (req, res, next)=>{
-    res.redirect('/')
+const newFixtures = (req, res, next)=>{
+    fixture
+        .createFixtureList(req.body)
+        .then(data=>res.status(200).json(data))
+        .catch(next)
 }
 
 const replaceFixture = (req, res, next)=>{
@@ -26,7 +29,11 @@ const replaceFixture = (req, res, next)=>{
 }
 
 const updateFixture = (req, res, next)=>{
-    res.redirect('/')
+    console.log("API METHOD")
+    fixture 
+        .updateFixture(req.params.id, req.body)
+        .then(data=>res.status(200).json(data))
+        .catch(next)
 }
 
 const deleteFixture = (req, res, next)=>{
@@ -40,9 +47,9 @@ router.use((req, res, next)=>{
 
 router.get('/', getFixtures);
 router.get('/:id', getFixture);
-router.post('/', Authenticate, isLeagueSecretary, newFixture);
-router.put('/:id', Authenticate, isLeagueSecretary, replaceFixture);
-router.patch('/:id', Authenticate, isLeagueSecretary, updateFixture);
+router.post('/', Authenticate, isLeagueSecretary, newFixtures);
+router.post('/:id', Authenticate, isLeagueSecretary, updateFixture);
+// router.patch('/:id', Authenticate, isLeagueSecretary, updateFixture);
 router.delete('/:id', Authenticate, isLeagueSecretary, deleteFixture);
 
 module.exports = router;

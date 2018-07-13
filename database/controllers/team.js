@@ -1,16 +1,21 @@
 const { team } = require('../models/')
 const { table } = require('../models/')
-
     
 module.exports = {
-    getTeams: (criteria={})=>(
-        team
+    getTeams: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return team
             .find(criteria)
+            .skip(parseInt(skip) || 0)
+            .limit(parseInt(limit) || 200)
             // .populate({ path: 'division' })
             .populate({ path: 'club' })
             .then(data=>data)
-            .catch(err=>console.log({error:true, message:"Error getting teams"}))
-    ),
+            // .catch(err=>console.log({error:true, message:"Error getting teams"}))
+            .catch(err=>console.error(err))
+    },
 
     getTeam: (id)=>(
         team

@@ -12,13 +12,16 @@ const aggregate = async data=>{
 }
 
 module.exports = {
-    getCompetitions: (criteria={})=>(
-        competition
+    getCompetitions: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return competition
             .find(criteria)
             .populate({ path: 'league' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting competitions"}))
-    ),
+    },
 
     getCompetition: (id)=>(
         competition

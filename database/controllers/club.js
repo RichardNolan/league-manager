@@ -9,14 +9,17 @@ const aggregate = async data=>{
 }
 
 module.exports = {
-    getClubs: (criteria={})=>(
-        club
+    getClubs: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return club
             .find(criteria)
             .populate({ path: 'organisation' })
             // .then(aggregate)
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting clubs"}))
-    ),
+    },
 
     getClub: (id)=>(
         club

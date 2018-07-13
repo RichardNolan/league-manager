@@ -13,13 +13,16 @@ const aggregate = async data=>{
 
 
 module.exports = {
-    getTemplates: (criteria={})=>(
-        template
+    getTemplates: (criteria={})=>{
+        let {limit,skip} = criteria
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+        return template
             .find(criteria)
             .populate({ path: 'organisation' })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting templates"}))
-    ),
+    },
 
     getTemplate: (id)=>(
         template
