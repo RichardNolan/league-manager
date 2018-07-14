@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
-import { Grid, Typography, IconButton, Avatar } from '@material-ui/core';
+import { Grid, Typography, IconButton } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles'
 import EditIcon from '@material-ui/icons/Create';
 
 import USER from '../../USER'
-import { relative, isAbsolute } from 'path';
+// import { relative, isAbsolute } from 'path';
+import * as moment from 'moment'
 
 const Fixture = (props) => {
     let {fixture} = props
@@ -17,15 +18,18 @@ const Fixture = (props) => {
         <Fragment>
         {fixture && (
             <Grid container className={props.classes.root} >
-                <Grid item xs={5}>
+                <Grid item xs={4}>
                     <Typography variant="subheading" gutterBottom className={props.classes.right} >
                         {fixture.home_team.club.title_short}
                     </Typography>
                 </Grid>
-                <Grid item xs={1} className={props.classes.v}>
-                    <Avatar className={props.classes.vicon}>v</Avatar>
+                <Grid item xs={4} className={props.classes.v}>
+                    <Typography variant="caption" gutterBottom>
+                        {fixture.home_team.club.venue }<br/>
+                        {moment(fixture.date).format("HH:mm")}
+                    </Typography>
                 </Grid>
-                <Grid item xs={6} className={props.classes.buttonContainer}>
+                <Grid item xs={4} className={props.classes.buttonContainer}>
                     <Typography variant="subheading" gutterBottom className={props.classes.left} >
                         {fixture.away_team.club.title_short}
                     </Typography>

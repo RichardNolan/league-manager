@@ -1,0 +1,1 @@
+export const TIME_SLOTS = ["9am", "11am", "1pm", "3pm", "5pm", "7pm"]

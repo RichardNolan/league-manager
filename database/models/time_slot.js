@@ -8,7 +8,7 @@ The slot number will most likely be a constant of an array of time ranges
 const Schema = new mongoose.Schema({
     slot: Number,
     date: Date,
-    venue:  {type: ObjectId, ref: 'venue'},
+    club:  {type: ObjectId, ref: 'club'},
     fixture: {type: ObjectId, ref: 'fixture'}
 })
 

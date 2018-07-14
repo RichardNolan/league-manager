@@ -34,10 +34,6 @@ const createFixtureList = function(teams, {
 
 
 
-
-
-
-
 const createSchedule = (
     fixtures,
     season_start = moment().add(1, 'months'), // DEFAULT: 1 month from today
@@ -46,11 +42,14 @@ const createSchedule = (
 
     // Make both start and end dates MOMENT instances
     if( isValidDate(season_start, season_end) ){
-        season_start = moment(season_start)
-        season_end = moment(season_end)
+        season_start = moment(season_start, "YYYY-MM-DD HH:mm")
+        season_end = moment(season_end, "YYYY-MM-DD HH:mm")
     }else{
         return {error:true, message: `One of the supplied dates, ${season_start} or ${season_end}, is not valid.`}
     }
+
+    const kickoffTimeHour = season_start.get('hour')
+    const kickoffTimeMinute = season_start.get('minute')
 
     const num_rounds = Math.max(...fixtures.map(f=>f.round));               // Max round number found in fixtures array
     const season_duration = season_end.diff(season_start, 'days');          // Number of days in a season
@@ -78,6 +77,9 @@ const createSchedule = (
             //COULD MAYBE CHECK THE DATE HERE AGAINST BLACKLISTED DATES, LIKE XMAS
         
         // schedule.push({round:(i+1), scheduled_date:fixture_date});  // push fixture date for this round on to schedule object. (i+1) because i has to be 0 for first day
+        fixture_date.set('hour',kickoffTimeHour)
+        fixture_date.set('minute',kickoffTimeMinute)
+
         schedule['round_'+(i+1)] = fixture_date
     }   
     
@@ -98,7 +100,44 @@ const createSchedule = (
     return schedule
 }
 
+
+
+
+// const { fixture, time_slot } = require('../database/models/')
+// const {  } = require('../database/controllers/')
+
+// const availableTime_slot = (f, id)=>{
+//     let club = typeof f.club === "string" ? f.club : f.club._id
+
+//     return time_slot.find({club, date:f.date})
+//         .then(res=>{
+//             let slots = [0,1,2,3,4,5]
+//             res.forEach(ts=>slots.splice(slots.indexOf(ts.slot), 1))
+//             let slot = slots[Math.floor(slots.length/2)]
+//             fixture.findByIdAndUpdate(f._id, {slot})
+//                     .catch(err=>console.log(err))
+
+//             new time_slot({
+//                 fixture:f._id, 
+//                 slot, 
+//                 date:f.date, 
+//                 club: club,
+//             })
+//             .save()
+//             .catch(err=>console.log(err))
+
+//             return slots[Math.floor(slots.length/2)]
+//         }).catch(err=>console.log(err))
+//     }
+
+// const updateTime_slot = (ts)=>{
+
+// }
 module.exports = {
     createFixtureList,
-    createSchedule
+    createSchedule,
+    // availableTime_slot,
+    // updateTime_slot,
 }
+
+// availableTime_slot(mockFixtures[0]).then(res=>console.log(res))

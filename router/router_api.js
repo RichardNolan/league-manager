@@ -14,6 +14,7 @@ router.use('/player', require('./API/player'));
 router.use('/referee', require('./API/referee'));
 router.use('/score', require('./API/score'));
 router.use('/table', require('./API/table'));
+router.use('/time_slot', require('./API/time_slot'));
 router.use('/team', require('./API/team'));
 router.use('/user',  require('./API/user'));
 router.use('/venue', require('./API/venue'));

@@ -1,4 +1,4 @@
-const { fixture } = require('../models/')
+const { fixture,time_slot } = require('../models/')
 const table = require('./table')
 const venue = require('./venue')
 const team = require('./team')
@@ -34,7 +34,7 @@ module.exports = {
             .where('date')
             .gt(Date.now())
             .populate({ path: 'score' })
-            .populate({ path: 'home_team', populate:{path:'club', select:'title_short'} })
+            .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short'} })
             .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting fixtures"}))
@@ -44,10 +44,9 @@ module.exports = {
         fixture
             .findById(id)
             .populate({ path: 'score' })
-            .populate({ path: 'home_team' })
-            .populate({ path: 'away_team' })
+            .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short primary_color'} })
+            .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
             .populate({ path: 'referee' })
-            .populate({ path: 'time_slot' })
             .populate({ path: 'division' })
             .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
@@ -69,12 +68,24 @@ module.exports = {
     //         .then(siblings)
     //         .catch(err=>console.log({error:true, message:err}))
     // },   
-    updateFixture: (_id, data)=>(
-        fixture
+    updateFixture: async (_id, data)=>{  
+        // let foundTime_slot = null  
+        // if(data.date){
+        //     await time_slot
+        //             .findOneAndUpdate({fixture:_id}, {date:data.date, slot:100})
+        //             .then(result=>{
+        //                 // data.slot = utils.updateTime_slot(result)   
+        //             })
+        // }   
+        console.log(data)
+        return fixture
             .findByIdAndUpdate(_id, data, { new: true })
-            // .then(siblings)
+            .then(result=>{      
+                return result
+            })
+            // TO-DO .then(EMAIL ALL USERS OF HOME OR AWAY TEAM)
             .catch(err=>console.log({error:true, message:err}))
-        ),
+    },
 
     replaceFixture: async (data)=>{        
         let Fixture = await fixture
@@ -111,24 +122,31 @@ module.exports = {
         
         let fixtures = utils.createFixtureList(teams, {two_legs,random})
         let schedule = (season_start && season_end) ? utils.createSchedule(fixtures, season_start, season_end) : null
+
+        if(schedule.error) console.log(schedule.message)
+
         fixtures.map(fixture=>{
             fixture.date = schedule['round_'+fixture.round].toDate()
             fixture.division = fixture.home_team.division
             fixture.status = 0
             fixture.referee = null
+            fixture.club = fixture.home_team.club
             fixture.home_team = fixture.home_team._id
             fixture.away_team = fixture.away_team._id
             return fixture
         })
-        // fixture.collection.insert(fixtures, (err, data)=>{
-        //     if(err) console.error(err)
-        //     else console.log('It worked')
-        // })
-        // return {fixtures, schedule }
         return fixture.collection.insert(fixtures)
             .then(res=>{
-                console.log(`${res.length} fixtures added`)
-                return res.ops
+
+
+                // GET SLOTS
+
+                // res.ops.forEach(fixture=>{
+                //     utils.availableTime_slot(fixture)
+                // })
+                
+
+                return {success:true, fixturesAdded:res.ops.length}
             })
             .catch(err=>console.log(err))
     }

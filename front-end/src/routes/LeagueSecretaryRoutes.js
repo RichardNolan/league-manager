@@ -116,7 +116,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Clubs",
         path: "/clubs/", 
-        component: Clubs   
+        component: injectUser(Clubs)   
     },
     {  
         order:1,

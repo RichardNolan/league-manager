@@ -4,12 +4,12 @@ import * as _ from 'lodash'
 import { AppBar, Tabs, Tab, LinearProgress } from '@material-ui/core';
 import FixtureSet from './FixtureSet';
 import EditFixtureDialog from './EditFixtureDialog';
-import { fetchQuery, post } from '../../utilities/fetch';
+import {  post } from '../../utilities/fetch';
 
 class FixtureList extends React.Component {
     state={
         value:0,
-        groups: _.groupBy(this.props.fixtures, 'date' ), 
+        groups: null,
         editFixtureDialogOpen:false,
         fixtureToEdit : null,
         progressBar:false,
@@ -42,20 +42,22 @@ class FixtureList extends React.Component {
     render(){
         let {value} = this.state
         let {fixtures} = this.props
-        let fixtureGroups = _.groupBy(fixtures, 'date' ) 
+        let fixtureGroups =     _.groupBy(fixtures, (x)=>{
+                                    return moment(x.date).format("ddd, MMM Do")
+                                })
         let tabs =  Object.keys(fixtureGroups)
-                        .sort()
+                        // .sort()
                         .map((group, index)=>(
                             <Tab 
                                 key={index} 
-                                label={moment(group).format("ddd, MMM Do")} 
+                                label={group} 
                             />
                         ))
         let tabContent  = Object.keys(fixtureGroups)
-                            .sort()
+                            // .sort()
                             .map((group, index)=>(
                                 <FixtureSet 
-                                    title={moment(group).format("ddd, MMM Do")}
+                                    title={group}
                                     fixtures={fixtureGroups[group]} 
                                     key={index} 
                                     openEditFixtureDialog={this.openEditFixtureDialog.bind(this)}
@@ -64,16 +66,16 @@ class FixtureList extends React.Component {
         return (
             <div>
             <AppBar position="static" color="default">
-            <Tabs
-                value={value}
-                onChange={this.handleTabs}
-                indicatorColor="primary"
-                textColor="primary"
-                scrollable
-                scrollButtons="auto"
-            >
-                {tabs}                
-            </Tabs>
+                <Tabs
+                    value={value}
+                    onChange={this.handleTabs}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    scrollable
+                    scrollButtons="auto"
+                >
+                    {tabs}                
+                </Tabs>
                 {this.state.progressBar && <LinearProgress/>}
                 {tabContent[value]}
             </AppBar>

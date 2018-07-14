@@ -25,7 +25,7 @@ const isValidDate = (...dates)=>{
         if(moment.isMoment(date)) return true;
         if(date instanceof Date) return true;
         return (typeof date==='string') 
-            ? date.match(/^(2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/)
+            ? date.match(/^(2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31) ([01][0-9]|2[0123]):([0-5][0-9])$/)
             : false;
     })
 }

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Tooltip, FormControlLabel, Switch, Grid, Paper, withStyles } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Tooltip, FormControlLabel, Switch, Grid, Paper, withStyles, Typography } from '@material-ui/core';
+import TimeInput from 'material-ui-time-picker'
+
 import { fetchQuery } from '../../utilities/fetch';
 import Teams from '../teams/Teams'
 class FixturesNewDialog extends React.Component {
@@ -11,10 +13,16 @@ state={
     season_start: null,
     season_end: null,
     division:this.props.division,
+    kickoff: null
 }
 onSave = ()=>{
-    this.props.onSave(this.state)
-    this.setState({title:''})
+    let kickoff = this.state.kickoff.getHours()+":"+this.state.kickoff.getMinutes()
+    let start = this.state.season_start+" "+kickoff
+    let end = this.state.season_end+" "+kickoff
+    this.setState({season_start:start, season_end:end}, ()=>{
+        this.props.onSave(this.state)
+    })
+    // this.setState({title:''})
 }
 changeDate=(e)=>{
     this.setState({[e.target.name]:e.target.value})
@@ -22,8 +30,15 @@ changeDate=(e)=>{
 changeSwitch = (e)=>{
     this.setState({[e.target.name]: e.target.checked})
 }
-
+changeTime = kickoff=>{
+    this.setState({kickoff})
+}
 componentDidMount(){
+    let defaultTime = new Date()
+    defaultTime.setHours(11)
+    defaultTime.setMinutes(30)
+    this.setState({kickoff:defaultTime})
+
     let {division} = this.props
     fetchQuery('http://localhost:9000/api/team', {division})
         .then(res=>res.json())
@@ -55,7 +70,7 @@ render(){
                         </Grid>
                     </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <TextField
                         label="Season Start Date"
                         type="date"
@@ -66,7 +81,7 @@ render(){
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <TextField
                         label="Season End Date"
                         type="date"
@@ -77,7 +92,18 @@ render(){
                         }}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
+                <Typography variant='caption'>
+                        Kick-off time
+                </Typography>
+                <TimeInput
+                    mode='24h'
+                    value={this.state.kickoff}
+                    onChange={kickoff=>this.changeTime(kickoff)}
+                    className={this.props.classes.timeControl}
+                />
+                </Grid>
+                <Grid item xs={12} md={4}>
                     <FormControlLabel control={
                         <Tooltip id="tooltip-icon" title="Create both Home and Away fixtures?">
                             <Switch
@@ -91,7 +117,7 @@ render(){
                         label="Home and Away legs"
                     />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={4}>
                     <FormControlLabel control={
                         <Tooltip id="tooltip-icon" title="Shuffle up the teams before creating the list?">
                             <Switch
@@ -131,7 +157,10 @@ const styles = (theme)=>({
     },
     FAB:{
         
-    }
+    },
+    timeControl:{
+        // marginTop:
+    },
 })
 
 export default withStyles(styles)(FixturesNewDialog);

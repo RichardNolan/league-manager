@@ -3,8 +3,9 @@ const team = require('./team')
 const venue = require('./venue')
 
 const aggregate = async data=>{
+    console.log("getting teams")
     data.teams = await team.getTeams({club:data._id})
-    data.venues = await venue.getVenues({club:data._id})
+    // data.venues = await venue.getVenues({club:data._id})
     return data
 }
 
@@ -25,7 +26,8 @@ module.exports = {
         club
             .findById(id)
             .populate({ path: 'organisation' })
-            .then(aggregate)
+            .populate({ path: 'venue' })
+            // .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
     

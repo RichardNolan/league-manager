@@ -8,9 +8,11 @@ const Schema = new mongoose.Schema({
     secondary_color: String,
     crest:String,
     organisation: {type: ObjectId, ref: 'organisation'},
-    venues:  [{type: ObjectId, ref: 'venue'}],
+    venue:  String,
+    // venue:  {type: ObjectId, ref: 'venue'},
     teams: [{type: ObjectId, ref: 'team'}],
     users: [{type: ObjectId, ref: 'user'}],
+    other: String,
 })
 
 module.exports = mongoose.model('club', Schema);
