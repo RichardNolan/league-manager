@@ -10,6 +10,7 @@ const getDivisions = (req, res, next)=>{
         .catch(next)    
 }
 const getDivision = (req, res, next)=>{
+    console.log("ROUTE")
     division 
         .getDivision(req.params.id)
         .then(data=>res.status(200).json(data))

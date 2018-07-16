@@ -63,6 +63,7 @@ class Teams extends Component {
         fetchQuery('http://localhost:9000/api/team', query  )
             .then(res=>res.json())
             .then(res=>{
+                if(res.error) throw(res.message)
                 let result = {teams:res, progressBar:false}
                 if(res.length===0) this.setState(Object.assign(result, {snackOpen:true, snackMessage:'No results found'}))
                 else {

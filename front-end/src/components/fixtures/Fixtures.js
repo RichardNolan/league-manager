@@ -31,6 +31,7 @@ class Fixtures extends Component {
         fetchQuery('http:localhost:9000/api/fixture/', {division})
             .then(res=>res.json())
             .then(fixtures=>{
+                if(fixtures.error) throw(fixtures.message)
                 this.setState({fixtures,progressBar:false})
             })
             .catch(err=>{

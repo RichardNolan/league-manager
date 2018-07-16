@@ -62,6 +62,7 @@ class Clubs extends Component {
         fetchQuery('http://localhost:9000/api/club', { organisation} )
             .then(res=>res.json())
             .then(res=>{
+                if(res.error) throw(res.message)
                 this.setState({clubs:res})
             })
             .catch(err=>{

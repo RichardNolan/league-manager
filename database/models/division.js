@@ -6,7 +6,7 @@ const Schema = new mongoose.Schema({
     rank: Number,
     league: {type: ObjectId, ref: 'league'},
     teams: [ {type: ObjectId, ref: 'team'} ],
-    tables: [{type: ObjectId, ref: 'table'}] ,
+    table: {type: ObjectId, ref: 'table'} ,
 })
 
 module.exports = mongoose.model('division', Schema);

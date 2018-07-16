@@ -29,7 +29,6 @@ const replaceFixture = (req, res, next)=>{
 }
 
 const updateFixture = (req, res, next)=>{
-    console.log("API METHOD")
     fixture 
         .updateFixture(req.params.id, req.body)
         .then(data=>res.status(200).json(data))

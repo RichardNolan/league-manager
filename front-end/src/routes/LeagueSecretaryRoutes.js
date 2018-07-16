@@ -7,13 +7,15 @@ import Club from '../components/clubs/Club'
 import Users from '../components/users/Users'
 import Teams from '../components/teams/Teams'
 import TeamContainer from '../components/teams/TeamContainer'
+import AwaitingScores from '../components/scores/AwaitingScores'
+import Results from '../components/results/Results'
 
 import {injectUser} from '../utilities/utils'
 
 
 
 const Fixtures = ()=>{return null}
-const Results = ()=>{return null}
+// const Results = ()=>{return null}
 
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
@@ -24,11 +26,10 @@ const Venues = ()=>{return null}
 const Routes = [
     { 
         order:11,
-        link: "Venues",
+        link: "Awaiting Scores",
         icon: DraftsIcon,
-        pageTitle: "Venues",
-        path: "/venues/", 
-        component: Venues
+        path: "/awaitingscores/", 
+        component: injectUser(AwaitingScores)       
     },
     { 
         order:10,
@@ -60,7 +61,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Results",
         path: "/results/", 
-        component: Results
+        component: injectUser(Results)
     },
     { 
         order:6,

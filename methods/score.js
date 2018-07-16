@@ -4,26 +4,26 @@ const methods = {
     // The AET & Penalty scores are irrelevant for a league
     aggregate_scores: (fixture={})=>{
         let { 
-            home_score_referee,
-            away_score_referee,
-            home_score_club,
-            away_score_club,
-            home_score,
-            away_score
-         } = fixture.score
+            referee_home,
+            referee_away,
+            club_official_home,
+            club_official_away,
+            score_home,
+            score_away
+         } = fixture
 
         // IF THE SCORE IS ALREADY SET - RETURN IT
-        if( typeof home_score === 'number' 
-            && typeof away_score === 'number'
-        ) return {home_score:home_score, away_score:away_score}
+        if( typeof score_home === 'number' 
+            && typeof score_away === 'number'
+        ) return null
 
         // OTHERWISE - CHECK IF THEY'RE THE SAME, IN WHICH CASE RETURN THAT
-        if( home_score_referee === home_score_club
-            && away_score_referee === away_score_club
-        ) return {home_score:home_score_referee, away_score:away_score_referee}
+        if( referee_home === club_official_home
+            && referee_away === club_official_away
+        ) return {score_home:referee_home, score_away:referee_away}
 
         // OTHERWISE - RETURN A PAIR OF NULLS
-        return {home_score:null, away_score:null}
+        return null
     }
 }
 

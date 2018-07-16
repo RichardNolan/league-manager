@@ -10,7 +10,10 @@ export const LoadList = (api_route='', query={}) => (Child)=>{
         componentDidMount(){
             fetchQuery('http://localhost:9000/api/'+api_route,query)            
             .then(res=>res.json())
-            .then(list=>this.setState({list}))
+            .then(list=>{
+                if(list.error) throw(list.message)
+                this.setState({list})
+            })
             .catch(err=>console.log(err))
         }
     

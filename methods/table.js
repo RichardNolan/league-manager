@@ -5,11 +5,13 @@ const methods = {
         
         let teamObj = {}
         fixtures.forEach(fixture => {
-            let { home_team, away_team, score } = fixture
-
+            let { home_team, away_team, score_home, score_away } = fixture
+            home_team = home_team._id
+            away_team = away_team._id
+            
             // SKIP IF THE SCORE IS INVALID
-            if( typeof score.home_score !== 'number' 
-            || typeof score.away_score !== 'number'
+            if( typeof score_home !== 'number' 
+            || typeof score_away !== 'number'
             ) return ;
 
             let blank = {team:"", p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0, hp:0, ap:0, hw:0, aw:0, hd:0, ad:0, hl:0, al:0, hf:0, af:0, ha:0, aa:0, hgd:0, agd:0, hpts:0, apts:0, form:"", hform:"", aform:""};
@@ -29,23 +31,23 @@ const methods = {
                 teamObj[away_team].ap = teamObj[away_team].ap+1
 
                 // SCORES FOR/AGAINST/DIFFERENCE - HOME TEAM
-                teamObj[home_team].f = teamObj[home_team].f+score.home_score
-                teamObj[home_team].hf = teamObj[home_team].hf+score.home_score
-                teamObj[home_team].a = teamObj[home_team].a+score.away_score
-                teamObj[home_team].ha = teamObj[home_team].ha+score.away_score
+                teamObj[home_team].f = teamObj[home_team].f+score_home
+                teamObj[home_team].hf = teamObj[home_team].hf+score_home
+                teamObj[home_team].a = teamObj[home_team].a+score_away
+                teamObj[home_team].ha = teamObj[home_team].ha+score_away
                 teamObj[home_team].gd = teamObj[home_team].f-teamObj[home_team].a
                 teamObj[home_team].hgd = teamObj[home_team].hf-teamObj[home_team].ha
 
                 // SCORES FOR/AGAINST/DIFFERENCE - AWAY TEAM
-                teamObj[away_team].f = teamObj[away_team].f+score.away_score
-                teamObj[away_team].af = teamObj[away_team].af+score.away_score
-                teamObj[away_team].a = teamObj[away_team].a+score.home_score
-                teamObj[away_team].aa = teamObj[away_team].aa+score.home_score
+                teamObj[away_team].f = teamObj[away_team].f+score_away
+                teamObj[away_team].af = teamObj[away_team].af+score_away
+                teamObj[away_team].a = teamObj[away_team].a+score_home
+                teamObj[away_team].aa = teamObj[away_team].aa+score_home
                 teamObj[away_team].gd = teamObj[away_team].f-teamObj[away_team].a
                 teamObj[away_team].agd = teamObj[away_team].af-teamObj[away_team].aa
 
             // IF THE HOME TEAM WON (AWAY TEAM LOST) - SOME SPECIFIC UPDATES
-                if(score.home_score>score.away_score){
+                if(score_home>score_away){
                     teamObj[home_team].w = teamObj[home_team].w+1
                     teamObj[home_team].hw = teamObj[home_team].hw+1
                     teamObj[home_team].pts = teamObj[home_team].pts+3
@@ -57,7 +59,7 @@ const methods = {
                     teamObj[away_team].form+="0"
                     teamObj[away_team].aform+="0"
             // IF THE HOME TEAM LOST (AWAY TEAM WON) - MORE SPECIFIC UPDATES
-                }else if(score.home_score<score.away_score){
+                }else if(score_home<score_away){
                     teamObj[away_team].w = teamObj[away_team].w+1
                     teamObj[away_team].aw = teamObj[away_team].aw+1
                     teamObj[away_team].pts = teamObj[away_team].pts+3
@@ -69,7 +71,7 @@ const methods = {
                     teamObj[away_team].form+="3"
                     teamObj[away_team].aform+="3"
             // OR IT WAS A DRAW - MORE SPECIFIC UPDATES
-                }else if(score.home_score===score.away_score){
+                }else if(score_home===score_away){
                     teamObj[home_team].d = teamObj[home_team].d+1
                     teamObj[home_team].hd = teamObj[home_team].hd+1
                     teamObj[home_team].pts = teamObj[home_team].pts+1

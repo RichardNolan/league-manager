@@ -11,8 +11,16 @@ const Schema = new mongoose.Schema({
     home_team: {type: ObjectId, ref: 'team'},
     away_team: {type: ObjectId, ref: 'team'},
     other_leg_fixture: {type: ObjectId, ref: 'fixture'},
-    score: {type: ObjectId, ref: 'score'},
+    // score: {type: ObjectId, ref: 'score'},
     time_slot: {type: ObjectId, ref: 'time_slot'},
+
+    // ADDED FROM SCORE SCHEMA
+    score_home:Number,
+    score_away:Number,
+    referee_home: Number,
+    referee_away: Number,
+    club_official_home: Number,
+    club_official_away: Number,
 })
 
 module.exports = mongoose.model('fixture', Schema);

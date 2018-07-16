@@ -7,38 +7,36 @@ import USER from '../../USER'
 // import { relative, isAbsolute } from 'path';
 import * as moment from 'moment'
 
-const Fixture = (props) => {
-    let {fixture} = props
+const Result = (props) => {
+    let {result} = props
 
-    const openEditFixtureDialog = ()=>{
-        props.openEditFixtureDialog(fixture)
+    const openNewScoreDialog = ()=>{
+        props.openNewScoreDialog(result)
     }
-    let showDateTime = props.showDate ? "ddd, MMM Do, HH:mm" : "HH:mm"
+
     return (
         <Fragment>
-        {fixture && (
+        {result && (
             <Grid container className={props.classes.root} >
-                <Grid item xs={4}>
-                    <Typography variant="subheading"  className={props.classes.right} >
-                        {fixture.home_team.club.title_short}
+                <Grid item xs={5}>
+                    <Typography variant="subheading" >
+                        {result.home_team.club.title_short}
                     </Typography>
                 </Grid>
-                <Grid item xs={4} className={props.classes.v}>
-                    <Typography variant="caption" >
-                        {(props.renderExtra && props.renderExtra()) || fixture.home_team.club.venue }<br/>
-                        {moment(fixture.date).format(showDateTime)}
-                        
+                <Grid item xs={2} className={props.classes.score}>
+                    <Typography variant="headline" >
+                        {result.score_home } - {result.score_away}                        
                     </Typography>
                 </Grid>
-                <Grid item xs={4} className={props.classes.buttonContainer}>
-                    <Typography variant="subheading"  className={props.classes.left} >
-                        {fixture.away_team.club.title_short}
+                <Grid item xs={5} className={props.classes.buttonContainer}>
+                    <Typography variant="subheading" >
+                        {result.away_team.club.title_short}
                     </Typography>
                     <USER.Consumer>
                         {({user})=>{
-                            return user.user && (user.user.isAdmin || user.user.isLeagueSecretary) && moment(fixture.date).isAfter()
+                            return user.user && (user.user.isAdmin || user.user.isLeagueSecretary)
                                 ? (
-                                    <IconButton color="primary" className={props.classes.editButton} onClick={openEditFixtureDialog}>
+                                    <IconButton color="primary" className={props.classes.editButton} onClick={openNewScoreDialog}>
                                       <EditIcon />
                                     </IconButton>
                                   )
@@ -60,12 +58,6 @@ const styles = theme=>({
             [1, 'solid', 'lightgrey']
           ],
     },
-    right:{
-        textAlign:'right',
-    },
-    left:{
-        textAlign:'left',
-    },
     buttonContainer:{
         position:'relative',
     },
@@ -77,15 +69,10 @@ const styles = theme=>({
     heading:{
 
     },
-    v:{
+    score:{
         display: 'flex',      
         justifyContent: 'center',
-        // marginTop:-10,
-    },
-    vicon:{
-        height:28,
-        width:28,
-
+        backgroundColor:theme.palette.background.primary,
     }
 })
-export default withStyles(styles)(Fixture)  
+export default withStyles(styles)(Result)  

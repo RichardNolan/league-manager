@@ -4,6 +4,7 @@ const division = require('./division');
 const team = require('./team');
 const player = require('./player');
 const fixture = require('./fixture');
+const result = require('./result');
 const referee = require('./referee');
 const venue = require('./venue');
 const user = require('./user');
@@ -25,6 +26,7 @@ module.exports = {
     team,
     player,
     fixture,
+    result,
     referee,
     user,
     venue

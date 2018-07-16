@@ -13,7 +13,7 @@ const Home = () => {
                     {/* <ForgotPassword /> */}
                 </Grid>
                 <Grid item md={12}>        
-                    <LeagueTable title='Premiership' size='tiny' division="5b463a2b26c3f902c81da980" />
+                    <LeagueTable title='Premiership' size='full' division="5b463a2b26c3f902c81da980" />
                 </Grid>
             </Grid>
         </div>

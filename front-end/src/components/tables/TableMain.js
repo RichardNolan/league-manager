@@ -46,14 +46,14 @@ const TableMain = (props)=>{
         .sort(sortTable)
         .map((t, index)=>{
             // FULL RETURNED OBJECT - {team:"", p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0, hp:0, ap:0, hw:0, aw:0, hd:0, ad:0, hl:0, al:0, hf:0, af:0, ha:0, aa:0, hgd:0, agd:0, hpts:0, apts:0, form:"", hform:"", aform:""};
-            let {p,w,d,l,f,a,gd,hp,hw,hd,hl,hf,ha,hgd,hpts,ap,aw,ad,al,af,aa,agd,apts} = t
+            let {p,w,d,l,f,a,gd,hp,hw,hd,hl,hf,ha,hgd,hpts,ap,aw,ad,al,af,aa,agd,apts,form,hform,aform} = t
             let pts = t.pts || 0
             let title = typeof t.team==="object" ? (t.team.club && t.team.club.title_short) || t.title : t.team || t.title
             let tiny = {title,pts}
             let small = {title,p,w,d,l,pts}
             let medium = {title,p,w,d,l,gd,pts}
             let large = {title,p,w,d,l,f,a,gd,pts}
-            let full = {title,hp,hw,hd,hl,hf,ha,hgd,hpts,ap,aw,ad,al,af,aa,agd,apts,p,w,d,l,f,a,gd,pts}
+            let full = {title,hp,hw,hd,hl,hf,ha,hgd,hpts,hform,ap,aw,ad,al,af,aa,agd,apts,aform,p,w,d,l,f,a,gd,pts,form}
             let sizes = [tiny, small, medium, large, full]
             return <TableDataRow size={size} team={sizes[size]} key={index}/>
         })

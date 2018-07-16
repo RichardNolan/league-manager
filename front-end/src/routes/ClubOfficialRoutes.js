@@ -1,8 +1,11 @@
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import AwaitingScores from '../components/scores/AwaitingScores'
+import Results from '../components/results/Results'
+
+import {injectUser} from '../utilities/utils'
 
 const Fixtures = ()=>{return null}
-const Results = ()=>{return null}
 const Teams = ()=>{return null}
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
@@ -40,7 +43,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Results",
         path: "/clubofficial/results", 
-        component: Results
+        component:  injectUser(Results)       
     },
     { 
         order:5,
@@ -51,27 +54,28 @@ const Routes = [
         component: Fixtures
     },
     { 
-        order:2,
+        order:3,
         link: "Users",
         icon: DraftsIcon,
         pageTitle: "Users",
         path: "/clubofficial/users", 
         component: Users    /// WRAP IN HOC???
     },
+    { 
+        order:3,
+        link: "Awaiting Scores",
+        icon: DraftsIcon,
+        pageTitle: "Users",
+        path: "/awaitingscores/", 
+        component: injectUser(AwaitingScores)       
+    },
     {  
         order:1,
         link: "Dashboard",
         icon: SendIcon,
         pageTitle: "Club Official",
-        path: "/clubofficial", 
-    },
-    {  
-        order:0,
-        link: "Home",
-        icon: SendIcon,
-        pageTitle: "Homepage",
-        path: "/", 
-    },
+        path: "", 
+    }
 ];
 
 export default Routes;

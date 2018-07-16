@@ -6,8 +6,13 @@ const table = require('./table')
 const {createFixtureList, createSchedule} = require('../../methods/fixtures')
 
 const aggregate = async data=>{
-    data.teams = await team.getTeams({division:data._id})
+    data.teams = await team.getTeams({division:data._id}).catch(err=>console.log(err))
     data.table = await table.findTable({division:data._id})
+                                .then(res=>{
+                                    console.log(res)
+                                    return res
+                                })
+                                .catch(err=>console.log(err))
     
     return data
 }
@@ -24,13 +29,18 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting divivions"}))
     },
 
-    getDivision: (id)=>(
-        division.findById(id)
+    getDivision: (id)=>{
+        console.log("GET DIVISION", id)
+        return division.findById(id)
             .populate({ path: 'league' , select:'title'})
-            .populate({ path: 'table' })
+            // .populate({ path: 'table' })
             .then(aggregate)
+            .then(data=>{
+                console.log(data)
+                return data
+            })
             .catch(err=>console.log({error:true, message:err}))
-    ),
+        },
 
     findDivision: (criteria={})=>(
         division.findOne(criteria)

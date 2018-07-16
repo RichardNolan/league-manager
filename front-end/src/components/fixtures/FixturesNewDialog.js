@@ -42,7 +42,10 @@ componentDidMount(){
     let {division} = this.props
     fetchQuery('http://localhost:9000/api/team', {division})
         .then(res=>res.json())
-        .then(teams=>this.setState({teams}))
+        .then(teams=>{
+            if(teams.error) throw(teams.message)
+            this.setState({teams})
+        })
         .catch(err=>console.error(err))
 }
 

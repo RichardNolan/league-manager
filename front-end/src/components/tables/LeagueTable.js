@@ -1,6 +1,6 @@
 import React from 'react';
 import TableMain from './TableMain'
-import {fetchQuery} from '../../utilities/fetch'
+import {fetchQuery, getStandard} from '../../utilities/fetch'
 import { Paper, LinearProgress, Typography} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 
@@ -19,18 +19,35 @@ class LeagueTable extends React.Component {
     }
 
     componentDidMount(){
-        let {teams, division} = this.props
-        if(!teams && division){
-            this.setState({progressBar:true})
-            fetchQuery('http:localhost:9000/api/table/', {division})
-                .then(res=>res.json())
-                .then(teams=>{
-                    this.setState({teams,progressBar:false})
+        this.fetchData()
+    }
+    
+    fetchData(){
+        fetch(`http://localhost:9000/api/division/5b47ccab658a78217440a3cc`, getStandard())
+            .then(res=>res.json())
+            .then(res=>{
+                let leagueData = res.table.table
+                leagueData.map(t=>{
+                    t.team = res.teams.find(tm=>tm._id===t.team).club.title_short
+                    return t
                 })
-                .catch(err=>{
-                    console.error(err)
-                    this.setState({progressBar:false})
-                })
+                this.setState({teams:leagueData})
+            })
+            .catch(err=>{console.log(err)})
+        // let {teams, division} = this.props
+        // if(!teams && division){
+        //     this.setState({progressBar:true})
+        //     fetchQuery('http:localhost:9000/api/table/', {division})
+        //         .then(res=>res.json())
+        //         .then(teams=>{
+        //             if(teams.error) throw(teams.message)
+        //             this.setState({teams,progressBar:false})
+        //         })
+        //         .catch(err=>{
+        //             console.error(err)
+        //             this.setState({progressBar:false})
+        //         })
+
         // }else if(teams){
         //     console.log("list of teams")
         //     if(teams[0] && typeof teams[0] === 'string'){
@@ -39,19 +56,20 @@ class LeagueTable extends React.Component {
         //         teams = teams.map(t=>({team:t}))
         //     }
         //     this.setState({teams})
-        }
+
+        // }
     }
-    
+
     render(){
         let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : 2
         return (
-            <div className={this.props.classes.root}>
-                <Paper>
-                    {this.state.progressBar && <LinearProgress/>}
-                    <Typography variant="headline" gutterBottom>
-                        {this.props.title || null}
+            <div>
+                {this.state.progressBar && <LinearProgress/>}
+                <Typography variant="headline" gutterBottom>
+                    {this.props.title || null}
+                </Typography>
+                <Paper className={this.props.classes.root}>
                         <TableMain size={size} teams={this.state.teams} />
-                    </Typography>
                 </Paper>
             </div>
         )

@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const { Authenticate, canUpdateScores } = require('../../auth/passport');
-const {score, fixture} = require('../../database/controllers/');
+const {fixture} = require('../../database/controllers/');
 
-// const getScores = (req, res, next)=>{
-//     res.redirect('/')
-// }
+const getAwaitingScores = (req, res, next)=>{
+    fixture
+        .getAwaitingScore({}, req.user)
+        .then(fixtures=>res.status(200).json(fixtures))
+        .catch(err=>console.log(err))
+}
+
+
 // const getScore = (req, res, next)=>{
 //     res.redirect('/')
 // }
 
 
 
-const upsertScore = (req, res, next)=>{
-    // score
-    fixture  
-        .upsertScore(req.body || {})
-        .then(result=>res.status(200).json(result))
-        .catch(err=>console.log(err))
-}
+// const newScore = (req, res, next)=>{
+//     score  
+//         .addScore(req.body || {})
+//         .then(result=>res.status(200).json(result))
+//         .catch(err=>console.log(err))
+// }
 
 // const replaceScore = (req, res, next)=>{
 //     res.redirect('/')
@@ -37,9 +41,9 @@ router.use((req,res,next)=>{
     next()
 })
 
-// router.get('/', getScores);
+router.get('/',Authenticate, canUpdateScores, getAwaitingScores);
 // router.get('/:id', getScore);
-router.post('/', Authenticate, canUpdateScores, upsertScore);
+// router.post('/', Authenticate, canUpdateScores, newScore);
 // router.put('/:id', Authenticate, canUpdateScores, replaceScore);
 // router.patch('/:id', Authenticate, canUpdateScores, updateScore);
 // router.delete('/:id', Authenticate, canUpdateScores, deleteScore);

@@ -168,16 +168,17 @@ const isMe = (req,res,next)=>{
         req.user.isLeagueSecretary || 
         req.user._id === req.params.id 
     ) next()
-    else throw {message:"Not a Member"}
+    else throw {message:"Not Authorised"}
 }
 
 const canUpdateScores =  (req,res,next)=>{
     if(
         req.user.isAdmin || 
+        req.user.isLeagueSecretary || 
         req.user.isClubOfficial ||
         req.user.isReferee
     ) next()
-    else throw {message:"Not a Member"}
+    else throw {message:"You can't update a scoreline"}
 }
 
 Passport(passport);

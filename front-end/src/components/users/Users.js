@@ -26,7 +26,10 @@ class Users extends React.Component {
         if(this.state.user.isLeagueSecretary) query.organisation = this.state.user.organisation 
         fetchQuery('http://localhost:9000/api/user/', query)
             .then(res=>res.json())
-            .then(users=>this.setState({users}))
+            .then(users=>{
+                if(users.error) throw(users.message)
+                this.setState({users})
+            })
             .catch(err=>console.log(err))
     }
 

@@ -11,7 +11,7 @@ class LeagueContainer extends Component {
     }
 
     componentDidMount(){
-        this.getData()
+        this.fetchData()
     }
 
     componentWillUpdate(nextProps, nextState){
@@ -27,11 +27,12 @@ class LeagueContainer extends Component {
 
 
 
-    getData(newComp=this.props.competition){
+    fetchData(newComp=this.props.competition){
         fetchQuery('http://localhost:9000/api/league/', {competition:newComp})
             .then(res=>res.json())
             .then(res=>{
                 if(res){
+                    if(res.error) throw(res.message)
                     this.setState({league:res[0]}) // SHOULD ONLY BE ONE HENSE [0]
                     return res[0]
                 }else{

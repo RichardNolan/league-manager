@@ -1,9 +1,12 @@
 const { fixture,time_slot } = require('../models/')
 const table = require('./table')
-const venue = require('./venue')
+const result = require('./result')
 const team = require('./team')
 const {createTable} = require('../../methods/table')
 const utils = require('../../methods/fixtures')
+const {aggregate_scores} = require('../../methods/score')
+
+// const updateTable
 
 const aggregate = async data=>{
     // data.home_team = await team.getTeam(data.home_team)
@@ -13,14 +16,15 @@ const aggregate = async data=>{
 }
 
 // TO-DO this is triggered when you update a fixture, it should trigger when you update a score
-// const siblings = async data=>{
-//     let fixtures = await module.exports.getFixtures({division:data.division})
-//     let table = createTable(fixtures)
-//     table
-//         .updateTable(data.division, table)
-//         .then(data=>data)
-//         .catch(err=>console.log({error:true, message:"Error updating table"}))
-// }
+const updateTable = async division=>{
+    let fixtures = await result.getResults({division, status:'result'}).catch(err=>console.log(err))
+    let leagueTable = createTable(fixtures)
+    console.log(leagueTable)
+    table
+        .updateTable(division, leagueTable)
+        .then(data=>data)
+        .catch(err=>console.log({error:true, message:"Error updating table"}))
+}
 
 
 module.exports = {
@@ -28,12 +32,12 @@ module.exports = {
         let {limit,skip} = criteria
         limit && delete criteria.limit
         skip && delete criteria.skip
-        criteria.date
+        // criteria.date
         return fixture
             .find(criteria)
             .where('date')
             .gt(Date.now())
-            .populate({ path: 'score' })
+            // .populate({ path: 'score' })
             .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short'} })
             .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
             .then(data=>data)
@@ -149,5 +153,81 @@ module.exports = {
                 return {success:true, fixturesAdded:res.ops.length}
             })
             .catch(err=>console.log(err))
-    }
+    },
+
+
+
+
+
+    getAwaitingScore: (criteria={}, user)=>{
+        let {limit,skip} = criteria
+        let filter = 'score'
+
+        if(user.isReferee) {
+            criteria.referee = user._id
+            filter = 'referee'
+        }else if(user.isClubOfficial){
+            filter = 'club_official'
+        }
+
+        limit && delete criteria.limit
+        skip && delete criteria.skip
+
+        return fixture
+            .find(criteria)
+            .where('date')
+            .lt(Date.now())
+            .where(filter+'_home')
+            .equals(null)
+            .where(filter+'_away')
+            .equals(null)
+            // .populate({ path: 'score'})
+            .populate({ path: 'division', select:'_id title', populate:{path:'league', select:'_id title'} })
+            .populate({ path: 'home_team', populate:{path:'club', select:'_id title_short venue'} })
+            .populate({ path: 'away_team', populate:{path:'club', select:'_id title_short'} })
+            .then(data=>{
+                
+                // CLUB DETAILS CAN'T BE FILTERED IN THE QUERY SO ARE FILTERED HERE PRIOR TO SENDING THE DATA
+                if(user.isClubOfficial){
+                    return data.filter(fixture=>{
+                        let valid = (
+                                (fixture.home_team.club._id.toString() === user.club.toString()) 
+                            || (fixture.away_team.club._id.toString() === user.club.toString())
+                        ) && (
+                                isNaN(fixture.club_official_away) || isNaN(fixture.club_official_home)
+                        )
+                        // console.log("NAN", isNaN(fixture.club_official_away), isNaN(fixture.club_official_home))
+                        return valid
+                    })
+                }
+                return data
+            })
+            .catch(err=>console.log({error:true, message:"Error getting fixtures"}))
+    },
+
+    upsertScore: (body)=>{
+        console.log("UPSERT")
+        let id = body.fixture
+        delete body.fixture
+        return fixture
+            .findOneAndUpdate({_id:id}, body, {upsert:true, new:true})
+            .then(result=>{
+                if(result.status==='result') updateTable(result.division)
+                let final_result = aggregate_scores(result)
+                if(final_result){
+                    final_result.status = 'result'
+                    return fixture.findOneAndUpdate({_id:result.id}, final_result, {new:true})
+                        .then(result=>{
+                            updateTable(result.division)
+                            return result
+                        })
+                        .catch(err=>console.log(err))
+                }else{
+                    return result
+                }
+                
+            })
+            .catch(err=>console.log(err))
+        },
+
 }

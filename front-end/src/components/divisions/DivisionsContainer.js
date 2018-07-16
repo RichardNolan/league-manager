@@ -28,6 +28,7 @@ class DivisionsContainer extends Component {
         fetchQuery('http://localhost:9000/api/division', {league:newId})
             .then(res=>res.json())
             .then(res=>{
+                if(res.error) throw(res.message)
                 this.setState({divisions:res})
             })
             .catch(err=>console.log(err))

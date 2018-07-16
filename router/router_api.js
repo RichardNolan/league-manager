@@ -8,10 +8,12 @@ router.use('/club', require('./API/club'));
 router.use('/competition', require('./API/competition'));
 router.use('/division', require('./API/division'));
 router.use('/fixture', require('./API/fixture'));
+router.use('/result', require('./API/result'));
 router.use('/league', require('./API/league'));
 router.use('/organisation', require('./API/organisation'));
 router.use('/player', require('./API/player'));
 router.use('/referee', require('./API/referee'));
+router.use('/awaitingscore', require('./API/awaitingscore'));
 router.use('/score', require('./API/score'));
 router.use('/table', require('./API/table'));
 router.use('/time_slot', require('./API/time_slot'));
@@ -22,8 +24,8 @@ router.post('/signin', signin);
 router.post('/forgotpassword', forgotpassword);
 router.post('/signup', signup);
 
-router.use('/', (req,res)=>{
-     res.json({title:"League Manager"});
-});
+// router.use('/', (req,res)=>{
+//     //  res.status(400).json({error:true,message:"Something went wrong...."});
+// });
 
 module.exports = router;

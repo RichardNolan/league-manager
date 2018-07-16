@@ -77,6 +77,7 @@ for(let d in divisions){
             fetchQuery('http://localhost:9000/api/team', {organisation:org, category:this.props.competition.league.category})
                 .then(res=>res.json())
                 .then(res=>{
+                    if(res.error) throw(res.message)
                     this.setState({teams:res})
                 })
                 .catch(err=>{

@@ -13,21 +13,21 @@ const TableHeadings = (props)=>{
                     <TableCell>Team</TableCell>
                     {size>0 && (
                         <Fragment>
-                            <TableCell>P</TableCell>
-                            <TableCell>W</TableCell>
-                            <TableCell>D</TableCell>
-                            <TableCell>L</TableCell>
+                            <TableCell numeric>P</TableCell>
+                            <TableCell numeric>W</TableCell>
+                            <TableCell numeric>D</TableCell>
+                            <TableCell numeric>L</TableCell>
                         </Fragment>
                     )}
-                    {size===2 && <TableCell>GD</TableCell>}
+                    {size===2 && <TableCell numeric>GD</TableCell>}
                     {size>2 && (
                         <Fragment>
-                            <TableCell>F</TableCell>
-                            <TableCell>A</TableCell>
-                            <TableCell>GD</TableCell>
+                            <TableCell numeric>F</TableCell>
+                            <TableCell numeric>A</TableCell>
+                            <TableCell numeric>GD</TableCell>
                         </Fragment>
                     )}
-                    <TableCell>Pts</TableCell>
+                    <TableCell numeric>Pts</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -36,9 +36,9 @@ const TableHeadings = (props)=>{
             <TableHead>
                 <TableRow>
                     <TableCell>&nbsp;</TableCell>
-                    <TableCell colSpan={8}>Home</TableCell>
-                    <TableCell colSpan={8} className={props.classes.divide}>Away</TableCell>
-                    <TableCell colSpan={8} className={props.classes.divide}>Total</TableCell>
+                    <TableCell colSpan={9}>Home</TableCell>
+                    <TableCell colSpan={9} className={props.classes.divide}>Away</TableCell>
+                    <TableCell colSpan={9} className={props.classes.divide}>Total</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell>Team</TableCell>
@@ -50,6 +50,7 @@ const TableHeadings = (props)=>{
                     <TableCell numeric>A</TableCell>
                     <TableCell numeric>GD</TableCell>
                     <TableCell numeric>Pts</TableCell>
+                    <TableCell numeric>Form</TableCell>
                     <TableCell numeric className={props.classes.divide}>P</TableCell>
                     <TableCell numeric>W</TableCell>
                     <TableCell numeric>D</TableCell>
@@ -58,6 +59,7 @@ const TableHeadings = (props)=>{
                     <TableCell numeric>A</TableCell>
                     <TableCell numeric>GD</TableCell>
                     <TableCell numeric>Pts</TableCell>
+                    <TableCell numeric>Form</TableCell>
                     <TableCell numeric className={props.classes.divide}>P</TableCell>
                     <TableCell numeric>W</TableCell>
                     <TableCell numeric>D</TableCell>
@@ -66,6 +68,7 @@ const TableHeadings = (props)=>{
                     <TableCell numeric>A</TableCell>
                     <TableCell numeric>GD</TableCell>
                     <TableCell numeric>Pts</TableCell>
+                    <TableCell numeric>Form</TableCell>
                 </TableRow>
             </TableHead>
         )

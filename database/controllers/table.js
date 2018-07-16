@@ -34,14 +34,14 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting tables"}))
     ),
     
-    updateTable: (division_id, data)=>(
+    updateTable: (division_id, data)=>{
         table
             // .findByIdAndUpdate(id, { $set: data}, { new: false })
             //NOT SURE IF BELOW RETURNS A PROMISE OR NEEDS A CB -  I THINK CB
             .findOneAndUpdate({division:division_id}, { $set: { table: data }}, {new:false, upsert:true})
             .then(data=>data)
             .catch(err=>console.log({error:true, message:"Error getting tables"}))
-    ),
+    },
     
     newTable: async (entry)=>(
         new table(entry)

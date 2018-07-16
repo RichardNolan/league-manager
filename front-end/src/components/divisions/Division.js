@@ -77,7 +77,7 @@ class Division extends Component {
                         let Panel = tab.component
                         return (
                             <div className={classes.tabPanel} key={key}>
-                                <Panel division={this.props.division._id}  />
+                                <Panel division={this.props.division._id} size='large' />
                             </div>
                         )
                     })

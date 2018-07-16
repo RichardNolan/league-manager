@@ -77,6 +77,7 @@ class Competitions extends React.Component {
         fetchQuery('http://localhost:9000/api/competition', {organisation:this.state.organisation})
             .then(res=>res.json())
             .then(res=>{
+                if(res.error) throw(res.message)
                 this.setState({competitions:res,progressBar:false})
             })
             .catch(err=>{
