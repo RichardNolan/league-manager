@@ -33,6 +33,9 @@ app.use(passport.initialize());
 
 app.use(router);
 
+app.use('/', (req,res)=>{
+    res.sendFile(path.join(__dirname, '/front-end/build/index.html'))
+});
 //THIS IS A GENERIC ERROR HANDLING MIDDLEWARE
 //THIS NEEDS TO BE REDONE
 app.use(function (err, req, res, next) {
