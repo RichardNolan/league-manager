@@ -1,6 +1,6 @@
 import React from 'react';
 import TableMain from './TableMain'
-import {fetchQuery, getStandard} from '../../utilities/fetch'
+import {getStandard} from '../../utilities/fetch'
 import { Paper, LinearProgress, Typography} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 

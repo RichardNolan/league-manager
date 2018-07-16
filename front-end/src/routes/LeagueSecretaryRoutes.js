@@ -20,7 +20,6 @@ const Fixtures = ()=>{return null}
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
 const Referees = ()=>{return null}
-const Venues = ()=>{return null}
 
 
 const Routes = [

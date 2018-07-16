@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Typography, Grid, IconButton } from '@material-ui/core';
+import React from 'react';
+import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, Typography, Grid, IconButton } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 import {KeyboardArrowUp, KeyboardArrowDown} from '@material-ui/icons'
 class NewScoreDialog extends React.Component {

@@ -11,6 +11,7 @@ const TableDataRow = (props) => {
             if(f==="0")return <Avatar className={classes.lost} key={key}></Avatar>
             if(f==="1")return <Avatar className={classes.drew} key={key}></Avatar>
             if(f==="3")return <Avatar className={classes.won} key={key}></Avatar>
+            return null
         })
 
     }

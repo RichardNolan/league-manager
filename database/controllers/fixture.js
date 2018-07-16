@@ -19,7 +19,6 @@ const aggregate = async data=>{
 const updateTable = async division=>{
     let fixtures = await result.getResults({division, status:'result'}).catch(err=>console.log(err))
     let leagueTable = createTable(fixtures)
-    console.log(leagueTable)
     table
         .updateTable(division, leagueTable)
         .then(data=>data)
@@ -81,7 +80,6 @@ module.exports = {
         //                 // data.slot = utils.updateTime_slot(result)   
         //             })
         // }   
-        console.log(data)
         return fixture
             .findByIdAndUpdate(_id, data, { new: true })
             .then(result=>{      

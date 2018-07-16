@@ -46,6 +46,7 @@ module.exports = {
                     .then(result=>{
                         let division = result._id
                         body.divisions[d].forEach(t=>{
+                            // TO-DO callback?? promise!!!
                             team.findByIdAndUpdate(t._id, {division}, (err,res)=>{
                                 if(err) console.log(err)
                                 else console.log(res)
