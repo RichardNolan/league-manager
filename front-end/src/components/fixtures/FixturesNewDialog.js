@@ -164,6 +164,7 @@ const styles = (theme)=>({
     timeControl:{
         // marginTop:
     },
+    fullWidth:{}
 })
 
 export default withStyles(styles)(FixturesNewDialog);

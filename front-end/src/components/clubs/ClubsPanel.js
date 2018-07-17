@@ -1,22 +1,9 @@
 import React, { Fragment } from 'react';
 import {Link} from 'react-router-dom'
-import {MoreVert, Favorite,Share } from '@material-ui/icons';
+import {MoreVert, Favorite, More } from '@material-ui/icons';
 import { Card, CardContent, CardActions, CardHeader, Avatar, IconButton, ListItem, ListItemText, List } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-
-const styles = theme=> ({
-    root: {
-      flexGrow: 1,
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-    list:{
-        maxHeight:200,
-        overflow: 'auto',
-    },
-  });
 
 const ClubsPanel = (props) => {
     let {classes, clubs=[], title} = props
@@ -27,7 +14,7 @@ const ClubsPanel = (props) => {
                         })
                         .map((club, key)=>(
                             <ListItem button key={key}>
-                                <Link to={`/club/${club._id}`} >
+                                <Link to={`/club/${club._id}`} className={classes.nounderline}>
                                     <ListItemText primary={club.title} />
                                 </Link>
                             </ListItem>
@@ -37,14 +24,12 @@ const ClubsPanel = (props) => {
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                    <Avatar className={classes.avatar}>
-                        C
-                    </Avatar>
+                        <Avatar className={classes.avatar}>C</Avatar>
                     }
                     action={
-                    <IconButton>
-                        <MoreVert />
-                    </IconButton>
+                        <IconButton component={Link} to={'./clubs'}>
+                            <More />
+                        </IconButton>
                     }
                     title="Clubs"
                     subheader={"Clubs in the "+title}
@@ -54,7 +39,7 @@ const ClubsPanel = (props) => {
                         {clubList}
                     </List>
                 </CardContent>
-                <CardActions className={classes.actions} disableActionSpacing>
+                {/* <CardActions className={classes.actions} disableActionSpacing>
                     <IconButton aria-label="Add to favorites">
                         <Favorite />
                     </IconButton>
@@ -62,10 +47,26 @@ const ClubsPanel = (props) => {
                         <Share />
                     </IconButton>
                 
-                </CardActions>
+                </CardActions> */}
             </Card>
         </Fragment>
     );
 };
+
+const styles = theme=> ({
+    root: {
+      flexGrow: 1,
+    },
+    avatar: {
+      backgroundColor: red[500],
+    },
+    list:{
+        maxHeight:400,
+        overflow: 'auto',
+    },
+    nounderline:{
+        textDecoration:'none',
+    },
+  });
 
 export default withStyles(styles)(ClubsPanel);

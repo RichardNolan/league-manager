@@ -11,7 +11,7 @@ import AccountMenu from './AccountMenu';
 const Header = (props) => {
   let { classes, title } = props
   return (   
-    <AppBar position="absolute" className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar}>
     <Toolbar>
       
     <IconButton

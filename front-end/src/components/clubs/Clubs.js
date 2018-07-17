@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import { post, fetchQuery } from '../../utilities/fetch'
-import { Grid, LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress, CardHeader, CardContent, Card, Avatar } from '@material-ui/core';
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import ClubNewDialog from './ClubNewDialog';
 import PlusFab from'../PlusFab'
 import ClubButton from './ClubButton';
 
-const styles = (theme)=>( {
-    root: {
-        flexGrow: 1,
-    },
-    fab: {
-      position: 'absolute',
-      bottom: theme.spacing.unit * 4,
-      right: theme.spacing.unit * 4,
-    },
-
-})
 
 class Clubs extends Component {
     state={
@@ -74,14 +63,6 @@ class Clubs extends Component {
         let {classes} = this.props
         let {clubs} = this.state
 
-        // let clubsMetro = clubs && clubs.length>0
-        //             ?   clubs.map((club,key)=>(
-        //                     <Button component={Link} to={club._id} key={key}>
-        //                         {club.title}
-        //                     </Button>
-        //                 ))
-        //             :   <LinearProgress />
-
         let clubsMetro = clubs && clubs.length>0
                     ?   clubs.map((club,key)=>(
                             <ClubButton 
@@ -96,18 +77,49 @@ class Clubs extends Component {
                     :   <LinearProgress />
         return (
             <div className={classes.root}>                
-            <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog} />
-  
-            <Grid container>
-                <Grid item>   
-                   {clubsMetro}
-                </Grid>
+            <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog}/>
+    
+            <Grid container spacing={32}>
+                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                <Grid item xs={12} sm={10} md={8} lg={6} > 
+
+                   <Card>
+                        <CardHeader
+                            avatar={
+                                    <Avatar>C</Avatar>
+                            }
+                            title="Clubs"
+                            subheader="These are the clubs in your organisation"
+                        />
+                        <CardContent className={classes.nopadding}>
+                            <Grid container alignContent='space-around'>
+                                {clubsMetro}     
+                            </Grid>                      
+                        </CardContent>
+                    </Card>
+                </Grid>                
+                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
             </Grid>
         </div>
         );
     }
 
 }
+
+const styles = (theme)=>( {
+    root: {
+        flexGrow: 1,
+    },
+    nopadding:{
+        padding:0,
+    },
+    // fab: {
+    //   position: 'absolute',
+    //   bottom: theme.spacing.unit * 4,
+    //   right: theme.spacing.unit * 4,
+    // },
+
+})
 
 export default withStyles(styles)(Clubs);
 

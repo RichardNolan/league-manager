@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { LinearProgress, Button } from '@material-ui/core';
+import { LinearProgress, Button, Typography, CardContent, CardHeader, Card, Grid, Avatar } from '@material-ui/core';
 import { fetchQuery, post } from '../../utilities/fetch';
 import Fixture from '../fixtures/Fixture'
 import NewScoreDialog from './NewScoreDialog';
@@ -61,21 +61,46 @@ class AwaitingScores extends Component {
             .catch(err=>console.log(err))
     }
     render() {
-        console.log(this.state.fixtures)
         let fixtures = this.state.fixtures.map((fixture, index)=>(
-            <Fixture 
-                fixture={fixture} 
-                key={index} 
-                showDate
-                renderExtra={()=>(
-                    <Button color="primary" onClick={this.showDialog.bind(this,fixture)}>Score</Button>
-                )}
-            />
+                <Fixture 
+                    fixture={fixture} 
+                    key={index} 
+                    showDate
+                    renderExtra={()=>(
+                        <Button color="primary" onClick={this.showDialog.bind(this,fixture)}>Score</Button>
+                    )}
+                />
+
         ))
         return (
-            <div>
-            {this.state.progressBar && <LinearProgress/>}     
-            {fixtures}
+            <div>   
+            <Grid container spacing={32}>
+                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                <Grid item xs={12} sm={10} md={8} lg={6} > 
+
+
+                   <Card>
+                       <CardHeader
+                           avatar={
+                                <Avatar>S</Avatar>
+                           }
+                           title="Awaiting Scores"
+                           subheader="These are fixtures which have been played but still haven't been given a final score"
+                       />
+                       <CardContent>
+                            {this.state.progressBar && <LinearProgress/>}     
+                            {
+                                fixtures.length>0 
+                                    ?  {fixtures}
+                                    : <Typography variant='headline'>
+                                        All played matches have been updated with a score
+                                    </Typography>
+                            }   
+                        </CardContent>
+                    </Card>
+                </Grid>                
+                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+            </Grid>
             <NewScoreDialog 
                 open={this.state.newScoreDialogOpen} 
                 onClose={this.closeNewScoreDialog.bind(this)} 

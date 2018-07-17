@@ -7,6 +7,7 @@ import Header from '../layout/HeaderLayout'
 import withStyles from "@material-ui/core/styles/withStyles";
 import JSStyle from '../../assets/jss/JSStyle'
 import defaultRoutes from '../../routes/HomeRoutes'
+import { ClickAwayListener } from '@material-ui/core';
 
 
 class MainLayout extends Component {
@@ -34,8 +35,7 @@ class MainLayout extends Component {
         return (
                 <div className={classes.wrapper}> 
                     <Header toggleDrawer={this.toggleDrawer} open={this.state.drawerOpen} />
-
-                    <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} /> 
+                        <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} /> 
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                         {Routes}

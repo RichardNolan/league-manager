@@ -101,7 +101,7 @@ class Teams extends Component {
                 {...this.props}
             />   }
                
-            <Grid container>
+            <Grid container spacing={16}>
                 <Grid item md={12}>   
                    {teamPanels}
                 </Grid>

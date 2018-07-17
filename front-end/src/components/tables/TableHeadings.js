@@ -4,30 +4,30 @@ import {withStyles} from '@material-ui/core/styles'
 
 const TableHeadings = (props)=>{
     
-    let {size} = props
+    let {size, classes} = props
 
     if(size>=0 && size<4){
         return(
             <TableHead>
                 <TableRow>
-                    <TableCell>Team</TableCell>
+                    <TableCell className={classes.dense}>Team</TableCell>
                     {size>0 && (
                         <Fragment>
-                            <TableCell numeric>P</TableCell>
-                            <TableCell numeric>W</TableCell>
-                            <TableCell numeric>D</TableCell>
-                            <TableCell numeric>L</TableCell>
+                            <TableCell numeric className={classes.dense}>P</TableCell>
+                            <TableCell numeric className={classes.dense}>W</TableCell>
+                            <TableCell numeric className={classes.dense}>D</TableCell>
+                            <TableCell numeric className={classes.dense}>L</TableCell>
                         </Fragment>
                     )}
-                    {size===2 && <TableCell numeric>GD</TableCell>}
+                    {size===2 && <TableCell numeric className={classes.dense}>GD</TableCell>}
                     {size>2 && (
                         <Fragment>
-                            <TableCell numeric>F</TableCell>
-                            <TableCell numeric>A</TableCell>
-                            <TableCell numeric>GD</TableCell>
+                            <TableCell numeric className={classes.dense}>F</TableCell>
+                            <TableCell numeric className={classes.dense}>A</TableCell>
+                            <TableCell numeric className={classes.dense}>GD</TableCell>
                         </Fragment>
                     )}
-                    <TableCell numeric>Pts</TableCell>
+                    <TableCell numeric className={classes.dense}>Pts</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -35,40 +35,40 @@ const TableHeadings = (props)=>{
         return(
             <TableHead>
                 <TableRow>
-                    <TableCell>&nbsp;</TableCell>
-                    <TableCell colSpan={9}>Home</TableCell>
+                    <TableCell className={classes.dense}>&nbsp;</TableCell>
+                    <TableCell colSpan={9} className={props.classes.divide}>Home</TableCell>
                     <TableCell colSpan={9} className={props.classes.divide}>Away</TableCell>
                     <TableCell colSpan={9} className={props.classes.divide}>Total</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell>Team</TableCell>
-                    <TableCell numeric>P</TableCell>
-                    <TableCell numeric>W</TableCell>
-                    <TableCell numeric>D</TableCell>
-                    <TableCell numeric>L</TableCell>
-                    <TableCell numeric>F</TableCell>
-                    <TableCell numeric>A</TableCell>
-                    <TableCell numeric>GD</TableCell>
-                    <TableCell numeric>Pts</TableCell>
-                    <TableCell numeric>Form</TableCell>
-                    <TableCell numeric className={props.classes.divide}>P</TableCell>
-                    <TableCell numeric>W</TableCell>
-                    <TableCell numeric>D</TableCell>
-                    <TableCell numeric>L</TableCell>
-                    <TableCell numeric>F</TableCell>
-                    <TableCell numeric>A</TableCell>
-                    <TableCell numeric>GD</TableCell>
-                    <TableCell numeric>Pts</TableCell>
-                    <TableCell numeric>Form</TableCell>
-                    <TableCell numeric className={props.classes.divide}>P</TableCell>
-                    <TableCell numeric>W</TableCell>
-                    <TableCell numeric>D</TableCell>
-                    <TableCell numeric>L</TableCell>
-                    <TableCell numeric>F</TableCell>
-                    <TableCell numeric>A</TableCell>
-                    <TableCell numeric>GD</TableCell>
-                    <TableCell numeric>Pts</TableCell>
-                    <TableCell numeric>Form</TableCell>
+                    <TableCell className={classes.dense}>Team</TableCell>
+                    <TableCell numeric className={classes.divide}>P</TableCell>
+                    <TableCell numeric className={classes.dense}>W</TableCell>
+                    <TableCell numeric className={classes.dense}>D</TableCell>
+                    <TableCell numeric className={classes.dense}>L</TableCell>
+                    <TableCell numeric className={classes.dense}>F</TableCell>
+                    <TableCell numeric className={classes.dense}>A</TableCell>
+                    <TableCell numeric className={classes.dense}>GD</TableCell>
+                    <TableCell numeric className={classes.dense}>Pts</TableCell>
+                    <TableCell numeric className={classes.dense}>Form</TableCell>
+                    <TableCell numeric className={classes.divide}>P</TableCell>
+                    <TableCell numeric className={classes.dense}>W</TableCell>
+                    <TableCell numeric className={classes.dense}>D</TableCell>
+                    <TableCell numeric className={classes.dense}>L</TableCell>
+                    <TableCell numeric className={classes.dense}>F</TableCell>
+                    <TableCell numeric className={classes.dense}>A</TableCell>
+                    <TableCell numeric className={classes.dense}>GD</TableCell>
+                    <TableCell numeric className={classes.dense}>Pts</TableCell>
+                    <TableCell numeric className={classes.dense}>Form</TableCell>
+                    <TableCell numeric className={classes.divide}>P</TableCell>
+                    <TableCell numeric className={classes.dense}>W</TableCell>
+                    <TableCell numeric className={classes.dense}>D</TableCell>
+                    <TableCell numeric className={classes.dense}>L</TableCell>
+                    <TableCell numeric className={classes.dense}>F</TableCell>
+                    <TableCell numeric className={classes.dense}>A</TableCell>
+                    <TableCell numeric className={classes.dense}>GD</TableCell>
+                    <TableCell numeric className={classes.dense}>Pts</TableCell>
+                    <TableCell numeric className={classes.dense}>Form</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -76,8 +76,12 @@ const TableHeadings = (props)=>{
 }
 
 const styles = {
-    divde:{
-        color:'red'
+    divide:{
+        borderLeft: '1px solid black',
+        padding:`4px 12px 4px 12px`,
+    },
+    dense:{
+        padding:`4px 12px 4px 12px`,
     }
 }
 

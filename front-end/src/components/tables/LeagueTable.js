@@ -4,24 +4,37 @@ import {getStandard} from '../../utilities/fetch'
 import { Paper, LinearProgress, Typography} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-});
 
 class LeagueTable extends React.Component {
     state = {
+        size: this.getSizeFromWidth(),
         teams:[],
         progressBar:false,
     }
 
     componentDidMount(){
         this.fetchData()
+        window.addEventListener('resize', this.changeWidth)
+        // SE PRJECT BOOKMARKS FOR REASON
+        // window.addEventListener('resize', this.changeWidth.bind(this))
     }
-    
+
+    getSizeFromWidth(){
+        let innerWidth = Math.floor((window.innerWidth))
+        if(innerWidth<320) return 0
+        else if(innerWidth<360) return 1
+        else if(innerWidth<450) return 2
+        else if(innerWidth>=450) return 3
+    }
+
+    changeWidth = ()=>{
+        let s = this.getSizeFromWidth()
+        this.state && this.state.size!==s && this.setState({size:s})
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.changeWidth)
+        // window.removeEventListener('resize', this.changeWidth.bind(this))
+    }
     fetchData(){
         this.setState({progressBar:true})
         fetch(`http://localhost:9000/api/division/5b47ccab658a78217440a3cc`, getStandard())
@@ -43,34 +56,10 @@ class LeagueTable extends React.Component {
                 this.setState({progressBar:false})
                 console.log(err)
             })
-        // let {teams, division} = this.props
-        // if(!teams && division){
-        //     this.setState({progressBar:true})
-        //     fetchQuery('http:localhost:9000/api/table/', {division})
-        //         .then(res=>res.json())
-        //         .then(teams=>{
-        //             if(teams.error) throw(teams.message)
-        //             this.setState({teams,progressBar:false})
-        //         })
-        //         .catch(err=>{
-        //             console.error(err)
-        //             this.setState({progressBar:false})
-        //         })
-
-        // }else if(teams){
-        //     console.log("list of teams")
-        //     if(teams[0] && typeof teams[0] === 'string'){
-        //         // sent an array of teams
-        //         // convert each el into an object with that el
-        //         teams = teams.map(t=>({team:t}))
-        //     }
-        //     this.setState({teams})
-
-        // }
     }
 
     render(){
-        let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : 2
+        let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : this.props.size || this.state.size 
         return (
             <div>
                 <Typography variant="headline" gutterBottom>
@@ -87,4 +76,11 @@ class LeagueTable extends React.Component {
     }
 };
 
+const styles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+});
 export default withStyles(styles)(LeagueTable);

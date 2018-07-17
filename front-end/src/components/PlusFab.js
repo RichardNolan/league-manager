@@ -12,9 +12,10 @@ const styles = (theme)=>( {
     },
 
     FAB: {
-        position: 'absolute',
-        top: 0 ,
-        right: theme.spacing.unit * 4,
+        position: 'fixed',
+          top: theme.spacing.unit * 12,
+          right: theme.spacing.unit * 4,
+          zIndex: theme.zIndex.drawer + 1,
       },
       fullWidth:{},
 })

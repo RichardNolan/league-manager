@@ -3,27 +3,13 @@ import Organisation from './Organisation'
 import { post, getStandard} from '../../utilities/fetch'
 import {Link, Route} from 'react-router-dom'
 
-import { LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress, CardHeader, CardContent, Card, Avatar } from '@material-ui/core';
 
 
 import { withStyles } from '@material-ui/core/styles';
 import OrganisationNewDialog from './OrganisationNewDialog';
 import PlusFab from'../PlusFab'
 import ClubButton from '../clubs/ClubButton';
-
-const styles = (theme)=>( {
-    root: {
-      flexGrow: 1,
-    },
-    flex:{
-        flex:1,        
-        justifyContent: 'spaceBetween',
-    },
-    fab: {
-      right: theme.spacing.unit * 2,
-      zIndex: theme.zIndex.tooltip,
-    },
-})
 
 class Organisations extends React.Component {
     constructor(props){
@@ -103,8 +89,27 @@ class Organisations extends React.Component {
                     exact={true} 
                     component={()=>(
                     <Fragment>
-                        <PlusFab onSave={this.saveNewOrganisation.bind(this)} dialog={OrganisationNewDialog}  />  
-                        {organisationsMetro}
+                        <PlusFab onSave={this.saveNewOrganisation.bind(this)} dialog={OrganisationNewDialog}  /> 
+                            <Grid container spacing={16}>
+                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                                <Grid item xs={12} sm={10} md={8} lg={6} > 
+                                    <Card>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar>O</Avatar>
+                                            }
+                                            title="Organisations"
+                                            subheader="These are the different organisations in the application"
+                                        />
+                                        <CardContent spacing={16} className={classes.nopadding}>
+                                            <Grid container alignContent='space-around'> 
+                                                {organisationsMetro}     
+                                            </Grid>                      
+                                        </CardContent>
+                                    </Card>
+                                </Grid>                
+                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                            </Grid>
                     </Fragment>
                 )} />
                
@@ -114,6 +119,23 @@ class Organisations extends React.Component {
     }
   
 }
+
+const styles = (theme)=>( {
+    root: {
+      flexGrow: 1,
+    },
+    flex:{
+        flex:1,        
+        justifyContent: 'spaceBetween',
+    },
+    nopadding:{
+        padding:0,
+    },
+    fab: {
+      right: theme.spacing.unit * 2,
+      zIndex: theme.zIndex.tooltip,
+    },
+})
 
 export default withStyles(styles)(Organisations)
 

@@ -25,7 +25,7 @@ module.exports = {
         club
             .findById(id)
             .populate({ path: 'organisation' })
-            .populate({ path: 'venue' })
+            // .populate({ path: 'venue' })
             // .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
