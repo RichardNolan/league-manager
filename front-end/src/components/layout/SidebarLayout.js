@@ -19,9 +19,9 @@ const Sidebar = (props)=>{
         })
         .map((route, key)=>(
         <MenuItem 
-            className={classes.menuItem} 
             key={key} 
             component={Link} 
+            onClick={props.closeDrawer}
             to={`${props.match.url}${route.path}`}
             from={window.location.pathname}
         >
@@ -35,13 +35,12 @@ const Sidebar = (props)=>{
     return(
         
         <Drawer 
-            variant="permanent"
-            classes={{
-                paper: classes.drawerPaper,
-            }}
+            variant="persistent"
+            anchor="left"
+            open={props.open}
         >
             <div className={classes.toolbar} />
-            <List>
+            <List className={classes.drawer}>
                 <MenuList>
                     {menuItems}
                 </MenuList>
@@ -52,5 +51,14 @@ const Sidebar = (props)=>{
 };
     
 
+const styles=theme=>({
+    drawer: {
+        position: 'relative',
+        width: 240,
+      },
+      wrapper:{},
+      content:{},
+      toolbar:{},
+  })
 
-export default withStyles(JSStyle)(Sidebar);
+export default withStyles(styles)(Sidebar);

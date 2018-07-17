@@ -52,13 +52,12 @@ class LoginForm extends Component {
                    <Card>
                        <CardHeader
                            avatar={
-                           <Avatar className={classes.avatar}>
+                           <Avatar>
                                L
                            </Avatar>
                            }
                            title="Log In"
                            subheader="Login to access your team or league"
-                           // className={classes.cardHeader}
                        />
                        <CardContent>
                                <FormGroup>
@@ -69,8 +68,6 @@ class LoginForm extends Component {
                                        type="email"
                                        value={this.state.email}
                                        onChange={this.changeEmail}
-                                       // autoComplete="email-address"
-                                       // margin="normal"
                                    />
                                    <TextField
                                        id="password"
@@ -79,8 +76,6 @@ class LoginForm extends Component {
                                        type="password"
                                        value={this.state.password}
                                        onChange={this.changePassword}
-                                       // autoComplete="current-password"
-                                       // margin="normal"
                                    />
                                </FormGroup>
                                 <FormControlLabel control={
@@ -94,13 +89,12 @@ class LoginForm extends Component {
                                                         }
                                     label="Stay logged in"
                                 />
-                                <Button className={classes.button} component={Link} to='/forgot' from={window.location.pathname}>Forgot Password</Button>
-                                <Button className={classes.button} component={Link} to='/register' from={window.location.pathname}>Register</Button>
+                                <Button component={Link} to='/forgot' from={window.location.pathname}>Forgot Password</Button>
+                                <Button  component={Link} to='/register' from={window.location.pathname}>Register</Button>
                        </CardContent>
-                       <CardActions className={classes.actions} disableActionSpacing>     
-                           <Button className={classes.button} component={Link} to='/' from={window.location.pathname}>Cancel</Button>
-                      
-                           <Button variant="contained" color="primary" className={classes.signin} onClick={this.onLogin}>
+                       <CardActions>     
+                           <Button className={classes.keepRight} component={Link} to='/' from={window.location.pathname}>Cancel</Button>
+                           <Button variant="contained" color="primary" onClick={this.onLogin}>
                                Login
                            </Button>
                        </CardActions>
@@ -122,6 +116,16 @@ class LoginForm extends Component {
     }
 }
 
+const styles=theme=>({
+    
+    textField: {
+      margin: theme.spacing.unit,
+    },
+    keepRight:{
+      marginLeft: 'auto',
+    },
+  })
+  
 
 
-export default withStyles(JSStyle)(LoginForm);
+export default withStyles(styles)(LoginForm);

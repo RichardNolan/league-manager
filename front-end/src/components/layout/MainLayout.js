@@ -10,6 +10,18 @@ import defaultRoutes from '../../routes/HomeRoutes'
 
 
 class MainLayout extends Component {
+    state={
+        drawerOpen:false,
+    }
+
+    toggleDrawer = ()=>{
+        this.setState({drawerOpen:!this.state.drawerOpen})
+    }
+
+    closeDrawer = ()=>{
+        this.setState({drawerOpen:false})
+    }
+
     render() {  
         const {classes} = this.props; 
         let routes = this.props.routes || defaultRoutes
@@ -21,17 +33,39 @@ class MainLayout extends Component {
 
         return (
                 <div className={classes.wrapper}> 
-                    <Header />
-                    <Hidden smDown>
-                        <Sidebar routes={routes} {...this.props} /> 
-                    </Hidden>               
+                    <Header toggleDrawer={this.toggleDrawer} open={this.state.drawerOpen} />
+
+                    <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} /> 
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
-                    {Routes}
+                        {Routes}
                     </main> 
                 </div>
         );
     }
 }
 
-export default withStyles(JSStyle)(MainLayout);
+const styles = theme=>({
+    
+  wrapper: {
+    position: "relative",
+    top: "0",
+    height: "100vh",
+    flexGrow: 1,
+    zIndex: 1,
+    display: 'flex',
+    overflowY:'auto',
+  },
+  content: {
+      poition:'absolute',
+      left:0,
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+    minWidth: 0, // So the Typography noWrap works
+  },
+  toolbar: theme.mixins.toolbar,
+})
+
+
+export default withStyles(styles)(MainLayout);

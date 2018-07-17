@@ -4,7 +4,7 @@ import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardA
 import JSStyle from '../../assets/jss/JSStyle'
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
-import { getStandard } from '../../utilities/fetch'
+import { getStandard, fetchQuery } from '../../utilities/fetch'
 
 class RegisterForm extends React.Component {
     constructor(){
@@ -36,15 +36,16 @@ class RegisterForm extends React.Component {
         if(org) this.setState({
                         clubs: await fetch('http://localhost:9000/api/organisation/'+org, getStandard)
                                         .then(res=>res.json())
-                                        .then(res=>res.clubs),
+                                        .then(res=>res.clubs)
+                                        .catch(err=>console.log(err)),
                         teams:[]
                 })
     }
     async getTeams(club){
         if(club) this.setState({
-                    teams: await fetch('http://localhost:9000/api/club/'+club, getStandard)
+                    teams: await fetchQuery('http://localhost:9000/api/team', {club})
                                     .then(res=>res.json())
-                                    .then(res=>res.teams)
+                                    .catch(err=>console.log(err))
                 })
     }
 
@@ -218,12 +219,11 @@ class RegisterForm extends React.Component {
                                </FormGroup>
                                 Already registered? <Button className={classes.button}>Log In</Button>
                        </CardContent>
-                       <CardActions className={classes.actions} disableActionSpacing>     
-                            <Button className={classes.button} component={Link} to='/' from={window.location.pathname}>Cancel</Button>     
-                      
-                           <Button variant="contained" color="primary" className={classes.signin} onClick={this.onRegister}>
-                               Register
-                           </Button>
+                       <CardActions disableActionSpacing>     
+                            <Button className={classes.keepRight} component={Link} to='/' from={window.location.pathname}>Cancel</Button>      
+                            <Button variant="contained" color="primary" onClick={this.onRegister}>
+                                Register
+                            </Button>
                        </CardActions>
                    </Card>
                    {this.props.loginError && this.props.loginErrorProblem}
@@ -244,5 +244,14 @@ class RegisterForm extends React.Component {
 }
 
 
+const styles=theme=>({
+    
+    textField: {
+      margin: theme.spacing.unit,
+    },
+    keepRight:{
+      marginLeft: 'auto',
+    },
+  })
 
-export default withStyles(JSStyle)(RegisterForm);
+export default withStyles(styles)(RegisterForm);

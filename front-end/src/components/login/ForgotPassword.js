@@ -103,9 +103,9 @@ class ForgotMessage extends Component {
                                 </Typography>
                             </FormGroup>
                         </CardContent>
-                        <CardActions className={classes.actions} disableActionSpacing>     
-                            <Button className={classes.button} component={Link} to='/login' from={window.location.pathname}>Cancel</Button>                        
-                            <Button variant="contained" color="primary" className={classes.signin} onClick={this.onSendPassword} >
+                        <CardActions >     
+                            <Button className={classes.keepRight} component={Link} to='/login' from={window.location.pathname}>Cancel</Button>                        
+                            <Button variant="contained" color="primary" onClick={this.onSendPassword} >
                                 Send me new password
                             </Button>
                         </CardActions>
@@ -127,4 +127,14 @@ class ForgotMessage extends Component {
     }
 }
 
-export default withStyles(JSStyle)(ForgotMessage);
+const styles=theme=>({
+    
+  textField: {
+    margin: theme.spacing.unit,
+  },
+  keepRight:{
+    marginLeft: 'auto',
+  },
+})
+
+export default withStyles(styles)(ForgotMessage);

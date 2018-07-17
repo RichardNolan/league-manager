@@ -43,7 +43,7 @@ class AccountMenu extends Component {
         return (
             
             <Fragment>
-                <Typography className={classes.caption} color="inherit">
+                <Typography variant='caption' color="inherit">
                     {user.user.email}
                 </Typography>
                 
@@ -67,5 +67,7 @@ class AccountMenu extends Component {
         );
     }
 }
-
-export default withStyles(JSStyle)(AccountMenu);
+const styles={
+    
+}
+export default withStyles(styles)(AccountMenu);
