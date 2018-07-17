@@ -36,6 +36,7 @@ module.exports = {
             .find(criteria)
             .where('date')
             .gt(Date.now())
+            .sort({date:1})
             // .populate({ path: 'score' })
             .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short'} })
             .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
@@ -59,8 +60,8 @@ module.exports = {
         fixture
             .findOne(criteria)
             .populate({ path: 'score' })
-            .populate({ path: 'home_team' })
-            .populate({ path: 'away_team' })
+            .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short'} })
+            .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
             .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),

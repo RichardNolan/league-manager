@@ -94,8 +94,8 @@ class RegisterForm extends React.Component {
         return (
         <Fragment>
             <Grid container spacing={32}>
-               <Grid item xs sm={2}></Grid>
-               <Grid item xs>                                    
+               <Grid item xs={false} sm={2}></Grid>
+               <Grid item xs={12} sm={8}>                                    
                    <Card>
                        <CardHeader
                            avatar={
@@ -228,7 +228,7 @@ class RegisterForm extends React.Component {
                    </Card>
                    {this.props.loginError && this.props.loginErrorProblem}
                </Grid>
-               <Grid item xs sm={2}></Grid>
+               <Grid item xs={false} sm={2}></Grid>
            </Grid>
            
            <Snackbar

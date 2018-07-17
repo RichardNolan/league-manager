@@ -21,21 +21,16 @@ const styles = theme => ({
 const tabs = [
     {
         tab:0,
-        label:'Teams',
-        component: Teams
-    },
-    {
-        tab:1,
         label:'Table',
         component: LeagueTable
     },
     {
-        tab:2,
+        tab:1,
         label:'Fixtures',
         component: Fixtures
     },
     {
-        tab:3,
+        tab:2,
         label:'Results',
         component: Results
     },

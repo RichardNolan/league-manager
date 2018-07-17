@@ -16,6 +16,7 @@ const styles = (theme)=>( {
         top: 0 ,
         right: theme.spacing.unit * 4,
       },
+      fullWidth:{},
 })
 
 class PlusFab extends Component {

@@ -23,17 +23,26 @@ class LeagueTable extends React.Component {
     }
     
     fetchData(){
+        this.setState({progressBar:true})
         fetch(`http://localhost:9000/api/division/5b47ccab658a78217440a3cc`, getStandard())
             .then(res=>res.json())
             .then(res=>{
                 let leagueData = res.table.table
+                                    .filter(t=>{                        
+                                        if(this.props.filter) return this.props.filter===t.team ? true : false
+                                        return true
+                                    })
+
                 leagueData.map(t=>{
-                    t.team = res.teams.find(tm=>tm._id===t.team).club.title_short
-                    return t
-                })
-                this.setState({teams:leagueData})
+                        t.team = res.teams.find(tm=>tm._id===t.team).club.title_short
+                        return t
+                    })
+                this.setState({teams:leagueData,progressBar:false})
             })
-            .catch(err=>{console.log(err)})
+            .catch(err=>{
+                this.setState({progressBar:false})
+                console.log(err)
+            })
         // let {teams, division} = this.props
         // if(!teams && division){
         //     this.setState({progressBar:true})
@@ -64,10 +73,10 @@ class LeagueTable extends React.Component {
         let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : 2
         return (
             <div>
-                {this.state.progressBar && <LinearProgress/>}
                 <Typography variant="headline" gutterBottom>
                     {this.props.title || null}
                 </Typography>
+                {this.state.progressBar && <LinearProgress/>}
                 <Paper className={this.props.classes.root}>
                         <TableMain size={size} teams={this.state.teams} />
                 </Paper>

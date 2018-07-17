@@ -1,6 +1,10 @@
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import React from 'react'
+import {injectUser} from '../utilities/utils'
+
+import Team from '../components/teams/Team'
+
 const Fixtures = ()=>{return null}
 const Results = ()=>{return null}
 const Teams = ()=>{return null}
@@ -15,7 +19,7 @@ const Routes = [
         link: "Tables",
         icon: DraftsIcon,
         pageTitle: "Tables",
-        path: "/member/tables", 
+        path: "/tables", 
         component: Tables
     },
     { 
@@ -23,7 +27,7 @@ const Routes = [
         link: "Results",
         icon: DraftsIcon,
         pageTitle: "Results",
-        path: "/member/results", 
+        path: "/results", 
         component: Results
     },
     { 
@@ -31,7 +35,7 @@ const Routes = [
         link: "Fixtures",
         icon: DraftsIcon,
         pageTitle: "Fixtures",
-        path: "/member/fixtures", 
+        path: "/fixtures", 
         component: Fixtures
     },
     { 
@@ -39,7 +43,7 @@ const Routes = [
         link: "Players",
         icon: DraftsIcon,
         pageTitle: "Players",
-        path: "/member/players", 
+        path: "/players", 
         component: Players
     },
     { 
@@ -47,7 +51,7 @@ const Routes = [
         link: "Teams",
         icon: DraftsIcon,
         pageTitle: "Teams",
-        path: "/member/teams", 
+        path: "/teams", 
         component: Teams
     },
     {  
@@ -55,15 +59,8 @@ const Routes = [
         link: "Dashboard",
         icon: SendIcon,
         pageTitle: "Member",
-        path: "/member", 
-        component: MemberHome 
-    },
-    {  
-        order:0,
-        link: "Home",
-        icon: SendIcon,
-        pageTitle: "Homepage",
         path: "/", 
+        component: injectUser(Team)    
     },
 ];
 

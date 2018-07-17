@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import {Link} from 'react-router-dom'
 import {MoreVert, Favorite,Share } from '@material-ui/icons';
 import { Card, CardContent, CardActions, CardHeader, Avatar, IconButton, ListItem, ListItemText, List } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -26,7 +27,9 @@ const ClubsPanel = (props) => {
                         })
                         .map((club, key)=>(
                             <ListItem button key={key}>
-                            <ListItemText primary={club.title} />
+                                <Link to={`/club/${club._id}`} >
+                                    <ListItemText primary={club.title} />
+                                </Link>
                             </ListItem>
                         ))
     return (

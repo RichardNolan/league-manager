@@ -5,7 +5,7 @@ import {Link, Route} from 'react-router-dom'
 import CompetitionsPanel from '../competitions/CompetitionsPanel';
 import ClubsPanel from '../clubs/ClubsPanel';
 import Clubs from '../clubs/Clubs';
-import RefereesPanel from '../referees/RefereesPanel';
+// import RefereesPanel from '../referees/RefereesPanel';
 import { Grid, LinearProgress } from '@material-ui/core';
 
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -62,30 +62,11 @@ class Organisation extends Component {
                 {/* <Route path="/organisations/:organisation/clubs/" component={Clubs} exact={false} /> */}
                 <Route path={`${this.props.match.path}`} exact={true} component={()=>(
                     <Grid container spacing={32}>
-                        <Grid item sm={12} md={12}>
-                            <Link 
-                                to={`${this.props.location.pathname}clubs/`}  
-                                from={this.props.location.pathname}
-                            >
-                                Clubs
-                            </Link> | 
-                            <Link 
-                                to={`${this.props.location.pathname}competitions/`}  
-                                from={this.props.location.pathname}
-                            >
-                                competitions
-                            </Link>
-                        </Grid>
                         <Grid item sm={12} md={6}>
                             <CompetitionsPanel competitions={org.competitions} title={org.title}/>
                         </Grid>
                         <Grid item sm={12} md={6}>
                             <ClubsPanel clubs={org.clubs} title={org.title}/>
-                        </Grid>
-                        <Grid item sm={12} md={6}>
-                            <RefereesPanel referees={org.referees} title={org.title}/>
-                        </Grid>
-                        <Grid item sm={12} md={6}>
                         </Grid>
                     </Grid>
                 )} />

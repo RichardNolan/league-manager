@@ -35,21 +35,13 @@ class Club extends Component {
             <div>
                 {this.state.progressBar && <LinearProgress/>}
                 <ClubBanner club={club} />
-                
-                <Link 
-                    to={`${this.props.location.pathname}/teams/`}  
-                    from={this.props.location.pathname}
-                >
-                    Teams
-                </Link>
-                <Paper>
+   
                     <Route path="/club/:club/teams/" component={Teams} exact={false} />
                     <Route path="/club/:club/" exact={true} component={()=>(
-                        <Fragment>
-                            this is the home page
-                        </Fragment>
+                        <Teams club={club}/>
+                        // <b>OLD</b>
                     )} />
-                </Paper>
+       
             </div>
         );
     }

@@ -40,25 +40,19 @@ class ResultList extends React.Component {
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)
-                console.log(res)
                 this.setState({progressBar:false})
                 this.props.fetchData()
             })
             .catch(err=>console.log(err))
     }
-    // newResultDate(newDate){
-    //     this.setState({newScoreDialogOpen:false, progressBar:true})
-    //     let result = this.state.resultToEdit
-    //     result.date = newDate
-    //     fetch(`http://localhost:9000/api/result/${result._id}`, post({date:newDate}))
-    //         .then(res=>{
-    //             this.setState({progressBar:false})
-    //             return res
-    //         })
-    //         .catch(err=>console.error(err))
+
+
+    // componentDidMount(){
+    //     let resultGroups =  _.groupBy(this.props.results, (x)=>{return moment(x.date).format("ddd, MMM Do")})
+    //     this.setState({value:resultGroups.length-1})      
     // }
 
-    render(){
+    render(){ 
         let {value} = this.state
         let {results} = this.props
         let resultGroups =     _.groupBy(results, (x)=>{
@@ -66,6 +60,7 @@ class ResultList extends React.Component {
                                 })
         let tabs =  Object.keys(resultGroups)
                         // .sort()
+                        .reverse()
                         .map((group, index)=>(
                             <Tab 
                                 key={index} 
@@ -73,7 +68,7 @@ class ResultList extends React.Component {
                             />
                         ))
         let tabContent  = Object.keys(resultGroups)
-                            // .sort()
+                            .reverse()
                             .map((group, index)=>(
                                 <ResultSet 
                                     title={group}
@@ -81,7 +76,8 @@ class ResultList extends React.Component {
                                     key={index} 
                                     openNewScoreDialog={this.openNewScoreDialog.bind(this)}
                                 />
-                            ))                
+                            ))     
+
         return (
             <div>
             <AppBar position="static" color="default">
@@ -96,7 +92,7 @@ class ResultList extends React.Component {
                     {tabs}                
                 </Tabs>
                 {this.state.progressBar && <LinearProgress/>}
-                {tabContent[value]}
+                {tabContent && tabContent[value]}
             </AppBar>
             <NewScoreDialog 
                 open={this.state.newScoreDialogOpen} 

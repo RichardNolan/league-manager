@@ -17,18 +17,18 @@ const Result = (props) => {
         <Fragment>
         {result && (
             <Grid container className={props.classes.root} >
-                <Grid item xs={5}>
-                    <Typography variant="subheading" >
+                <Grid item xs={4}>
+                    <Typography variant="subheading"  className={props.classes.right} >
                         {result.home_team.club.title_short}
                     </Typography>
                 </Grid>
-                <Grid item xs={2} className={props.classes.score}>
+                <Grid item xs={4} className={props.classes.score}>
                     <Typography variant="headline" >
                         {result.score_home } - {result.score_away}                        
                     </Typography>
                 </Grid>
-                <Grid item xs={5} className={props.classes.buttonContainer}>
-                    <Typography variant="subheading" >
+                <Grid item xs={4} className={props.classes.buttonContainer}>
+                    <Typography variant="subheading"  className={props.classes.left} >
                         {result.away_team.club.title_short}
                     </Typography>
                     <USER.Consumer>
@@ -56,6 +56,12 @@ const styles = theme=>({
         borderBottom: [
             [1, 'solid', 'lightgrey']
           ],
+    },
+    right:{
+        textAlign:'right',
+    },
+    left:{
+        textAlign:'left',
     },
     buttonContainer:{
         position:'relative',

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import {Link} from 'react-router-dom'
 import {MoreVert, Favorite,Share, Add } from '@material-ui/icons';
 import { Card, CardContent, CardActions, CardHeader, Avatar, IconButton, ListItem, ListItemText, List } from '@material-ui/core';
 
@@ -28,7 +29,12 @@ const CompetitionsPanel = (props) => {
                         })
                         .map((competition, key)=>(
                             <ListItem button key={key}>
-                                <ListItemText primary={competition.title} />
+                                <Link to={
+                                    competition.type==='league' 
+                                        ? `/organisations/${competition.organisation}/competitions/${competition._id}/league/` 
+                                        : `/organisations/${competition.organisation}/competitions/${competition._id}/cup/`}  >
+                                    <ListItemText primary={competition.title} />
+                                </Link>
                             </ListItem>
                         ))
     return (

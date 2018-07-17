@@ -13,6 +13,8 @@ const Schema = new mongoose.Schema({
     players: [ {type: ObjectId, ref: 'player'} ],
     users:  [ {type: ObjectId, ref: 'user'} ],
     fixtures:  [ {type: ObjectId, ref: 'fixture'} ],
+    nextFixture: {type: ObjectId, ref: 'fixture'},
+    lastResult: {type: ObjectId, ref: 'fixture'},
 })
 
 module.exports = mongoose.model('team', Schema);

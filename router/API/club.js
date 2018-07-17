@@ -30,9 +30,9 @@ const newClub = (req, res, next)=>{
         .catch(next)    
 }
 
-const replaceClub = (req, res, next)=>{
+const latestNews = (req, res, next)=>{
     club
-        .replaceClub(req.body._id, req.body)
+        .latestNews(req.params.id)
         .then(data=>res.status(200).json(data))
         .catch(next)   
 }
@@ -55,9 +55,8 @@ router.use((req, res, next)=>{
 
 router.get('/', getClubs);
 router.get('/:id', getClub);
-router.get('/:id/officials', getClubOfficials);
+router.get('/:id/latest', latestNews);
 router.post('/', Authenticate, isLeagueSecretary, newClub);
-router.put('/:id', Authenticate, isLeagueSecretary, replaceClub);
 router.patch('/:id', Authenticate, isLeagueSecretary, updateClub);
 router.delete('/:id', Authenticate, isLeagueSecretary, deleteClub);
 

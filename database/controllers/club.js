@@ -1,6 +1,5 @@
-const { club } = require('../models/')
+const { club, fixture, result } = require('../models/')
 const team = require('./team')
-const venue = require('./venue')
 
 const aggregate = async data=>{
     console.log("getting teams")
@@ -72,6 +71,5 @@ module.exports = {
                 .then(result=>result)
                 .catch(err=>console.log({error:true, message:"Error creating club"}))
     ),
-
 
 }
