@@ -22,7 +22,7 @@ class RegisterContainer extends Component {
     onRegister({title, email, password1, password2, organisation, club, team, secret}){
         this.setError(false, '')
         fetch('http://localhost:9000/api/signup/', 
-        // TO-DO Make a standardPost object in utilities/fetch 
+        // TO-DO EASY Make a standardPost object in utilities/fetch 
         {
             method: 'POST',
             body: JSON.stringify({title, email, password1, password2, organisation, club, team, secret}),

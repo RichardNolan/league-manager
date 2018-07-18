@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Snackbar,Typography} from '@material-ui/core'
 import {Link} from 'react-router-dom'
-
-import JSStyle from '../../assets/jss/JSStyle'
 import { withStyles } from '@material-ui/core/styles'
 
 class ForgotMessage extends Component {
@@ -35,7 +33,7 @@ class ForgotMessage extends Component {
         this.snack(false, '')
         let {email, secret} = this.state
         fetch('http://localhost:9000/api/forgotpassword',
-        // TO-DO Make a standardPost object in utilities/fetch  
+        // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
             method: 'POST',
             body: JSON.stringify({email, secret}),

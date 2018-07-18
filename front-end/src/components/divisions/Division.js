@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Tab, Typography } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
-import Teams from '../teams/Teams';
+// import Teams from '../teams/Teams';
 import Fixtures from "../fixtures/Fixtures";
 import Results from "../results/Results";
 

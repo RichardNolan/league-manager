@@ -31,7 +31,7 @@ class LoginContainer extends Component {
         this.setError(false, '')
         if( !validateEmail( email ) ) return;
         fetch('http://localhost:9000/api/signin',
-        // TO-DO Make a standardPost object in utilities/fetch  
+        // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
             method: 'POST',
             body: JSON.stringify({email, password}),

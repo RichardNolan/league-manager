@@ -2,7 +2,6 @@ import React, { Fragment }  from 'react';
 import {AppBar,Toolbar,Typography,Button, IconButton} from '@material-ui/core'
 import {Menu, ChevronLeft} from '@material-ui/icons' 
 import { withStyles } from '@material-ui/core/styles'
-import JSStyle from '../../assets/jss/JSStyle'
 import { Link } from 'react-router-dom'
 
 import USER from '../../USER'

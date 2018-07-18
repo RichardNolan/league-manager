@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { getStandard } from '../../utilities/fetch'
 
-import {Link, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import CompetitionsPanel from '../competitions/CompetitionsPanel';
 import ClubsPanel from '../clubs/ClubsPanel';
 import Clubs from '../clubs/Clubs';

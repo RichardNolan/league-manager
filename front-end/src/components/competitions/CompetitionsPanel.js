@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
-import {More, Favorite,Share, Add } from '@material-ui/icons';
-import { Card, CardContent, CardActions, CardHeader, Avatar, IconButton, ListItem, ListItemText, List } from '@material-ui/core';
+import {More,  } from '@material-ui/icons';
+import { Card, CardContent, CardHeader, Avatar, IconButton, ListItem, ListItemText, List } from '@material-ui/core';
 
 
 import { withStyles } from '@material-ui/core/styles';

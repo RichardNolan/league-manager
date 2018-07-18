@@ -41,18 +41,3 @@ class Categories extends React.Component {
 }
 
 export default withStyles(styles)(Categories);
-
-
-
-
-            //  <FormControl className={props.classes.fullWidth} >
-            //     {/* TO-DO this label doesn't work the first time the dialog opens cos the id isn't in the dom, it works on subsequent turns */}
-            //     <InputLabel htmlFor="category">Select Team Category</InputLabel>
-            //     <Select
-            //         value={props.category}
-            //         onChange={props.onChange.bind(this)}
-            //         inputProps={{name: 'category', id:'category'}}
-            //     >
-            //         { teamCategories.map((cat, key)=> <MenuItem key={key}>{cat}</MenuItem>) }   
-            //     </Select>
-            // </FormControl>

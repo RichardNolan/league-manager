@@ -1,22 +1,23 @@
 import React from 'react';
 
-import LeagueTable from '../tables/LeagueTable';
+// import LeagueTable from '../tables/LeagueTable';
 import NewLeague from '../leagues/NewLeague'
-import { Grid } from '@material-ui/core';
+// import { Grid } from '@material-ui/core';
 
  
 const Home = () => {
+    let test = {
+        organisation: "5b2acd2aa67acb2b1894e3b2",
+        league:{
+            category:"Mens Senior"
+        }
+    }
     return (
         <div>    
-            <Grid container>
-                <Grid item md={12}>        
-                    {/* <ForgotPassword /> */}
-                </Grid>
-                <Grid item md={12}>        
+     
                     {/* <LeagueTable title='Premiership' size='full' division="5b463a2b26c3f902c81da980" /> */}
-                    <NewLeague/>
-                </Grid>
-            </Grid>
+                    <NewLeague competition={test}/>
+              
         </div>
     );
 };

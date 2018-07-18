@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, withStyles, CardHeader, Avatar } from '@material-ui/core';
+import { withStyles, CardHeader, Avatar } from '@material-ui/core';
 
 const ClubBanner = (props) => {
     let {club, classes} = props

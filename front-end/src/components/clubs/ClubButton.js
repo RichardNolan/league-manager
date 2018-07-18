@@ -6,7 +6,7 @@ import { Typography, ButtonBase, Grid } from '@material-ui/core';
 const ClubButton = (props) => {
     let {classes} = props
     return (
-      <Grid item xs={12} sm={12} md={6} lg={4}>
+      <Grid item xs={12} sm={6} md={4} lg={2}>
         <ButtonBase
           component={props.component}
           to={props.to}

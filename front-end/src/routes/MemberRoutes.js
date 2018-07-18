@@ -1,6 +1,6 @@
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import React from 'react'
+// import React from 'react'
 import {injectUser} from '../utilities/utils'
 
 import Team from '../components/teams/Team'
@@ -10,7 +10,6 @@ const Results = ()=>{return null}
 const Teams = ()=>{return null}
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
-const MemberHome = ()=>{return <h1>Members Dashboard</h1>}
 
 
 const Routes = [

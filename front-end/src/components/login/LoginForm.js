@@ -3,7 +3,6 @@ import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardA
 
 import {Link} from 'react-router-dom'
 
-import JSStyle from '../../assets/jss/JSStyle'
 import { withStyles } from '@material-ui/core/styles'
 
 class LoginForm extends Component {

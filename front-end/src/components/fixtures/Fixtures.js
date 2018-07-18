@@ -41,7 +41,7 @@ class Fixtures extends Component {
     }
     render() {
         return (
-            <div>  
+            <div style={{position:'relative'}}>  
                 {this.state.progressBar && <LinearProgress/>}     
                 <PlusFab onSave={this.saveNewFixtures.bind(this)} dialog={FixturesNewDialog} division={this.props.division} />
                 {

@@ -1,13 +1,11 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import JSStyle from '../../assets/jss/JSStyle'
 
-import {Drawer,List,MenuList,MenuItem,ListItemIcon,ListItemText, ClickAwayListener} from '@material-ui/core'
+import {Drawer,List,MenuList,MenuItem,ListItemIcon,ListItemText} from '@material-ui/core'
 
 import SendIcon from '@material-ui/icons/Send';
 import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom'
-
 
 const Sidebar = (props)=>{
     let {classes, routes} = props

@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Teams from '../teams/Teams'
-import {Link, Route} from 'react-router-dom'
+import { Route} from 'react-router-dom'
 import ClubBanner from './ClubBanner'
 
-import { Grid, LinearProgress, CardHeader, CardContent, Card, Avatar, withStyles } from '@material-ui/core';
+import { Grid, LinearProgress, CardContent, Card, withStyles } from '@material-ui/core';
 
 
 class Club extends Component {

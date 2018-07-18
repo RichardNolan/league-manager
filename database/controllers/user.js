@@ -62,7 +62,7 @@ module.exports = {
         user
             .find(criteria)
             .then(data=>{
-                // TO-DO STRIP THE PASSWORD OFF EVERY USER IN DATA
+                // TO-DO EASY STRIP THE PASSWORD OFF EVERY USER IN DATA
                 return data
             })
             .catch(err=>console.log({error:true, message:"Error getting divivions"}))

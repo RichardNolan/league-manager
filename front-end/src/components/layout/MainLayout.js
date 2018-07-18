@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import {Route, Switch } from "react-router-dom";
-import Hidden from '@material-ui/core/Hidden';
 import Sidebar from '../layout/SidebarLayout'
 import Header from '../layout/HeaderLayout'
 
 import withStyles from "@material-ui/core/styles/withStyles";
-import JSStyle from '../../assets/jss/JSStyle'
 import defaultRoutes from '../../routes/HomeRoutes'
-import { ClickAwayListener } from '@material-ui/core';
 
+import * as soccer_03 from '../../assets/soccer_03.jpg'
+import * as soccer_04 from '../../assets/soccer_04.jpg'
 
 class MainLayout extends Component {
     state={
@@ -35,7 +34,7 @@ class MainLayout extends Component {
         return (
                 <div className={classes.wrapper}> 
                     <Header toggleDrawer={this.toggleDrawer} open={this.state.drawerOpen} />
-                        <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} /> 
+                        <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                         {Routes}
@@ -55,12 +54,19 @@ const styles = theme=>({
     zIndex: 1,
     display: 'flex',
     overflowY:'auto',
+    backgroundImage:"url('"+soccer_03+"')",
+    backgroundSize:'cover',
+  },
+  drawer:{
+    backgroundImage:"url('"+soccer_04+"')",
+    backgroundSize:'cover',
+    height:'100%'
   },
   content: {
       poition:'absolute',
       left:0,
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    // backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
     minWidth: 0, // So the Typography noWrap works
   },

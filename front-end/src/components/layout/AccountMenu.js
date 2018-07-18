@@ -5,7 +5,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom'
 import LogoutDialog from '../login/LogoutDialog'
 import { withStyles } from '@material-ui/core/styles'
-import JSStyle from '../../assets/jss/JSStyle'
 
 
 class AccountMenu extends Component { 
@@ -36,7 +35,7 @@ class AccountMenu extends Component {
         this.handleCloseMenu()
     }
     render() {
-        const { classes, user } = this.props;
+        const { user } = this.props;
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {Stepper,Step,StepLabel,Button,Typography, Paper, LinearProgress} from '@material-ui/core';
+import {Stepper,Step,StepLabel,Button,Typography, Paper, LinearProgress, Hidden} from '@material-ui/core';
 import Finished from './NewLeague/Finished'
 import steps from './NewLeague/steps'
 import { post } from '../../utilities/fetch';
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
+//   root: {
+//     width: '100%',
+//   },
   backButton: {
     marginRight: theme.spacing.unit,
   },
@@ -94,6 +94,13 @@ class NewLeague extends Component {
             <div className={classes.root}>
 
                 <Paper className={classes.activeStepComponent} >
+                
+                    <Hidden mdUp>
+                        <Typography variant='subheading' color='secondary'>
+                            This section of the website is not compatible with small screens, simply because there is a lot of elements to move around. It has been left enabled for you to try, but it really isn't advised.
+                        </Typography>
+                    </Hidden>
+                                
                     <Stepper activeStep={activeStep} alternativeLabel>
                         {stepIcons}
                     </Stepper>

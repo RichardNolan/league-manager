@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Snackbar,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
 
-import JSStyle from '../../assets/jss/JSStyle'
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
 import { getStandard, fetchQuery } from '../../utilities/fetch'
@@ -172,7 +171,6 @@ class RegisterForm extends React.Component {
                                         {organisations}
                                     </Select>
                                     </FormControl>
-                                    {/* TO-DO populate the organisation from db - Make club and team a drop-down populated on org change  */}
                                    
                                     <FormControl>
                                     <InputLabel htmlFor="club">Club</InputLabel>

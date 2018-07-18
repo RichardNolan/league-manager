@@ -6,8 +6,8 @@ import {Link, Route} from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
 import CompetitionNewDialog from './CompetitionNewDialog';
-import LeagueContainer from '../leagues/LeagueContainer';
-import CupContainer from '../cups/CupContainer';
+// import LeagueContainer from '../leagues/LeagueContainer';
+// import CupContainer from '../cups/CupContainer';
 import NewLeague from '../leagues/NewLeague';
 import PlusFab from'../PlusFab'
 import ClubButton from '../clubs/ClubButton';
@@ -15,9 +15,10 @@ import ClubButton from '../clubs/ClubButton';
 
 
 const styles = (theme)=>( {
-    root: {
-        flexGrow: 1,
-    },
+    // root: {
+    //     flexGrow: 1,
+    //     width:'100%',
+    // },
 })
 
 class Competitions extends React.Component {
@@ -90,11 +91,10 @@ class Competitions extends React.Component {
         let {classes} = this.props
         let {competition, competitions,isNewCompetition, organisation} = this.state
 
-        // TO-DO MAKE A COMPETITIONS BUTTON THAT CAN BE SMALL OR NORMAL
         let competitionType = competition!==null && competitions[competition].type
         let competitionsMetro = competitions && competitions.length>0
                     ?   competitions.map((competition,key)=>(
-                            <ClubButton 
+                            <ClubButton  key={key}
                                 organisation={organisation}
                                 competition={competition}
                                 size={isNewCompetition ? 'small' : 'normal'}
@@ -103,7 +103,7 @@ class Competitions extends React.Component {
                                 text={competition.title} 
                                 component={Link} 
                                 to={competition.type==='league' ? `${this.props.match.url}${competition._id}/league/` : `${this.props.match.path}${competition._id}/cup/`} 
-                                key={key}
+                               
                             />
                         ))
                     :   null
@@ -118,15 +118,16 @@ class Competitions extends React.Component {
                     path={`${this.props.match.path}`} 
                     exact={true} 
                     component={()=>(
-                        <Fragment>     
-                            <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} />  
-                            {competitionsMetro}
-                            <Grid container>
-                                <Grid item>  
-                                    { isNewCompetition && competitionType==='league' && <NewLeague competition={competitions[competition]} {...this.props}/> }
-                                    { !isNewCompetition && competitionType==='league' && <LeagueContainer competition={competitions[competition]._id} {...this.props}/> }
-                                    { !isNewCompetition && competitionType==='cup' && <CupContainer competition={competitions[competition]}  {...this.props}/> }
-                                </Grid>
+                        <Fragment> 
+                            <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} /> 
+                            <Grid container className={classes.root}> 
+                                  
+                            {
+                                (isNewCompetition && competitionType==='league')
+                                    ? <NewLeague competition={competitions[competition]} {...this.props}/>
+                                    : <Fragment>{competitionsMetro ? competitionsMetro : null}</Fragment>
+                            }   
+                                   
                             </Grid>
                         </Fragment>
                 )} />
