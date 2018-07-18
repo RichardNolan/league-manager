@@ -9,6 +9,12 @@ const getResults = (req, res, next)=>{
         .then(data=>res.status(200).json(data))
         .catch(next)
 }   
+const getResultsByTeam = (req, res, next)=>{
+    result
+        .getResultsByTeam(req.params.team)
+        .then(data=>res.status(200).json(data))
+        .catch(next)
+}   
 
 const getResult = (req, res, next)=>{
     result
@@ -32,6 +38,7 @@ router.use((req, res, next)=>{
 })
 
 router.get('/', getResults);
+router.get('/team/:team', getResultsByTeam);
 router.get('/:id', getResult);
 router.post('/:id', Authenticate, isLeagueSecretary, updateResult);
 

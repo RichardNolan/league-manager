@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {getStandard} from '../../utilities/fetch'
 import ClubBanner from '../clubs/ClubBanner'
 import Fixture from '../fixtures/Fixture'
+import FixtureSet from '../fixtures/FixtureSet'
 import Result from '../results/Result'
+import ResultSet from '../results/ResultSet'
 
-import { LinearProgress, withStyles, Typography, Grid } from '@material-ui/core';
+import { LinearProgress, withStyles, Typography, Grid, Paper } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
 
 class Team extends React.Component {
@@ -23,8 +25,28 @@ class Team extends React.Component {
         fetch(`http://localhost:9000/api/team/${this.state.id}`, getStandard())
             .then(res=>res.json())
             .then(team=>{
-                team.table = team.table.table
+                team.table = team.table && team.table.table
                 this.setState({team, progressBar:false})
+            })
+            .catch(err=>{
+                this.setState({progressBar:false})
+                console.log(err)
+            })
+
+        fetch(`http://localhost:9000/api/fixture/team/${this.state.id}`, getStandard())
+            .then(res=>res.json())
+            .then(fixtures=>{
+                this.state && this.setState({fixtures, progressBar:false})
+            })
+            .catch(err=>{
+                this.setState({progressBar:false})
+                console.log(err)
+            })
+
+        fetch(`http://localhost:9000/api/result/team/${this.state.id}`, getStandard())
+            .then(res=>res.json())
+            .then(results=>{
+                this.state && this.setState({results, progressBar:false})
             })
             .catch(err=>{
                 this.setState({progressBar:false})
@@ -44,24 +66,51 @@ class Team extends React.Component {
         return (
             <Grid container className={this.props.classes.pad} spacing={16}>
                 {!this.props.nobanner && clubBanner}
-                <Grid item xs={12}>
-                    {this.state.progressBar && <LinearProgress/>}
-                    <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
-                        {`Next Fixture: ${fixtureHeading}`}
-                    </Typography>
-                    {nextFixture}
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
-                        {`Last Result: ${resultHeading}`}
-                    </Typography>
-                    {lastResult}
-                </Grid>
+
                 <Grid item xs={12}>
                     <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
                         {`League Table: ${resultHeading}`}
                     </Typography>
                     {leagueTable}
+                </Grid>
+                <Grid item xs={12}>
+                    {this.state.progressBar && <LinearProgress/>}
+                    <Grid container spacing={16}>
+                        <Grid item xs={12} sm={12} md={6}>
+                            <Paper>
+                                {this.props.shortForm
+                                    ?   <Fragment>
+                                            <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
+                                                {`Next Fixture: ${fixtureHeading}`}
+                                            </Typography>
+                                            {nextFixture}
+                                        </Fragment>
+                                    :   <FixtureSet 
+                                            title='Upcoming Fixtures'
+                                            fixtures={this.state.fixtures} 
+                                            showDate
+                                        />
+                                } 
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={6}>
+                                {this.props.shortForm
+                                    ?   <Paper>
+                                            <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
+                                                {`Last Result: ${resultHeading}`}
+                                            </Typography>
+                                            {lastResult}
+                                        </Paper>
+                                    :   <Paper>
+                                            <ResultSet 
+                                                title='Recent Results'
+                                                results={this.state.results} 
+                                            />
+                                        </Paper>
+                                } 
+                        </Grid>
+                    </Grid>
+
                 </Grid>
             </Grid>
         );

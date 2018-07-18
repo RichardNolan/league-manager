@@ -44,6 +44,18 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting fixtures"}))
     },
 
+    getFixturesByTeam: (id)=>{
+        return fixture
+            .find({ $or:[ {'home_team':id}, {'away_team':id} ]})
+            .where('date')
+            .gt(Date.now())
+            .sort({date:1})
+            .populate({ path: 'home_team', populate:{path:'club', select:'venue title_short'} })
+            .populate({ path: 'away_team', populate:{path:'club', select:'title_short'} })
+            .then(data=>data)
+            .catch(err=>console.log({error:true, message:"Error getting fixtures"}))
+    },
+
     getFixture: (id)=>(
         fixture
             .findById(id)
@@ -229,4 +241,6 @@ module.exports = {
             .catch(err=>console.log(err))
         },
 
+    
+    
 }

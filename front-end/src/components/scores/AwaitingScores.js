@@ -61,17 +61,6 @@ class AwaitingScores extends Component {
             .catch(err=>console.log(err))
     }
     render() {
-        let fixtures = this.state.fixtures.map((fixture, index)=>(
-                <Fixture 
-                    fixture={fixture} 
-                    key={index} 
-                    showDate
-                    renderExtra={()=>(
-                        <Button color="primary" onClick={this.showDialog.bind(this,fixture)}>Score</Button>
-                    )}
-                />
-
-        ))
         return (
             <div>   
             <Grid container spacing={32}>
@@ -90,11 +79,20 @@ class AwaitingScores extends Component {
                        <CardContent>
                             {this.state.progressBar && <LinearProgress/>}     
                             {
-                                fixtures.length>0 
-                                    ?  {fixtures}
-                                    : <Typography variant='headline'>
-                                        All played matches have been updated with a score
-                                    </Typography>
+                                this.state.fixtures.length>0 
+                                    ?  this.state.fixtures.map((fixture, index)=>(
+                                        <Fixture 
+                                            fixture={fixture} 
+                                            key={index} 
+                                            showDate
+                                            renderExtra={()=>(
+                                                <Button color="primary" onClick={this.showDialog.bind(this,fixture)}>Score</Button>
+                                            )}
+                                        />                            
+                                        ))
+                                    :   <Typography variant='headline'>
+                                            All played matches have been updated with a score
+                                        </Typography>
                             }   
                         </CardContent>
                     </Card>

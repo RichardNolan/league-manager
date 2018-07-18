@@ -84,7 +84,7 @@ class Teams extends Component {
                                 {/* If loaded from a club ID then use the team title otherwise use the club short title */}
                                 {(this.state.clubID && team.title) || (team.club && team.club.title_short) }
                             </Button>
-                            <Team team={team._id} key={key} nobanner />
+                            <Team team={team._id} key={key} nobanner shortForm />
                         </Paper>
                             
                         ))

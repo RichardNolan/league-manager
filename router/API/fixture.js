@@ -9,6 +9,12 @@ const getFixtures = (req, res, next)=>{
         .then(data=>res.status(200).json(data))
         .catch(next)
 }   
+const getFixturesByTeam = (req, res, next)=>{
+    fixture
+        .getFixturesByTeam(req.params.team || {})
+        .then(data=>res.status(200).json(data))
+        .catch(next)
+}   
 
 const getFixture = (req, res, next)=>{
     fixture
@@ -45,6 +51,8 @@ router.use((req, res, next)=>{
 })
 
 router.get('/', getFixtures);
+
+router.get('/team/:team', getFixturesByTeam);
 router.get('/:id', getFixture);
 router.post('/', Authenticate, isLeagueSecretary, newFixtures);
 router.post('/:id', Authenticate, isLeagueSecretary, updateFixture);

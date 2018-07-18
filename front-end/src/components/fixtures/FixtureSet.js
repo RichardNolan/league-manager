@@ -3,16 +3,18 @@ import Fixture from './Fixture';
 import { Typography, withStyles } from '@material-ui/core';
 
 const FixtureSet = (props) => {
-    let fixtures = props.fixtures.map((fixture, index)=>(
-        <Fixture 
-            fixture={fixture} 
-            key={index} 
-            {...props}
-        />
-    ))
+    let fixtures = props.fixtures
+            ? props.fixtures.map((fixture, index)=>(
+                    <Fixture 
+                        fixture={fixture} 
+                        key={index} 
+                        {...props}
+                    />
+                ))
+            : null
     return (
         <div>
-            <Typography variant='headline' className={props.classes.heading} >
+            <Typography variant='headline' className={props.classes.heading} gutterBottom >
                 {props.title}
             </Typography>
             {fixtures}

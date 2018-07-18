@@ -40,14 +40,17 @@ class LeagueTable extends React.Component {
         fetch(`http://localhost:9000/api/division/${this.props.division}`, getStandard())
             .then(res=>res.json())
             .then(res=>{
+                console.log(res)
                 let leagueData = res.table.table
                                     .filter(t=>{                        
                                         if(this.props.filter) return this.props.filter===t.team ? true : false
                                         return true
                                     })
-                                    
+                                   console.log(leagueData) 
                 leagueData.map(t=>{
-                        t.team = res.teams.find(tm=>tm._id===t.team).club.title_short
+                        let team = res.teams.find(tm=>tm._id===t.team)
+                        team && (t.team = team.club.title_short)
+                        
                         return t
                     })
                 
