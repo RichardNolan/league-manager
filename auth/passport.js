@@ -54,19 +54,32 @@ const signin = (req, res)=> {
     console.log("SIGNING IN ")
     User.findOne({ email: req.body.email })
     .then(user=> {
-        console.log("USER ", user)
+        console.log("rememberMe ", req.body.rememberMe)
         if (!user) throw 'Authentication failed. User not found.'
         else {
             console.log("NO ERRORS FINDING USER")
             user.comparePassword(req.body.password, (err, isMatch)=> {
-                console.log("PASSWORDS MATCH", isMatch)
                 user.password = ""
-                if(isMatch) res.status(200).json( {success: true, token:jwt.sign( {data:user}, process.env.SECRET_CODE, {expiresIn:60*60} ), user:user} )
+                let options = {}
+                if(!req.body.rememberMe) options.expiresIn = '24h'
+
+                console.log("PASSWORDS MATCH", isMatch, "JWT exp.", options)
+                if(isMatch) res.status(200).json( {success: true, token:jwt.sign( {data:user}, process.env.SECRET_CODE, options ), user:user} )
                 else throw 'Authentication failed. Wrong password.'      
             });
         }
     })
     .catch(err=>res.status(401).send({success: false, message: err})  )
+}
+
+const checkEmail = (req, res)=> {
+    console.log("EMAIL",req.params.email)
+    User.findOne({ email: req.params.email })
+        .then(user=>{
+            if(!user) res.status(200).json({exists:false})
+            else res.status(200).json({exists:true})
+        })
+        .catch(err=>console.log(err))
 }
 
 const signup = (req, res)=> {
@@ -198,5 +211,5 @@ module.exports = {
     isMember,
     isMe,
     canUpdateScores,
-    
+    checkEmail,
 }

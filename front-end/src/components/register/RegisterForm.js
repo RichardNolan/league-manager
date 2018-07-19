@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Snackbar,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
 import { getStandard, fetchQuery } from '../../utilities/fetch'
+
 
 class RegisterForm extends React.Component {
     constructor(){
@@ -66,10 +67,6 @@ class RegisterForm extends React.Component {
         return true
     }
 
-    handleSnackbarClose = ()=>{
-        this.props.onError(false, '')
-    }
-
     onRegister = ()=>{
         this.validate() && this.props.onRegister(this.state)
     }
@@ -86,6 +83,18 @@ class RegisterForm extends React.Component {
        } 
        return true 
     }
+
+    checkEmail = ()=>{
+        this.state.email && fetch('http://localhost:9000/api/checkemail/'+this.state.email, getStandard)
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.exists) this.props.onError(true, "That email is already registered")
+            })
+            .catch(err=>console.log(err))
+
+    }
+
+
     render() {
         const {classes} = this.props
         let organisations = this.state.organisations.map((org, key)=> <MenuItem value={org._id} key={key}>{org.title}</MenuItem>)
@@ -99,13 +108,10 @@ class RegisterForm extends React.Component {
                    <Card>
                        <CardHeader
                            avatar={
-                           <Avatar className={classes.avatar}>
-                               L
-                           </Avatar>
+                            <Avatar className={classes.avatar}>R</Avatar>
                            }
                            title="Log In"
                            subheader="Register to access your team or league"
-                           // className={classes.cardHeader}
                        />
                        <CardContent>
                                <FormGroup>
@@ -117,8 +123,6 @@ class RegisterForm extends React.Component {
                                        type="text"
                                        value={this.state.title}
                                        onChange={this.change}
-                                       // autoComplete="email-address"
-                                       // margin="normal"
                                    />
                                    <TextField
                                        id="email"
@@ -128,8 +132,7 @@ class RegisterForm extends React.Component {
                                        type="email"
                                        value={this.state.email}
                                        onChange={this.change}
-                                       // autoComplete="email-address"
-                                       // margin="normal"
+                                       onBlur={this.checkEmail}
                                    />
                                    <TextField
                                        id="password1"
@@ -140,8 +143,6 @@ class RegisterForm extends React.Component {
                                        value={this.state.password1}
                                        onChange={this.change}
                                        onBlur={this.checkPasswords}
-                                       // autoComplete="current-password"
-                                       // margin="normal"
                                    />
                                     <Typography variant="caption">
                                         * Must be minimum 6 characters long
@@ -154,8 +155,6 @@ class RegisterForm extends React.Component {
                                        type="password"
                                        value={this.state.password2}
                                        onChange={this.change}
-                                       // autoComplete="current-password"
-                                       // margin="normal"
                                    />
                                    <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="organisation">Organisation</InputLabel>
@@ -228,14 +227,6 @@ class RegisterForm extends React.Component {
                </Grid>
                <Grid item xs={false} sm={2}></Grid>
            </Grid>
-           
-           <Snackbar
-                anchorOrigin={{vertical:'top', horizontal:'center'}}
-                open={this.props.registerError}
-                onClose={this.handleSnackbarClose}
-                autoHideDuration={2500}
-                message={this.props.registerErrorProblem}
-            />      
            </Fragment>
         );
     }

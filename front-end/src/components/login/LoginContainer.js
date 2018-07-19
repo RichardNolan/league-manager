@@ -34,7 +34,7 @@ class LoginContainer extends Component {
         // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
             method: 'POST',
-            body: JSON.stringify({email, password}),
+            body: JSON.stringify({email, password, rememberMe}),
             headers: {
                 'content-type': 'application/json'
             },

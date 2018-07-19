@@ -47,7 +47,7 @@ const Routes = [
         component: injectUser(Competitions)
     },
     { 
-        order:8,
+        order:0,
         link: "Tables",
         icon: DraftsIcon,
         pageTitle: "Tables",
@@ -55,7 +55,7 @@ const Routes = [
         component: Tables
     },
     { 
-        order:7,
+        order:0,
         link: "Results",
         icon: DraftsIcon,
         pageTitle: "Results",
@@ -63,7 +63,7 @@ const Routes = [
         component: injectUser(Results)
     },
     { 
-        order:6,
+        order:0,
         link: "Fixtures",
         icon: DraftsIcon,
         pageTitle: "Fixtures",
@@ -71,7 +71,7 @@ const Routes = [
         component: Fixtures
     },
     { 
-        order:5,
+        order:0,
         link: "Players",
         icon: DraftsIcon,
         pageTitle: "Players",
@@ -95,7 +95,7 @@ const Routes = [
         component: TeamContainer    
     },
     { 
-        order:3,
+        order:0,
         link: "Teams",
         icon: DraftsIcon,
         pageTitle: "Teams",
