@@ -4,6 +4,7 @@ import FixturesNewDialog from './FixturesNewDialog';
 import PlusFab from'../PlusFab'
 import FixtureList from './FixtureList'
 import { LinearProgress } from '@material-ui/core';
+import SNACK from '../../SNACK'
 
 class Fixtures extends Component {
     state = {
@@ -20,9 +21,8 @@ class Fixtures extends Component {
             .then(res=>res.json())
             .then(response=>{   
                 response.success===true && this.fetchData() 
-            //    this.setState({success})
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
     fetchData(){
@@ -35,7 +35,7 @@ class Fixtures extends Component {
                 this.setState({fixtures,progressBar:false})
             })
             .catch(err=>{
-                console.error(err)
+                this.props.showSnack(err)
                 this.setState({progressBar:false})
             })
     }
@@ -57,4 +57,11 @@ class Fixtures extends Component {
     }
 }
 
-export default Fixtures;
+// export default Fixtures;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Fixtures {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

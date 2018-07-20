@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Snackbar,Switch,Tooltip,FormControlLabel} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Switch,Tooltip,FormControlLabel} from '@material-ui/core'
 
 import {Link} from 'react-router-dom'
 
@@ -26,17 +26,6 @@ class LoginForm extends Component {
     }
     onLogin = ()=>{
         this.props.onLogin(this.state)
-    }
-
-    handleSnackbarClose = ()=>{
-        this.props.onError(false, '')
-    }
-
-    showsnack = () =>{
-        this.setState({
-            SnackbarMessage:'testing',
-            SnackbarOpen:true
-        })
     }
 
     render() {
@@ -97,16 +86,7 @@ class LoginForm extends Component {
                                Login
                            </Button>
                        </CardActions>
-                   </Card>
-
-                   
-                    <Snackbar
-                        anchorOrigin={{vertical:'top', horizontal:'center'}}
-                        open={this.props.loginError}
-                        onClose={this.handleSnackbarClose}
-                        autoHideDuration={2500}
-                        message={this.props.loginErrorProblem}
-                    />      
+                   </Card>    
 
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} ></Grid>

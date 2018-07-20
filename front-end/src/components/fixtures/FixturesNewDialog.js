@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Tooltip, FormControlLabel, Switch, Grid, Paper, withStyles, Typography } from '@material-ui/core';
 import TimeInput from 'material-ui-time-picker'
+import SNACK from '../../SNACK'
 
 import { fetchQuery } from '../../utilities/fetch';
 import Teams from '../teams/Teams'
@@ -34,6 +35,10 @@ changeTime = kickoff=>{
     this.setState({kickoff})
 }
 componentDidMount(){
+    this.fetchData()
+}
+
+fetchData = ()=>{    
     let defaultTime = new Date()
     defaultTime.setHours(11)
     defaultTime.setMinutes(30)
@@ -46,9 +51,8 @@ componentDidMount(){
             if(teams.error) throw(teams.message)
             this.setState({teams})
         })
-        .catch(err=>console.error(err))
+        .catch(err=>this.props.showSnack(err))
 }
-
 render(){
     let {classes} = this.props
     return (       
@@ -167,4 +171,11 @@ const styles = (theme)=>({
     fullWidth:{}
 })
 
-export default withStyles(styles)(FixturesNewDialog);
+// export default withStyles(styles)(FixturesNewDialog);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <FixturesNewDialog {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

@@ -5,6 +5,7 @@ import { AppBar, Tabs, Tab, LinearProgress } from '@material-ui/core';
 import ResultSet from './ResultSet';
 import NewScoreDialog from '../scores/NewScoreDialog';
 import {  post } from '../../utilities/fetch';
+import SNACK from '../../SNACK'
 
 class ResultList extends React.Component {
     state={
@@ -43,14 +44,10 @@ class ResultList extends React.Component {
                 this.setState({progressBar:false})
                 this.props.fetchData()
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
 
-    // componentDidMount(){
-    //     let resultGroups =  _.groupBy(this.props.results, (x)=>{return moment(x.date).format("ddd, MMM Do")})
-    //     this.setState({value:resultGroups.length-1})      
-    // }
 
     render(){ 
         let {value} = this.state
@@ -105,4 +102,11 @@ class ResultList extends React.Component {
     }
 };
 
-export default ResultList;
+// export default ResultList;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <ResultList {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

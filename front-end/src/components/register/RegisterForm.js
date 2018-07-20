@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Snackbar,Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
 import { getStandard, fetchQuery } from '../../utilities/fetch'
-
+import SNACK from '../../SNACK'
 class RegisterForm extends React.Component {
     constructor(){
         super()
@@ -36,7 +36,7 @@ class RegisterForm extends React.Component {
                         clubs: await fetch('http://localhost:9000/api/organisation/'+org, getStandard)
                                         .then(res=>res.json())
                                         .then(res=>res.clubs)
-                                        .catch(err=>console.log(err)),
+                                        .catch(err=>this.props.showSnack(err)),
                         teams:[]
                 })
     }
@@ -44,7 +44,7 @@ class RegisterForm extends React.Component {
         if(club) this.setState({
                     teams: await fetchQuery('http://localhost:9000/api/team', {club})
                                     .then(res=>res.json())
-                                    .catch(err=>console.log(err))
+                                    .catch(err=>this.props.showSnack(err))
                 })
     }
 
@@ -54,20 +54,15 @@ class RegisterForm extends React.Component {
         if(e.target.name==='club') this.getTeams(e.target.value)
     }
 
-    // TO-DO The snackbar disappears immediatly when invoked by onBlur
     checkPasswords = ()=>{
         if(this.state.password1.length<6){
-            this.props.onError(true, "Password is too short. It must be at least 6 characters long")
+            this.props.showSnack("Password is too short. It must be at least 6 characters long")
             return false
         }else if(this.state.password1 !== this.state.password2 && this.state.password2!=='' && this.state.password1!==''){
-            this.props.onError(true, "Passwords don't match")
+            this.props.showSnack("Passwords don't match")
             return false
         }
         return true
-    }
-
-    handleSnackbarClose = ()=>{
-        this.props.onError(false, '')
     }
 
     onRegister = ()=>{
@@ -77,11 +72,11 @@ class RegisterForm extends React.Component {
     validate = ()=>{
        if(!this.checkPasswords()) return false
        if(!this.state.email.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
-           this.props.onError(true, "Email Address not valid")
+            this.props.showSnack("Email Address not valid")
            return false
        } 
        if(!this.state.title.match(/^[a-zA-Z ]+$/)){
-           this.props.onError(true, "Name not valid")
+            this.props.showSnack("Name not valid")
            return false
        } 
        return true 
@@ -91,12 +86,11 @@ class RegisterForm extends React.Component {
         this.state.email && fetch('http://localhost:9000/api/checkemail/'+this.state.email, getStandard)
             .then(res=>res.json())
             .then(res=>{
-                if(res.exists) this.props.onError(true, "That email is already registered")
+                if(res.exists) this.props.showSnack("That email is already registered")
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
 
     }
-
 
     render() {
         const {classes} = this.props
@@ -158,6 +152,7 @@ class RegisterForm extends React.Component {
                                        type="password"
                                        value={this.state.password2}
                                        onChange={this.change}
+                                       onBlur={this.checkPasswords}
                                    />
                                    <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="organisation">Organisation</InputLabel>
@@ -226,18 +221,9 @@ class RegisterForm extends React.Component {
                             </Button>
                        </CardActions>
                    </Card>
-                   {this.props.loginError && this.props.loginErrorProblem}
                </Grid>
                <Grid item xs={false} sm={2}></Grid>
            </Grid>
-           
-           <Snackbar
-                anchorOrigin={{vertical:'top', horizontal:'center'}}
-                open={this.props.registerError}
-                onClose={this.handleSnackbarClose}
-                autoHideDuration={2500}
-                message={this.props.registerErrorProblem}
-            />      
            </Fragment>
         );
     }
@@ -254,4 +240,11 @@ const styles=theme=>({
     },
   })
 
-export default withStyles(styles)(RegisterForm);
+// export default withStyles(styles)(RegisterForm);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <RegisterForm {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Snackbar,Typography} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Typography} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-
+import SNACK from '../../SNACK'
+ 
 class ForgotMessage extends Component {
     state = {
         email:"",
         secret:"",
-        showSnack:false,
-        message:'',
     }
 
     changeEmail = (e)=>{
@@ -18,20 +17,10 @@ class ForgotMessage extends Component {
         this.setState({secret: e.currentTarget.value})
     }
 
-    snack(showSnack, message){  
-        if(showSnack===false) message=''      
-        this.setState({
-            showSnack, 
-            message
-        })
-    }
-    handleSnackbarClose = ()=>{
-        this.snack(false, '')
-    }
-    
     onSendPassword = ()=>{
-        this.snack(false, '')
+        this.props.showSnack('')
         let {email, secret} = this.state
+        if(!email || !secret) return;
         fetch('http://localhost:9000/api/forgotpassword',
         // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
@@ -49,12 +38,12 @@ class ForgotMessage extends Component {
            if(!res.success) throw res.message
            else {
                 window.open(res.link,'_blank');
-                this.snack(true, res.message)
+                this.props.showSnack(res.message)
                 setTimeout(()=>window.location.href='/login', 2500)
             }
            this.setState({email:''})
         })
-        .catch(err=>this.snack(true, err))
+        .catch(err=>this.props.showSnack(err))
     }
 
     render() {
@@ -66,13 +55,10 @@ class ForgotMessage extends Component {
                    <Card>
                        <CardHeader
                            avatar={
-                           <Avatar className={classes.avatar}>
-                               F
-                           </Avatar>
+                            <Avatar className={classes.avatar}>F</Avatar>
                            }
                            title="Forgot your password?"
                            subheader="If you provide us with your email address, we'll send you a new password."
-                           // className={classes.cardHeader}
                        />
                        <CardContent>
                             <FormGroup>
@@ -83,8 +69,6 @@ class ForgotMessage extends Component {
                                     type="email"
                                     value={this.state.email}
                                     onChange={this.changeEmail}
-                                    // autoComplete="email-address"
-                                    // margin="normal"
                                 />
                                 <TextField
                                     id="secret"
@@ -93,8 +77,6 @@ class ForgotMessage extends Component {
                                     type="text"
                                     value={this.state.secret}
                                     onChange={this.changeSecret}
-                                    // autoComplete="email-address"
-                                    // margin="normal"
                                 />
                                 <Typography variant="caption" gutterBottom align="center">
                                   When you registered we asked you who your favourite player was.
@@ -109,14 +91,6 @@ class ForgotMessage extends Component {
                         </CardActions>
                     </Card>
 
-
-                    <Snackbar
-                        anchorOrigin={{vertical:'top', horizontal:'center'}}
-                        open={this.state.showSnack}
-                        onClose={this.handleSnackbarClose}
-                        autoHideDuration={2500}
-                        message={this.state.message}
-                    />      
 
                 </Grid>
                 <Grid item xs={2} sm={3}></Grid>
@@ -135,4 +109,11 @@ const styles=theme=>({
   },
 })
 
-export default withStyles(styles)(ForgotMessage);
+// export default withStyles(styles)(ForgotMessage);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <ForgotMessage {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

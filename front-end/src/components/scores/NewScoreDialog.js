@@ -8,9 +8,7 @@ state={
     home: 0,
     away: 0,
 }
-// changeTitle=(e)=>{
-//     this.setState({title:e.target.value})
-// }
+
 onSave = ()=>{
     this.props.onSave(this.state)
     setTimeout(()=>this.setState({home:0, away:0, _id:null}), 1000)

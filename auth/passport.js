@@ -96,11 +96,11 @@ const signup = (req, res)=> {
 
 const forgotpassword = (req, res)=> {
     console.log("Starting forgotten password routine")
+    console.log(req.body.secret)
     let new_password = generatePassword()
     let hashedPassword = bcrypt.hashSync(new_password, 8);
 
     User.findOneAndUpdate({ email: req.body.email}, { $set: { password: hashedPassword }}, {new:true},  (err, user)=>{ 
-        console.log(user.secret, req.body.secret, user.secret===req.body.secret)          
         if(err) res.status(401).send({success: false, message: 'Something went wrong'})
         else if(!user) res.status(401).send({success: false, message: 'Email address not found'}) 
         else if(user.secret!==req.body.secret) res.status(401).send({success: false, message:'You answered the question wrong'}) 

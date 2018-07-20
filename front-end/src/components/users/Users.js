@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import {Table,TableHead,TableBody,TableFooter,TableRow,TableCell} from '@material-ui/core'
 import User from './User'
 import { fetchQuery } from '../../utilities/fetch';
+import SNACK from '../../SNACK'
 
 
 // when I changea user in the User component, it doesn't update in any state anywhere above the dialog as its all props.
@@ -30,7 +31,7 @@ class Users extends React.Component {
                 if(users.error) throw(users.message)
                 this.setState({users})
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
     render(){
@@ -42,6 +43,7 @@ class Users extends React.Component {
                                     :   []
 
         // TO-DO POSSIBLY SOME PAGINATION HERE
+        //TO-DO CARD
         return (
             <Fragment>
             <Table>
@@ -66,4 +68,11 @@ class Users extends React.Component {
     }
 };
 
-export default Users;
+// export default Users;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Users {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

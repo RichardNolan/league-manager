@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import { put } from '../../utilities/fetch'
+import SNACK from '../../SNACK'
 
 import {TableCell,IconButton} from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Create';
@@ -22,9 +23,9 @@ class User extends React.Component {
         fetch('http://localhost:9000/api/user/'+user._id, put({user}))            
         .then(res=>res.json())
         .then(user=>{
-            console.log(user)
+            this.props.showSnack("The user has been updates")
         })
-        .catch(err=>console.log(err))
+        .catch(err=>this.props.showSnack(err))
     }
     render(){
         let {user} = this.props
@@ -51,5 +52,12 @@ class User extends React.Component {
         );
     };
 }
-export default User;
+// export default User;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <User {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;
 

@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import Divisions from './Divisions';
 import {fetchQuery} from '../../utilities/fetch'
+import SNACK from '../../SNACK'
 
 class DivisionsContainer extends Component {
     state = {  }
     componentDidMount(){
         this.getData()
+    }
+
+
+    getData(newId=this.props.league._id){ 
+        fetchQuery('http://localhost:9000/api/division', {league:newId})
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.error) throw(res.message)
+                this.setState({divisions:res})
+            })
+            .catch(err=>this.props.showSnack(err))
     }
 
     componentWillUpdate(nextProps){
@@ -23,17 +35,13 @@ class DivisionsContainer extends Component {
         );
     }
 
-
-    getData(newId=this.props.league._id){ 
-        fetchQuery('http://localhost:9000/api/division', {league:newId})
-            .then(res=>res.json())
-            .then(res=>{
-                if(res.error) throw(res.message)
-                this.setState({divisions:res})
-            })
-            .catch(err=>console.log(err))
-    }
-
 }
 
-export default DivisionsContainer;
+// export default DivisionsContainer;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <DivisionsContainer {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

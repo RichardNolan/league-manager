@@ -7,17 +7,6 @@ const ClubBanner = (props) => {
     let clubCrest = club && club.crest && (<img src={club.crest}  className={classes.crest} alt='crest' /> || null)
 
     return (
-        // <Grid container className={classes.root}>    
-        //     <Grid item xs={4} sm={2} md={1} className={classes.banner}>
-        //         <div>{clubCrest}</div>         
-        //     </Grid>     
-        //     <Grid item xs={8}>
-        //         <Typography variant='headline'>
-        //             {clubName}
-        //         </Typography>
-        //     </Grid>   
-        // </Grid>
-        
         <CardHeader
             avatar={
                 <Avatar style={{backgroundColor:'transparent'}}>{clubCrest}</Avatar>

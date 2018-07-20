@@ -3,6 +3,7 @@ import { Grid, Paper, List, ListItem, ListItemText, LinearProgress, Typography }
 import withStyles from '@material-ui/core/styles/withStyles'
 import {fetchQuery} from '../../../utilities/fetch'
 import {Delete} from '@material-ui/icons'
+import SNACK from '../../../SNACK'
 
 
 class DivideTeams extends React.Component {
@@ -99,7 +100,7 @@ class DivideTeams extends React.Component {
                     })
                 })
                 .catch(err=>{
-                    console.log(err)
+                    this.props.showSnack(err)
                 })
         }
     }
@@ -208,4 +209,11 @@ const styles = (theme)=> ({
     }
 })
 
-export default withStyles(styles)(DivideTeams);
+// export default withStyles(styles)(DivideTeams);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <DivideTeams {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

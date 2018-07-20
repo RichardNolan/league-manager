@@ -10,6 +10,7 @@ import { Grid, LinearProgress, Typography } from '@material-ui/core';
 
 import withStyles from '@material-ui/core/styles/withStyles'
 import Competitions from '../competitions/Competitions';
+import SNACK from '../../SNACK'
 
 class Organisation extends Component {
     state={
@@ -30,7 +31,7 @@ class Organisation extends Component {
         .then(res=>res.json())
         .then(organisation=>this.setState({organisation, loader:false}))
         .catch(err=>{
-            console.log(err)
+            this.props.showSnack(err)
             this.setState({loader:false})   
         })
     }
@@ -79,4 +80,11 @@ const styles = {
     }
 }
 
-export default withStyles(styles)(Organisation);
+// export default withStyles(styles)(Organisation);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Organisation {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

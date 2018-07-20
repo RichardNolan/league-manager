@@ -4,6 +4,7 @@ import {Stepper,Step,StepLabel,Button,Typography, Paper, LinearProgress, Hidden}
 import Finished from './NewLeague/Finished'
 import steps from './NewLeague/steps'
 import { post } from '../../utilities/fetch';
+import SNACK from '../../SNACK'
 
 const styles = theme => ({
 //   root: {
@@ -31,7 +32,7 @@ class NewLeague extends Component {
 
     handleNext=()=>{
         if(this.state.activeStep === steps.length - 1){
-            console.log('post here')
+            this.props.showSnack('post here')
             this.onSaveLeague()
         }else{
             this.setState((prevState) => ({
@@ -66,13 +67,13 @@ class NewLeague extends Component {
         fetch('http://localhost:9000/api/league', post(league))
             .then(res=>res.json())
             .then(res=>{
-                console.log(res)
+                this.props.showSnack(res)
                 this.setState((prevState) => ({
                     activeStep: prevState.activeStep + 1,
                     loader:false
                 }));
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
 
         
     }
@@ -143,4 +144,11 @@ class NewLeague extends Component {
     }
 }
 
-export default withStyles(styles)(NewLeague);
+// export default withStyles(styles)(NewLeague);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <NewLeague {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

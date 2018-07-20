@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuItem, withStyles, Button, Menu } from '@material-ui/core';
 import { fetchQuery } from '../../utilities/fetch';
+import SNACK from '../../SNACK'
 
 const styles={
     fullWidth:{
@@ -37,7 +38,7 @@ class ClubMenu extends React.Component {
                 if(result.error) throw(result.message)
                 this.setState({clubs:result})
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
     render(){
@@ -61,4 +62,11 @@ class ClubMenu extends React.Component {
     }
 }
 
-export default withStyles(styles)(ClubMenu);
+// export default withStyles(styles)(ClubMenu);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <ClubMenu {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

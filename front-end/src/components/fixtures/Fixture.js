@@ -4,7 +4,6 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import EditIcon from '@material-ui/icons/Create';
 
 import USER from '../../USER'
-// import { relative, isAbsolute } from 'path';
 import * as moment from 'moment'
 
 const Fixture = (props) => {

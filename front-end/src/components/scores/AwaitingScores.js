@@ -4,6 +4,7 @@ import { LinearProgress, Button, Typography, CardContent, CardHeader, Card, Grid
 import { fetchQuery, post } from '../../utilities/fetch';
 import Fixture from '../fixtures/Fixture'
 import NewScoreDialog from './NewScoreDialog';
+import SNACK from '../../SNACK'
 
 class AwaitingScores extends Component {
     state = {
@@ -28,7 +29,7 @@ class AwaitingScores extends Component {
             })
             .catch(err=>{
                 this.setState({progressBar:false})
-                console.log(err)
+                this.props.showSnack(err)
             })
         }
 
@@ -55,10 +56,9 @@ class AwaitingScores extends Component {
         fetch('http://localhost:9000/api/score', post(body))
             .then(res=>res.json())
             .then(res=>{
-                console.log(res)
                 this.fetchData()
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
     render() {
         return (
@@ -115,4 +115,11 @@ const styles = (theme)=>( {
         flexGrow: 1,
     },
 })
-export default withStyles(styles)(AwaitingScores);
+// export default withStyles(styles)(AwaitingScores);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <AwaitingScores {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

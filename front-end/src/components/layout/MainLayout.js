@@ -8,6 +8,7 @@ import defaultRoutes from '../../routes/HomeRoutes'
 
 import * as soccer_03 from '../../assets/soccer_03.jpg'
 import * as soccer_04 from '../../assets/soccer_04.jpg'
+import Snack from '../Snack'
 
 class MainLayout extends Component {
     state={
@@ -34,11 +35,12 @@ class MainLayout extends Component {
         return (
                 <div className={classes.wrapper}> 
                     <Header toggleDrawer={this.toggleDrawer} open={this.state.drawerOpen} />
-                        <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
+                    <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                         {Routes}
                     </main> 
+                    <Snack/>
                 </div>
         );
     }

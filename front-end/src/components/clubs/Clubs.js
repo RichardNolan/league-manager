@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ClubNewDialog from './ClubNewDialog';
 import PlusFab from'../PlusFab'
 import ClubButton from './ClubButton';
+import SNACK from '../../SNACK'
 
 
 class Clubs extends Component {
@@ -43,7 +44,7 @@ class Clubs extends Component {
                 clubs.push(res)         
                 this.setState({clubs, club_title:res.title})                
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
     
     fetchData(){   
@@ -55,7 +56,7 @@ class Clubs extends Component {
                 this.setState({clubs:res})
             })
             .catch(err=>{
-                console.log(err)
+                this.props.showSnack(err)
             })
     }
 
@@ -113,29 +114,15 @@ const styles = (theme)=>( {
     nopadding:{
         padding:0,
     },
-    // fab: {
-    //   position: 'absolute',
-    //   bottom: theme.spacing.unit * 4,
-    //   right: theme.spacing.unit * 4,
-    // },
 
 })
 
-export default withStyles(styles)(Clubs);
+// export default withStyles(styles)(Clubs);
 
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Clubs {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);
 
-
-// <Zoom
-// in={this.state.showFab}
-// unmountOnExit
-// >
-// <Button variant="fab" color="secondary" className={classes.fab} onClick={this.openNewClubDialog} >
-//     <AddIcon/>
-// </Button>
-// </Zoom>
-
-// <ClubNewDialog 
-// open={this.state.newClubDialogOpen}
-// onClose={this.closeNewClubDialog.bind(this)} 
-// onSave={this.saveNewClub.bind(this)}
-// />

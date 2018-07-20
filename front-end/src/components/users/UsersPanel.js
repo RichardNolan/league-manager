@@ -4,18 +4,6 @@ import { Card, CardContent, CardActions, CardHeader, Avatar, IconButton } from '
 import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 import Users from './Users'
-const styles = theme=> ({
-    root: {
-      flexGrow: 1,
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-    list:{
-        maxHeight:200,
-        overflow: 'auto',
-    },
-  });
 
 const UsersPanel = (props) => {
     let {classes} = props
@@ -60,4 +48,16 @@ const UsersPanel = (props) => {
     );
 };
 
+const styles = theme=> ({
+    root: {
+      flexGrow: 1,
+    },
+    avatar: {
+      backgroundColor: red[500],
+    },
+    list:{
+        maxHeight:200,
+        overflow: 'auto',
+    },
+  });
 export default withStyles(styles)(UsersPanel);

@@ -6,20 +6,11 @@ import {Link, Route} from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
 import CompetitionNewDialog from './CompetitionNewDialog';
-// import LeagueContainer from '../leagues/LeagueContainer';
-// import CupContainer from '../cups/CupContainer';
 import NewLeague from '../leagues/NewLeague';
 import PlusFab from'../PlusFab'
 import ClubButton from '../clubs/ClubButton';
-// import injectUser from '../../USER'
+import SNACK from '../../SNACK'
 
-
-const styles = (theme)=>( {
-    // root: {
-    //     flexGrow: 1,
-    //     width:'100%',
-    // },
-})
 
 class Competitions extends React.Component {
     state = {
@@ -66,7 +57,7 @@ class Competitions extends React.Component {
                 competitions.push(res.competition)         
                 this.setState({competitions, competition:(competitions.length-1), competition_title:res.title, isNewCompetition:true})                
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
     
     componentDidMount(){
@@ -82,7 +73,7 @@ class Competitions extends React.Component {
                 this.setState({competitions:res,progressBar:false})
             })
             .catch(err=>{
-                console.log(err)
+                this.props.showSnack(err)
                 this.setState({progressBar:false})
             })
     }
@@ -138,4 +129,15 @@ class Competitions extends React.Component {
     
 }
 
-export default withStyles(styles)(Competitions)
+const styles = (theme)=>( {
+   
+})
+
+// export default withStyles(styles)(Competitions)
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Competitions {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

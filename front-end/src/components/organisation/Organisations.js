@@ -4,6 +4,7 @@ import { post, getStandard} from '../../utilities/fetch'
 import {Link, Route} from 'react-router-dom'
 
 import { Grid, LinearProgress, CardHeader, CardContent, Card, Avatar } from '@material-ui/core';
+import SNACK from '../../SNACK'
 
 
 import { withStyles } from '@material-ui/core/styles';
@@ -50,13 +51,13 @@ class Organisations extends React.Component {
             organisations.push(newOrganisation)            
             this.setState({organisations}) 
         })
-        .catch(err=>console.log(err))
+        .catch(err=>this.props.showSnack(err))
     }
     componentDidMount(){
         fetch('http://localhost:9000/api/organisation', getStandard())            
         .then(res=>res.json())
         .then(organisations=>this.setState({organisations}))
-        .catch(err=>console.log(err))   
+        .catch(err=>this.props.showSnack(err))   
     }
 
     render() {
@@ -137,46 +138,15 @@ const styles = (theme)=>( {
     },
 })
 
-export default withStyles(styles)(Organisations)
+// export default withStyles(styles)(Organisations)
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Organisations {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);
 
 
 
 
-
-
-
-// <AppBar position="static" color="default">
-// <Toolbar>
-//     <Button onClick={this.handleOpenMenu} variant="fab" mini color="primary">
-//         <ArrowDropDown/>
-//     </Button>
-//     <Menu
-//         anchorEl={this.state.anchorEl}
-//         open={Boolean(this.state.anchorEl)}
-//         onClose={this.handleClose}
-//     >
-//         {organisations}
-//     </Menu>
-   
-//     <Typography variant="headline" color="inherit">
-//         {this.state.organisation_title || "Choose an Organisation"}
-//     </Typography>
-//     <div>
-//         <Button variant="fab" color="secondary">
-//             <AddIcon onClick={this.openNewOrganisationDialog}/>
-//         </Button>
-//         <OrganisationNewDialog 
-//             open={this.state.newOrganisationDialogOpen}
-//             onClose={this.closeNewOrganisationDialog.bind(this)} 
-//             onSave={this.saveNewOrganisation.bind(this)}
-//         />
-//     </div>
-// </Toolbar>
-// </AppBar>
-// <Grid container>
-// <Grid item>
-// {this.state.organisation_id && (
-//     <Organisation _id={this.state.organisation_id} />
-// )}
-// </Grid>
-// </Grid>

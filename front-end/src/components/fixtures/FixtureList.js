@@ -5,6 +5,7 @@ import { AppBar, Tabs, Tab, LinearProgress } from '@material-ui/core';
 import FixtureSet from './FixtureSet';
 import EditFixtureDialog from './EditFixtureDialog';
 import {  post } from '../../utilities/fetch';
+import SNACK from '../../SNACK'
 
 class FixtureList extends React.Component {
     state={
@@ -36,7 +37,7 @@ class FixtureList extends React.Component {
                 this.setState({progressBar:false})
                 return res
             })
-            .catch(err=>console.error(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
     render(){
@@ -90,4 +91,11 @@ class FixtureList extends React.Component {
     }
 };
 
-export default FixtureList;
+// export default FixtureList;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <FixtureList {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

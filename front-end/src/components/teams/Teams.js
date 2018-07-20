@@ -7,6 +7,7 @@ import TeamNewDialog from './TeamNewDialog';
 import PlusFab from '../PlusFab';
 import Snack from '../Snack';
 import Team from './Team';
+import SNACK from '../../SNACK'
 
 class Teams extends Component {
     state={
@@ -58,7 +59,7 @@ class Teams extends Component {
             club: this.state.clubID || newTeam.club,   // TO-DO I THINK THE ID IS NEEDED NOW
             organisation: (this.props.club && this.props.club.organisation) || (this.props.user && this.props.user.organisation),
         }
-        console.log(body)
+        this.props.showSnack(body)
         fetch('http://localhost:9000/api/team', post(body))            
             .then(res=>res.json())
             .then(res=>{
@@ -69,7 +70,7 @@ class Teams extends Component {
                 this.setState({progressBar:false})                 
             })
             .catch(err=>{
-                console.log(err)
+                this.props.showSnack(err)
                 this.setState({snackOpen:true, snackMessage:err.message,progressBar:false})  
             })
     }
@@ -122,4 +123,11 @@ const styles = (theme)=>( {
     },
 })
 
-export default withStyles(styles)(Teams);
+// export default withStyles(styles)(Teams);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Teams {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

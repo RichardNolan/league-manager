@@ -21,7 +21,6 @@ changeSwitch=(e)=>{
 }
 onSave = ()=>{
     this.props.onSave(this.state)
-    // this.setState({})
 }
 render(){
     return (       

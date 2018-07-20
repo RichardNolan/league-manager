@@ -5,7 +5,6 @@ import { Grid, TableCell, Table, TableHead, TableRow, TableBody, Typography, wit
 
 
 const Confirmation = (props) => {
-    console.log(props.divisionsObject)
     let divisions = Object.keys(props.divisionsObject).map((d, index)=>(
         <Fragment key={index}>
             <Grid item md={3} xs={4} >

@@ -45,18 +45,6 @@ const CompetitionsPanel = (props) => {
                         {competitionList}
                     </List>
                 </CardContent>
-                {/* <CardActions className={classes.actions} disableActionSpacing>
-                    <IconButton>
-                        <Favorite />
-                    </IconButton>
-                    <IconButton>
-                        <Share />
-                    </IconButton>
-                    <IconButton>
-                        <Add />
-                    </IconButton>
-                
-                </CardActions> */}
             </Card>
     );
 };

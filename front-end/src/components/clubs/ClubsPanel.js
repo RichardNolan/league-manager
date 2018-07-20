@@ -39,15 +39,6 @@ const ClubsPanel = (props) => {
                         {clubList}
                     </List>
                 </CardContent>
-                {/* <CardActions className={classes.actions} disableActionSpacing>
-                    <IconButton aria-label="Add to favorites">
-                        <Favorite />
-                    </IconButton>
-                    <IconButton aria-label="Share">
-                        <Share />
-                    </IconButton>
-                
-                </CardActions> */}
             </Card>
         </Fragment>
     );

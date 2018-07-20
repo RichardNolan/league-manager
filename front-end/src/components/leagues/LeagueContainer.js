@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import League from "./League";
 import {fetchQuery} from '../../utilities/fetch'
+import SNACK from '../../SNACK'
 
 class LeagueContainer extends Component {
     constructor(props){
@@ -39,7 +40,7 @@ class LeagueContainer extends Component {
                     this.setState({league:null})
                 }
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
 
 
@@ -47,4 +48,11 @@ class LeagueContainer extends Component {
 
 }
 
-export default LeagueContainer;
+// export default LeagueContainer;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <LeagueContainer {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

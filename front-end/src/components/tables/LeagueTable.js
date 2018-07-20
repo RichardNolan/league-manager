@@ -3,6 +3,7 @@ import TableMain from './TableMain'
 import {getStandard} from '../../utilities/fetch'
 import { Paper, LinearProgress, Typography} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
+import SNACK from '../../SNACK'
 
 
 class LeagueTable extends React.Component {
@@ -33,24 +34,20 @@ class LeagueTable extends React.Component {
     }
     componentWillUnmount(){
         window.removeEventListener('resize', this.changeWidth)
-        // window.removeEventListener('resize', this.changeWidth.bind(this))
     }
     fetchData(){
         this.setState({progressBar:true})
         fetch(`http://localhost:9000/api/division/${this.props.division}`, getStandard())
             .then(res=>res.json())
             .then(res=>{
-                console.log(res)
                 let leagueData = res.table.table
                                     .filter(t=>{                        
                                         if(this.props.filter) return this.props.filter===t.team ? true : false
                                         return true
                                     })
-                                   console.log(leagueData) 
                 leagueData.map(t=>{
                         let team = res.teams.find(tm=>tm._id===t.team)
-                        team && (t.team = team.club.title_short)
-                        
+                        team && (t.team = team.club.title_short)    
                         return t
                     })
                 
@@ -63,7 +60,7 @@ class LeagueTable extends React.Component {
             })
             .catch(err=>{
                 this.setState({progressBar:false})
-                console.log(err)
+                this.props.showSnack(err)
             })
     }
 
@@ -92,4 +89,11 @@ const styles = theme => ({
     overflowX: 'auto',
   },
 });
-export default withStyles(styles)(LeagueTable);
+// export default withStyles(styles)(LeagueTable);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <LeagueTable {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

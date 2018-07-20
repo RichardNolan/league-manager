@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {fetchQuery} from '../../utilities/fetch'
 import ResultList from './ResultList'
 import { LinearProgress } from '@material-ui/core';
+import SNACK from '../../SNACK'
 
 import USER from '../../USER'
 class Results extends Component {
@@ -29,7 +30,7 @@ class Results extends Component {
                 this.setState({results,progressBar:false})
             })
             .catch(err=>{
-                console.error(err)
+                this.props.showSnack(err)
                 this.setState({progressBar:false})
             })
         }
@@ -57,4 +58,11 @@ class Results extends Component {
     }
 }
 
-export default Results;
+// export default Results;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Results {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

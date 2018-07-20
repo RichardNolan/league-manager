@@ -20,7 +20,6 @@ class TeamNewDialog extends React.Component {
         this.setState({category})
     }
     handleClub(club){ 
-        console.log(club)       
         this.setState({club})
     }
     render(){ 

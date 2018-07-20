@@ -4,6 +4,7 @@ import { Route} from 'react-router-dom'
 import ClubBanner from './ClubBanner'
 
 import { Grid, LinearProgress, CardContent, Card, withStyles } from '@material-ui/core';
+import SNACK from '../../SNACK'
 
 
 class Club extends Component {
@@ -24,7 +25,7 @@ class Club extends Component {
                 this.setState({club:res,progressBar:false})
             })
             .catch(err=>{
-                console.log(err)
+                this.props.showSnack(err)
                 this.setState({progressBar:false})
             })
     }
@@ -63,5 +64,12 @@ const styles = (theme)=>( {
     },
 })
 
-export default withStyles(styles)(Club)
+// export default withStyles(styles)(Club)
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Club {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);
 

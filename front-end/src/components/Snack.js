@@ -1,26 +1,22 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import { Snackbar } from '@material-ui/core';
+import SNACK from '../SNACK'
 
-class Snack extends Component {
+const Snack = ()=>(
 
-    close(){
-        this.props.onClose()
-    }
+    <SNACK.Consumer>
+        { ({hideSnack, snack})=>(
+            <Snackbar
+                anchorOrigin={{vertical:'top', horizontal:'center'}}
+                open={snack.show}
+                onClose={hideSnack}
+                autoHideDuration={3000}
+                message={snack.message}
+            />
+        ) }
+    </SNACK.Consumer>
+);
 
-    render() {
-        let message =  this.props.message || ''
-        return (
-            <Fragment>                
-                <Snackbar
-                    anchorOrigin={{vertical:'top', horizontal:'center'}}
-                    open={this.props.open}
-                    onClose={this.close.bind(this)}
-                    autoHideDuration={3000}
-                    message={message}
-                />      
-            </Fragment>
-        );
-    }
-}
+
 
 export default Snack;

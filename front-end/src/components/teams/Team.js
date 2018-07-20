@@ -5,6 +5,7 @@ import Fixture from '../fixtures/Fixture'
 import FixtureSet from '../fixtures/FixtureSet'
 import Result from '../results/Result'
 import ResultSet from '../results/ResultSet'
+import SNACK from '../../SNACK'
 
 import { LinearProgress, withStyles, Typography, Grid, Paper } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
@@ -30,7 +31,7 @@ class Team extends React.Component {
             })
             .catch(err=>{
                 this.setState({progressBar:false})
-                console.log(err)
+                this.props.showSnack(err)
             })
 
         fetch(`http://localhost:9000/api/fixture/team/${this.state.id}`, getStandard())
@@ -40,7 +41,7 @@ class Team extends React.Component {
             })
             .catch(err=>{
                 this.setState({progressBar:false})
-                console.log(err)
+                this.props.showSnack(err)
             })
 
         fetch(`http://localhost:9000/api/result/team/${this.state.id}`, getStandard())
@@ -50,7 +51,7 @@ class Team extends React.Component {
             })
             .catch(err=>{
                 this.setState({progressBar:false})
-                console.log(err)
+                this.props.showSnack(err)
             })
     }
 
@@ -128,4 +129,11 @@ const styles = theme=>({
 })
 
 
-export default withStyles(styles)(Team);
+// export default withStyles(styles)(Team);
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Team {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);

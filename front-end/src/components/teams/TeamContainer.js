@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Team from './Team'
+import SNACK from '../../SNACK'
 
 import { getStandard } from '../../utilities/fetch'
 
@@ -9,9 +10,6 @@ class TeamContainer extends Component {
     }
     componentDidMount(){
         this.getTeamDetails()
-        // this.getLeagueTable()
-        // this.getFixtures()
-        // this.getResults()
     }
     getTeamDetails(){
         fetch(`http://localhost:9000/api/team/${this.props.match.params.id}`, getStandard())
@@ -19,7 +17,7 @@ class TeamContainer extends Component {
             .then(team=>{
                 this.setState({team})
             })
-            .catch(err=>console.log(err))
+            .catch(err=>this.props.showSnack(err))
     }
     render() {
         return (
@@ -30,4 +28,11 @@ class TeamContainer extends Component {
     }
 }
 
-export default TeamContainer;
+// export default TeamContainer;
+
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <TeamContainer {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;
