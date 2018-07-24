@@ -10,8 +10,8 @@ class DivisionsContainer extends Component {
     }
 
 
-    getData(newId=this.props.league._id){ 
-        fetchQuery('http://localhost:9000/api/division', {league:newId})
+    getData(){ 
+        fetchQuery('http://localhost:9000/api/division', {league:this.props.league._id})
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)
@@ -21,7 +21,7 @@ class DivisionsContainer extends Component {
     }
 
     componentWillUpdate(nextProps){
-        if(this.props.league   &&   this.props.league._id!==nextProps.league._id) this.getData(nextProps.league._id)
+        if(this.props.league && this.props.league._id!==nextProps.league._id) this.getData(nextProps.league._id)
     }
     render() {
         return (

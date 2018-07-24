@@ -1,18 +1,23 @@
 import React from 'react';
 import TableMain from './TableMain'
 import {getStandard} from '../../utilities/fetch'
-import { Paper, LinearProgress, Typography} from '@material-ui/core';
+import { Paper, LinearProgress, Typography,FormControlLabel,Tooltip,Switch} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 import SNACK from '../../SNACK'
 
 
 class LeagueTable extends React.Component {
     state = {
+        full:false,
         size: this.getSizeFromWidth(),
         teams:[],
         progressBar:false,
     }
 
+    changeSwitch = (e)=>{
+        let newSize = e.target.checked ? 4 : this.getSizeFromWidth()
+        this.setState({full: e.target.checked, size:newSize})
+    }
     componentDidMount(){
         this.fetchData()
         window.addEventListener('resize', this.changeWidth)
@@ -65,7 +70,7 @@ class LeagueTable extends React.Component {
     }
 
     render(){
-        let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : this.props.size || this.state.size 
+        let size = this.props.size ? ['tiny', 'small', 'medium', 'large', 'full'].indexOf(this.props.size) : this.state.size 
         return (
             <div>
                 <Typography variant="headline" gutterBottom>
@@ -73,6 +78,18 @@ class LeagueTable extends React.Component {
                 </Typography>
                 {this.state.progressBar && <LinearProgress/>}
                 <Paper className={this.props.classes.root}>
+                
+                                <FormControlLabel control={
+                                                        <Tooltip id="tooltip-icon" title="See the full table, with home and away details, form, etc.">
+                                                            <Switch
+                                                                checked={this.state.full}
+                                                                onChange={this.changeSwitch}
+                                                                color="primary"
+                                                            />
+                                                        </Tooltip>
+                                                        }
+                                    label="See a full table"
+                                />
                         <TableMain size={size} teams={this.state.teams} />
                 </Paper>
             </div>

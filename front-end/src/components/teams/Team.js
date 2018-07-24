@@ -1,18 +1,20 @@
 import React, { Fragment } from 'react';
 import {getStandard} from '../../utilities/fetch'
 import ClubBanner from '../clubs/ClubBanner'
+import DivisionBanner from '../divisions/DivisionBanner'
 import Fixture from '../fixtures/Fixture'
 import FixtureSet from '../fixtures/FixtureSet'
 import Result from '../results/Result'
 import ResultSet from '../results/ResultSet'
 import SNACK from '../../SNACK'
+// import Division from '../divisions/Division'
 
 import { LinearProgress, withStyles, Typography, Grid, Paper } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
 
 class Team extends React.Component {
     state={
-        id:this.props.team || this.props.match.params.team || (this.props.user && this.props.user.team),
+        id:this.props.team || (this.props.match && this.props.match.params.team) || (this.props.user && this.props.user.team),
         team:null,
         progressBar:false
     }
@@ -58,6 +60,7 @@ class Team extends React.Component {
     render(){ 
         let {team} = this.state
         let clubBanner = team && team.club && <ClubBanner club={team.club} />
+        let divisionBanner = team && team.division && <DivisionBanner division={team.division} match={this.props.match} />
         let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate />) || null
         let fixtureHeading = (team && team.nextFixture && team.nextFixture.division && team.division && team.division.title) || 'None found'
         let lastResult = (team && team.lastResult && <Result result={team.lastResult} />) || null
@@ -65,13 +68,13 @@ class Team extends React.Component {
         let leagueTable = (team && team.table && <LeagueTable division={team.division && team.division._id} filter={this.props.match ? null : team._id} />) || null
         // let tableHeading = team && team.lastResult && team.lastResult.division && team.division && team.division.title || 'None found'
         return (
-            <Grid container className={this.props.classes.pad} spacing={16}>
-                {!this.props.nobanner && clubBanner}
+            <Grid container spacing={16}>
 
                 <Grid item xs={12}>
-                    <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
-                        {`League Table: ${resultHeading}`}
-                    </Typography>
+                    {!this.props.nobanner && clubBanner}
+                    {!this.props.nobanner && divisionBanner}
+                </Grid>
+                <Grid item xs={12}>
                     {leagueTable}
                 </Grid>
                 <Grid item xs={12}>
@@ -119,12 +122,13 @@ class Team extends React.Component {
 };
 
 const styles = theme=>({
-    pad:{
-        // padding:theme.spacing.unit*2,
-        // margin:theme.spacing.unit*2,
-    },
+
     center:{
         textAlign:'center',
+    },
+    headline:{        
+        textAlign:'center',
+        textDecoration:'none',
     },
 })
 

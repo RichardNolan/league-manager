@@ -4,59 +4,59 @@ var bcrypt = require('bcryptjs');
 
     
 module.exports = {
-   signin : ({email, password})=>(
-        user
-            .findOne({email})
-            .populate({ path: 'team' })
-            .populate({ path: 'club' })
-            .populate({ path: 'organisation' })
-            .then(data=>{
-                if(!data) throw "Email address not found"
-                return data
-            })
-            .then(data=> {
-                if(bcrypt.compareSync(password, data.password)) return data 
-                else throw "Incorrect password"
-            })
-            .then(data=>{
-                data.password = ""
-                return data
-            })
-            .then(data=>({
-                success: true,
-                user: data,
-                token: createToken({
-                    payload: data,
-                    maxAge: 3600
-                })
-            }))
-            .catch(err=>({error:true, message:err}))
-    ), 
+//    signin : ({email, password})=>(
+//         user
+//             .findOne({email})
+//             .populate({ path: 'team' })
+//             .populate({ path: 'club' })
+//             .populate({ path: 'organisation' })
+//             .then(data=>{
+//                 if(!data) throw "Email address not found"
+//                 return data
+//             })
+//             .then(data=> {
+//                 if(bcrypt.compareSync(password, data.password)) return data 
+//                 else throw "Incorrect password"
+//             })
+//             .then(data=>{
+//                 data.password = ""
+//                 return data
+//             })
+//             .then(data=>({
+//                 success: true,
+//                 user: data,
+//                 token: createToken({
+//                     payload: data,
+//                     maxAge: 3600
+//                 })
+//             }))
+//             .catch(err=>({error:true, message:err}))
+//     ), 
 
-    signup: ({title, email, password1, password2, last_signed_in, is_admin, is_club_official, team, club})=>{
-        if(password1===password2){ 
-            let hashedPassword = bcrypt.hashSync(password1, 8);
-            return new user({
-                        title, 
-                        email,
-                        password:hashedPassword,
-                        last_signed_in: Date.now(),
-                        isAdmin,
-                        isClubOfficial,
-                        isLeagueSecretary,
-                        isReferee,
-                        isTeamManager,
-                        isMember,
-                        team,
-                        club,
-                    })
-                    .save()
-                    .then(result=>result)
-                    .catch(err=>console.log({error:true, message:"Error getting users"}))
-        }else{
-            return {error:true, message:"Passwords didn't match"}
-        }
-    },
+    // signup: ({title, email, password1, password2, last_signed_in, is_admin, is_club_official, team, club})=>{
+    //     if(password1===password2){ 
+    //         let hashedPassword = bcrypt.hashSync(password1, 8);
+    //         return new user({
+    //                     title, 
+    //                     email,
+    //                     password:hashedPassword,
+    //                     last_signed_in: Date.now(),
+    //                     isAdmin,
+    //                     isClubOfficial,
+    //                     isLeagueSecretary,
+    //                     isReferee,
+    //                     isTeamManager,
+    //                     isMember,
+    //                     team,
+    //                     club,
+    //                 })
+    //                 .save()
+    //                 .then(result=>result)
+    //                 .catch(err=>console.log({error:true, message:"Error getting users"}))
+    //     }else{
+    //         return {error:true, message:"Passwords didn't match"}
+    //     }
+    // },
 
     getUsers: (criteria={})=>(
         user

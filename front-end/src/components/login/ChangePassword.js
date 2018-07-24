@@ -1,10 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import LoginForm from './LoginForm'
-import {validateEmail} from '../../utilities/validation'
-import {setAuthorization, post} from '../../utilities/fetch'
-import {typeOfUser} from '../../utilities/utils'
-import ls from '../../utilities/localStorage'
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,LinearProgress,FormControlLabel,Tooltip,Typography,Zoom} from '@material-ui/core'
+
+import {post} from '../../utilities/fetch'
+
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,LinearProgress,Typography,Zoom} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'

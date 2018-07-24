@@ -59,6 +59,7 @@ const changepassword = (req, res,next)=>{
             console.log("NO ERRORS FINDING USER")
             user.comparePassword(req.body.password, (err, isMatch)=> {
                 user.password = ""
+                user.secret = ""
                 let options = {}
                 console.log("PASSWORDS MATCH", isMatch, "JWT exp.", options)
                 if(isMatch){

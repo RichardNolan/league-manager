@@ -4,21 +4,20 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import {injectUser} from '../utilities/utils'
 
 import Team from '../components/teams/Team'
-
-const Division = ()=>{return null}
-const Club = ()=>{return null}
-
+import Club from '../components/clubs/Club'
+import Organisation from '../components/organisation/Organisation'
+import MemberHome from '../components/members/MemberHome'
 
 const Routes = [
     {  
-        order:3,
-        link: "My Division",
-        icon: SendIcon,
-        path: "/mydivision", 
-        component: injectUser(Division)    
+        order:4,
+        link: "All Competitions",
+        icon: DraftsIcon,
+        path: "/myorganisation", 
+        component: injectUser(Organisation)    
     },
     {  
-        order:3,
+        order:4,
         link: "My Club",
         icon: SendIcon,
         path: "/myclub", 
@@ -37,7 +36,7 @@ const Routes = [
         icon: SendIcon,
         pageTitle: "Member",
         path: "", 
-        component: injectUser(Team)    
+        component: injectUser(MemberHome)    
     },
 ];
 

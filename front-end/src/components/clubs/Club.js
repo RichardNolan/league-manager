@@ -46,7 +46,13 @@ class Club extends Component {
                                             <Route path="/club/:club/teams/" component={Teams} exact={false} />
                                             <Route path="/club/:club/" exact={true} component={()=>(
                                                 <Teams club={club}/>
-                                            )} />                    
+                                            )} />         
+                                            <Route path="/:user(clubofficial|secretary|admin)/myclub/" exact={true} component={()=>(
+                                                <Teams club={club}/>
+                                            )} />             
+                                            <Route path="/:user(member|referee)/myclub/" exact={true} component={()=>(
+                                                <Teams club={club} nofab/>
+                                            )} />                               
                                         </CardContent>
                                     </Card>
                                 </Grid>                

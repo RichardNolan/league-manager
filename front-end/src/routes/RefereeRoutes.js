@@ -4,8 +4,8 @@ import AwaitingScores from '../components/scores/AwaitingScores';
 import RefereeFixtures from '../components/referees/RefereeFixtures'
 import Referee from '../components/referees/Referee'
 import {injectUser} from '../utilities/utils'
-// const Fixtures = ()=>{return null}
-const Results = ()=>{return null}
+
+const RefereeResults = ()=>{return null}
 
 
 const Routes = [
@@ -15,7 +15,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Past Results",
         path: "/results/", 
-        component: Results
+        component: injectUser(RefereeResults)
     },
     { 
         order:3,
@@ -23,7 +23,7 @@ const Routes = [
         icon: DraftsIcon,
         pageTitle: "Upcoming Fixtures",
         path: "/fixtures/", 
-        component: RefereeFixtures
+        component: injectUser(RefereeFixtures)
     },
     { 
         order:2,

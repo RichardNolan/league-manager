@@ -19,14 +19,15 @@ module.exports = {
     },
 
     getLeague: (id)=>(
-        league.findOne({competition:id})
-            .populate({path: 'divisions'})
-            // .then(aggregate)
+        league.findById(id)
+            // .populate({path: 'divisions'})
+            .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
 
     findLeague: (criteria)=>(
         league.findOne(criteria)
+            .populate({path: 'divisions'})
             .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),

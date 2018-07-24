@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Tab, Typography } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
-// import Teams from '../teams/Teams';
 import Fixtures from "../fixtures/Fixtures";
 import Results from "../results/Results";
 
@@ -51,11 +50,13 @@ class Division extends Component {
     render() {
         let {classes} = this.props
         let {value} = this.state
+        let division = this.props.division || this.props.match.params.division
+        let id = typeof division==='string' ? division : this.props.division._id
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Typography component="div" style={{ padding: 8 * 3 }} color='inherit'>
-                        {this.props.division.title}
+                        {this.props.division && this.props.division.title}
                     </Typography>                    
                     <Tabs 
                         value={value} 
@@ -72,7 +73,7 @@ class Division extends Component {
                         let Panel = tab.component
                         return (
                             <div className={classes.tabPanel} key={key}>
-                                <Panel division={this.props.division._id} />
+                                <Panel division={id} />
                             </div>
                         )
                     })

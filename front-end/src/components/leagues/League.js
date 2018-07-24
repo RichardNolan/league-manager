@@ -7,7 +7,8 @@ import SNACK from '../../SNACK'
 class League extends React.Component {
 
     state={
-        competitionID: this.props.competition || this.props.match.params.competition, 
+        competitionID: this.props.competition || this.props.match.params.competition || null, 
+        leagueID: this.props.league || this.props.match.params.league || null, 
         competition:null,
         progressBar:false,
     }
@@ -18,9 +19,18 @@ class League extends React.Component {
 
     fetchData(){
         this.setState({progressBar:true})
-        fetch(`http://localhost:9000/api/competition/${this.state.competitionID}`, getStandard())
+
+        let url = `http://localhost:9000/api/`
+        if(this.state.competitionID) url += `competition/${this.state.competitionID}`
+        else if(this.state.leagueID) url += `league/${this.state.leagueID}`
+
+        fetch(url, getStandard())
             .then(res=>res.json())
-            .then(competition=>{
+            .then(res=>{
+                let competition = {}
+                if(!this.state.competitionID && this.state.leagueID) competition.league = res
+                else competition = res
+            
                 this.setState({competition,progressBar:false})
             })
             .catch(err=>{

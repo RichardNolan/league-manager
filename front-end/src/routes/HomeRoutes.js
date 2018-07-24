@@ -6,6 +6,7 @@ import RegisterContainer from "../components/register/RegisterContainer";
 import Organisations from '../components/organisation/Organisations';
 import Club from '../components/clubs/Club';
 import League from '../components/leagues/League';
+import Division from '../components/divisions/Division';
 import Team from '../components/teams/Team';
 import Home from '../components/layout/Home'
 
@@ -15,6 +16,12 @@ const Routes = [
         link: "League",
         path: "competitions/:competition/league/", 
         component: League 
+    },
+    { 
+        order:0,
+        link: "Division",
+        path: "division/:division", 
+        component: Division 
     },
     { 
         order:0,
