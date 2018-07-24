@@ -1,5 +1,5 @@
 const express = require('express');
-const { Authenticate, signin, signup, forgotpassword, checkEmail } = require('../auth/passport');
+const { Authenticate, signin, signup, forgotpassword, checkEmail, changepassword } = require('../auth/passport');
 
 
 const router = express.Router();
@@ -22,6 +22,7 @@ router.use('/user',  require('./API/user'));
 router.use('/venue', require('./API/venue'));
 
 router.post('/signin', signin);
+router.post('/changepassword', changepassword);
 router.get('/checkemail/:email', checkEmail);
 router.post('/forgotpassword', forgotpassword);
 router.post('/signup', signup);

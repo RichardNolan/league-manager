@@ -58,7 +58,7 @@ class AccountMenu extends Component {
               onClose={this.handleCloseMenu}
             >
               <MenuItem onClick={this.handleCloseMenu} component={Link} to={user.redirectTo} from={window.location.pathname}>Dashboard</MenuItem>
-              <MenuItem onClick={this.handleCloseMenu}>Change Password</MenuItem>
+              <MenuItem onClick={this.handleCloseMenu} component={Link} to='/changepassword' from={window.location.pathname} user={this.props.user}>Change Password</MenuItem>
               <MenuItem onClick={this.handleCloseMenu}>My Profile</MenuItem>
               <MenuItem onClick={this.handleDialogOpen}>Logout</MenuItem>
               <LogoutDialog yes={this.handleDialogYes} no={this.handleDialogNo} open={this.state.dialogOpen} onClose={this.handleDialogClose}/>

@@ -1,6 +1,7 @@
 // import MyClubLayout from '../components/containers/MyClub'
 import LoginLayout from "../components/login/LoginLayout";
 import ForgotPassword from "../components/login/ForgotPassword";
+import ChangePassword from "../components/login/ChangePassword";
 import RegisterContainer from "../components/register/RegisterContainer";
 import Organisations from '../components/organisation/Organisations';
 import Club from '../components/clubs/Club';
@@ -44,6 +45,11 @@ const Routes = [
         link: "Log In",
         path: "login/", 
         component: LoginLayout 
+    },
+    { 
+        order:0,
+        path: "changepassword/", 
+        component: ChangePassword 
     },
     { 
         order:0,

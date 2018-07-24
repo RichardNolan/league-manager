@@ -50,6 +50,58 @@ const Passport = passport=> {
     }));
 }
 
+const changepassword = (req, res,next)=>{
+    console.log("Changing Password")
+    User.findOne({ email: req.body.email })
+    .then(user=> {
+        if (!user) throw 'Authentication failed. User not found.'
+        else {
+            console.log("NO ERRORS FINDING USER")
+            user.comparePassword(req.body.password, (err, isMatch)=> {
+                user.password = ""
+                let options = {}
+                console.log("PASSWORDS MATCH", isMatch, "JWT exp.", options)
+                if(isMatch){
+                    
+                    
+                    let hashedPassword = bcrypt.hashSync(req.body.password1, 8);
+
+                    User.findOneAndUpdate({ email: req.body.email}, { $set: { password: hashedPassword }}, {new:true},  (err, user)=>{ 
+                        if(err) res.status(401).send({success: false, message: 'Something went wrong'})
+                        else if(!user) res.status(401).send({success: false, message: 'Email address not found'}) 
+                        else{
+                            let message = {
+                                from: 'no-reply@leaguemanager.com',
+                                to: user.email,
+                                subject: 'Your password has been changes',
+                                text: `Your new password is... ${req.body.password1}`,
+                                html: `<h2>Your new password...</h2>
+                                    <h4>Here\'s your new password</h4>
+                                    <h1>${req.body.password1}</h1>`,
+                            };
+
+                            emailer.transporter.sendMail(message)
+                            .then(data=>{
+                                console.log("EMAIL SEEMS TO HAVE SENT")
+                                let emailLink = 'https://ethereal.email/message/'+ data.response.split('MSGID=')[1].split('').reverse().slice(1).reverse().join('')
+                                res.status(200).json( {success: true, message:'Your password has been changed', link:emailLink} )
+                            })
+                            .catch(err=>console.log("ERROR", err))
+                        }
+                    })
+                    
+                }else{
+                    throw 'Authentication failed. Wrong password.'
+                }    
+            });
+        }
+    })
+    .catch(err=>{
+        console.log("CATCH")
+        res.status(401).send({success: false, message: err})
+    }  )
+}
+
 const signin = (req, res)=> {
     console.log("SIGNING IN ")
     User.findOne({ email: req.body.email })
@@ -212,4 +264,5 @@ module.exports = {
     isMe,
     canUpdateScores,
     checkEmail,
+    changepassword,
 }
