@@ -15,7 +15,6 @@ import {injectUser} from '../utilities/utils'
 
 
 const Fixtures = ()=>{return null}
-// const Results = ()=>{return null}
 
 const Tables = ()=>{return null}
 const Players = ()=>{return null}

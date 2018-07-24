@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography,Zoom} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
@@ -101,14 +101,16 @@ class RegisterForm extends React.Component {
         <Fragment>
             <Grid container spacing={32}>
                <Grid item xs={false} sm={2}></Grid>
-               <Grid item xs={12} sm={8}>                                    
+               <Grid item xs={12} sm={8}>  
+               
+               <Zoom in={true} style={{ transitionDelay: 250 }}>                                  
                    <Card>
                        <CardHeader
                            avatar={
                             <Avatar className={classes.avatar}>R</Avatar>
                            }
-                           title="Log In"
-                           subheader="Register to access your team or league"
+                           title="Register"
+                           subheader="Register to have easy access to your team or league"
                        />
                        <CardContent>
                                <FormGroup>
@@ -221,6 +223,7 @@ class RegisterForm extends React.Component {
                             </Button>
                        </CardActions>
                    </Card>
+                   </Zoom>
                </Grid>
                <Grid item xs={false} sm={2}></Grid>
            </Grid>

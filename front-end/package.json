@@ -20,5 +20,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "/"
+  "homepage": "/",
+  "eslintConfig": {
+      "env": {
+          "browser": true,
+          "node": true,
+          "es6": true
+      }
+  }
 }

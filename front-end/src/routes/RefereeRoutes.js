@@ -1,28 +1,29 @@
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import AwaitingScores from '../components/scores/AwaitingScores';
-
+import RefereeFixtures from '../components/referees/RefereeFixtures'
+import Referee from '../components/referees/Referee'
 import {injectUser} from '../utilities/utils'
-const Fixtures = ()=>{return null}
+// const Fixtures = ()=>{return null}
 const Results = ()=>{return null}
 
 
 const Routes = [
     { 
         order:4,
-        link: "Results",
+        link: "Past Results",
         icon: DraftsIcon,
-        pageTitle: "Results",
+        pageTitle: "Past Results",
         path: "/results/", 
         component: Results
     },
     { 
         order:3,
-        link: "Fixtures",
+        link: "Upcoming Fixtures",
         icon: DraftsIcon,
-        pageTitle: "Fixtures",
+        pageTitle: "Upcoming Fixtures",
         path: "/fixtures/", 
-        component: Fixtures
+        component: RefereeFixtures
     },
     { 
         order:2,
@@ -38,6 +39,7 @@ const Routes = [
         icon: SendIcon,
         pageTitle: "Referee",
         path: "", 
+        component: injectUser(Referee), 
     }
 ];
 export default Routes;

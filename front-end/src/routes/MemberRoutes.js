@@ -1,64 +1,42 @@
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
-// import React from 'react'
+
 import {injectUser} from '../utilities/utils'
 
 import Team from '../components/teams/Team'
 
-const Fixtures = ()=>{return null}
-const Results = ()=>{return null}
-const Teams = ()=>{return null}
-const Tables = ()=>{return null}
-const Players = ()=>{return null}
+const Division = ()=>{return null}
+const Club = ()=>{return null}
 
 
 const Routes = [
-    { 
-        order:8,
-        link: "Tables",
-        icon: DraftsIcon,
-        pageTitle: "Tables",
-        path: "/tables", 
-        component: Tables
-    },
-    { 
-        order:7,
-        link: "Results",
-        icon: DraftsIcon,
-        pageTitle: "Results",
-        path: "/results", 
-        component: Results
-    },
-    { 
-        order:6,
-        link: "Fixtures",
-        icon: DraftsIcon,
-        pageTitle: "Fixtures",
-        path: "/fixtures", 
-        component: Fixtures
-    },
-    { 
-        order:5,
-        link: "Players",
-        icon: DraftsIcon,
-        pageTitle: "Players",
-        path: "/players", 
-        component: Players
-    },
-    { 
+    {  
         order:3,
-        link: "Teams",
-        icon: DraftsIcon,
-        pageTitle: "Teams",
-        path: "/teams", 
-        component: Teams
+        link: "My Division",
+        icon: SendIcon,
+        path: "/mydivision", 
+        component: injectUser(Division)    
+    },
+    {  
+        order:3,
+        link: "My Club",
+        icon: SendIcon,
+        path: "/myclub", 
+        component: injectUser(Club)    
+    },
+    {  
+        order:2,
+        link: "My Team",
+        icon: SendIcon,
+        path: "/myteam", 
+        component: injectUser(Team)    
     },
     {  
         order:1,
         link: "Dashboard",
         icon: SendIcon,
         pageTitle: "Member",
-        path: "/", 
+        path: "", 
         component: injectUser(Team)    
     },
 ];

@@ -2,14 +2,14 @@ import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import AwaitingScores from '../components/scores/AwaitingScores'
 import Results from '../components/results/Results'
-
+import Fixtures from '../components/fixtures/Fixtures'
 import {injectUser} from '../utilities/utils'
 
-const Fixtures = ()=>{return null}
 const Teams = ()=>{return null}
 const Tables = ()=>{return null}
 const Players = ()=>{return null}
 const Users = ()=>{return null}
+const Secretary = ()=>{return null}
 
 
 const Routes = [
@@ -75,6 +75,7 @@ const Routes = [
         icon: SendIcon,
         pageTitle: "Club Official",
         path: "", 
+        component: injectUser(Secretary)   
     }
 ];
 

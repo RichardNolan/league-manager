@@ -65,6 +65,8 @@ class Organisations extends React.Component {
         let {organisations} = this.state
         // let organisations = this.state.organisations.map((org, key)=> <MenuItem key={key} onClick={e=>this.chooseOrganisation(e, org._id, org.title)} >{org.title}</MenuItem>)
         
+        let path = (this.props.match && this.props.match.path) || "/organisations/"
+
         let organisationsMetro = organisations && organisations.length>0
                     ?   organisations.map((organisation,key)=>(
                             <ClubButton 
@@ -73,45 +75,44 @@ class Organisations extends React.Component {
                                 stripe='white' 
                                 text={organisation.title} 
                                 component={Link} 
-                                to={`${this.props.match.path}${organisation._id}/`} 
+                                to={`${path}${organisation._id}/`} 
                                 key={key}
                             />
                         ))
                     :   null
-
         return (
             <div className={classes.root}> 
                 {this.state.progressBar && <LinearProgress/>}         
 
 
-                <Route path={`${this.props.match.path}:organisationID`} component={Organisation} exact={false} />
+                <Route path={`${path}:organisationID`} component={Organisation} exact={false} />
                 <Route 
-                    path={`${this.props.match.path}`} 
+                    path={`${path}`} 
                     exact={true} 
                     component={()=>(
-                    <Fragment>
-                        <PlusFab onSave={this.saveNewOrganisation.bind(this)} dialog={OrganisationNewDialog}  /> 
-                            <Grid container spacing={16}>
-                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                                <Grid item xs={12} sm={10} md={8} lg={6} > 
-                                    <Card>
-                                        <CardHeader
-                                            avatar={
-                                                <Avatar>O</Avatar>
-                                            }
-                                            title="Organisations"
-                                            subheader="These are the different organisations in the application"
-                                        />
-                                        <CardContent spacing={16} className={classes.nopadding}>
-                                            <Grid container alignContent='space-around'> 
-                                                {organisationsMetro}     
-                                            </Grid>                      
-                                        </CardContent>
-                                    </Card>
-                                </Grid>                
-                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                            </Grid>
-                    </Fragment>
+                            <Fragment>
+                                <PlusFab onSave={this.saveNewOrganisation.bind(this)} dialog={OrganisationNewDialog}  /> 
+                                <Grid container spacing={16}>
+                                    <Grid item xs={false} sm={1} md={2} lg={3}></Grid>
+                                    <Grid item xs={12} sm={10} md={8} lg={6} > 
+                                        <Card>
+                                            <CardHeader
+                                                avatar={
+                                                    <Avatar>O</Avatar>
+                                                }
+                                                title="Organisations"
+                                                subheader="These are the different organisations in the application"
+                                            />
+                                            <CardContent spacing={16} className={classes.nopadding}>
+                                                <Grid container alignContent='space-around'> 
+                                                    {organisationsMetro}     
+                                                </Grid>                      
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>                
+                                    <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                                </Grid>
+                            </Fragment>
                 )} />
                
 

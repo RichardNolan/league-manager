@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Switch,Tooltip,FormControlLabel} from '@material-ui/core'
+import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Switch,Tooltip,FormControlLabel, Zoom} from '@material-ui/core'
 
 import {Link} from 'react-router-dom'
 
@@ -36,7 +36,7 @@ class LoginForm extends Component {
                 <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
                 <Grid item xs={12} sm={10} md={8} lg={6} > 
 
-
+                <Zoom in={true} style={{ transitionDelay: 250 }}>
                    <Card>
                        <CardHeader
                            avatar={
@@ -87,7 +87,7 @@ class LoginForm extends Component {
                            </Button>
                        </CardActions>
                    </Card>    
-
+                </Zoom>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} ></Grid>
             </Grid>

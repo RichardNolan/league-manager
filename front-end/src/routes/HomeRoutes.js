@@ -28,19 +28,19 @@ const Routes = [
         component: Club 
     },
     { 
-        order:1,
-        link: "Orgs",
+        order:6,
+        link: "Organisations",
         path: "organisations/", 
         component: Organisations 
     },
     { 
-        order:0,
+        order:2,
         link: "Register",
         path: "register/", 
         component: RegisterContainer 
     },
     { 
-        order:0,
+        order:1,
         link: "Log In",
         path: "login/", 
         component: LoginLayout 
