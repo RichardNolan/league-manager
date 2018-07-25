@@ -35,6 +35,16 @@ class PlusFab extends Component {
         this.setState({open:false})
         this.props.onSave(item)
     }
+    canSeePlusFAB = (user)=>{
+        return (
+            user.success
+            && (
+                user.user.isAdmin
+                || user.user.isLeagueSecretary
+                || user.user.isClubOfficial
+               )
+            )
+    }
     render() {        
         // if(!this.props.user)return null;  
         let PromptDialog = this.props.dialog
@@ -42,7 +52,7 @@ class PlusFab extends Component {
                
         <USER.Consumer>
             { ( {user} )=>{
-            return (user.success ? (
+            return (this.canSeePlusFAB(user) ? (
                     <div className={this.props.classes.root}>
                         <Zoom
                             in={true}
