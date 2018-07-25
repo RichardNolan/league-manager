@@ -33,7 +33,7 @@ const CompetitionsPanel = (props) => {
                         <Avatar className={classes.avatar}>C</Avatar>
                     }
                     action={
-                        <IconButton component={Link} to={'./competitions/'}>
+                        <IconButton component={Link} to={`/organisations/${props.organisation._id}/competitions/`}>
                             <More />
                         </IconButton>
                     }

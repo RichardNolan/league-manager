@@ -8,9 +8,10 @@ import Organisation from '../components/organisation/Organisation'
 import MemberHome from '../components/members/MemberHome'
 
 const Routes = [
+
     {  
         order:4,
-        link: "All Competitions",
+        link: "My League",
         icon: Assessment,
         path: "/myorganisation", 
         component: injectUser(Organisation)    

@@ -27,7 +27,7 @@ const ClubsPanel = (props) => {
                         <Avatar className={classes.avatar}>C</Avatar>
                     }
                     action={
-                        <IconButton component={Link} to={'./clubs'}>
+                        <IconButton component={Link} to={`/organisations/${props.organisation._id}/clubs/`}>
                             <More />
                         </IconButton>
                     }

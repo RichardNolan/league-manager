@@ -59,10 +59,10 @@ class Organisation extends Component {
                 <Route path={`${this.props.match.path}`} exact={true} component={()=>(
                     <Grid container spacing={32}>
                         <Grid item xs={12} sm={12} md={6}>
-                            <CompetitionsPanel competitions={org.competitions} title={org.title}/>
+                            <CompetitionsPanel competitions={org.competitions} organisation={org} />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
-                            <ClubsPanel clubs={org.clubs} title={org.title}/>
+                            <ClubsPanel clubs={org.clubs} organisation={org}/>
                         </Grid>
                     </Grid>
                 )} />
