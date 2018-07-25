@@ -78,12 +78,8 @@ class Clubs extends Component {
                     :   <LinearProgress />
         return (
             <div className={classes.root}>                
-            <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog}/>
+                <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog}/>
     
-            <Grid container spacing={32}>
-                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                <Grid item xs={12} sm={10} md={8} lg={6} > 
-
                    <Card>
                         <CardHeader
                             avatar={
@@ -98,10 +94,7 @@ class Clubs extends Component {
                             </Grid>                      
                         </CardContent>
                     </Card>
-                </Grid>                
-                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-            </Grid>
-        </div>
+            </div>
         );
     }
 

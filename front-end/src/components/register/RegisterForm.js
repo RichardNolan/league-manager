@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography,Zoom} from '@material-ui/core'
+import React from 'react';
+import {TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,InputLabel,MenuItem,FormControl,Select,Typography} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
@@ -98,136 +98,126 @@ class RegisterForm extends React.Component {
         let clubs = this.state.clubs.map((club, key)=> <MenuItem value={club._id} key={key}>{club.title}</MenuItem>)
         let teams = this.state.teams.map((team, key)=> <MenuItem value={team._id} key={key}>{team.title}</MenuItem>)
         return (
-        <Fragment>
-            <Grid container spacing={32}>
-               <Grid item xs={false} sm={2}></Grid>
-               <Grid item xs={12} sm={8}>  
-               
-               <Zoom in={true} style={{ transitionDelay: 250 }}>                                  
-                   <Card>
-                       <CardHeader
-                           avatar={
-                            <Avatar className={classes.avatar}>R</Avatar>
-                           }
-                           title="Register"
-                           subheader="Register to have easy access to your team or league"
-                       />
-                       <CardContent>
-                               <FormGroup>
-                                   <TextField
-                                       id="name"
-                                       name="title"
-                                       label="Full Name"
-                                       className={classes.textField}
-                                       type="text"
-                                       value={this.state.title}
-                                       onChange={this.change}
-                                   />
-                                   <TextField
-                                       id="email"
-                                       name="email"
-                                       label="Email Address"
-                                       className={classes.textField}
-                                       type="email"
-                                       value={this.state.email}
-                                       onChange={this.change}
-                                       onBlur={this.checkEmail}
-                                   />
-                                   <TextField
-                                       id="password1"
-                                       name="password1"
-                                       label="Password1"
-                                       className={classes.textField}
-                                       type="password"
-                                       value={this.state.password1}
-                                       onChange={this.change}
-                                       onBlur={this.checkPasswords}
-                                   />
-                                    <Typography variant="caption">
-                                        * Must be minimum 6 characters long
-                                    </Typography>
-                                   <TextField
-                                       id="password2"
-                                       name="password2"
-                                       label="Password2"
-                                       className={classes.textField}
-                                       type="password"
-                                       value={this.state.password2}
-                                       onChange={this.change}
-                                       onBlur={this.checkPasswords}
-                                   />
-                                   <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="organisation">Organisation</InputLabel>
-                                    <Select
-                                        value={this.state.organisation}
-                                        onChange={this.change}
-                                        inputProps={{
-                                            name: 'organisation',
-                                            id: 'organisation',
-                                        }}
-                                    >
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        {organisations}
-                                    </Select>
-                                    </FormControl>
-                                   
-                                    <FormControl>
-                                    <InputLabel htmlFor="club">Club</InputLabel>
-                                    <Select
-                                        value={this.state.club}
-                                        onChange={this.change}
-                                        inputProps={{
-                                            name: 'club',
-                                            id: 'club',
-                                        }}
-                                    >
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        {clubs}
-                                    </Select>
-                                    </FormControl>
+                        
+            <Card>
+                <CardHeader
+                    avatar={
+                    <Avatar className={classes.avatar}>R</Avatar>
+                    }
+                    title="Register"
+                    subheader="Register to have easy access to your team or league"
+                />
+                <CardContent>
+                        <FormGroup>
+                            <TextField
+                                id="name"
+                                name="title"
+                                label="Full Name"
+                                className={classes.textField}
+                                type="text"
+                                value={this.state.title}
+                                onChange={this.change}
+                            />
+                            <TextField
+                                id="email"
+                                name="email"
+                                label="Email Address"
+                                className={classes.textField}
+                                type="email"
+                                value={this.state.email}
+                                onChange={this.change}
+                                onBlur={this.checkEmail}
+                            />
+                            <TextField
+                                id="password1"
+                                name="password1"
+                                label="Password1"
+                                className={classes.textField}
+                                type="password"
+                                value={this.state.password1}
+                                onChange={this.change}
+                                onBlur={this.checkPasswords}
+                            />
+                            <Typography variant="caption">
+                                * Must be minimum 6 characters long
+                            </Typography>
+                            <TextField
+                                id="password2"
+                                name="password2"
+                                label="Password2"
+                                className={classes.textField}
+                                type="password"
+                                value={this.state.password2}
+                                onChange={this.change}
+                                onBlur={this.checkPasswords}
+                            />
+                            <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="organisation">Organisation</InputLabel>
+                            <Select
+                                value={this.state.organisation}
+                                onChange={this.change}
+                                inputProps={{
+                                    name: 'organisation',
+                                    id: 'organisation',
+                                }}
+                            >
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                {organisations}
+                            </Select>
+                            </FormControl>
+                            
+                            <FormControl>
+                            <InputLabel htmlFor="club">Club</InputLabel>
+                            <Select
+                                value={this.state.club}
+                                onChange={this.change}
+                                inputProps={{
+                                    name: 'club',
+                                    id: 'club',
+                                }}
+                            >
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                {clubs}
+                            </Select>
+                            </FormControl>
 
-                                    <FormControl className={classes.formControl}>
-                                    <InputLabel htmlFor="team">Team</InputLabel>
-                                    <Select
-                                        value={this.state.team}
-                                        onChange={this.change}
-                                        inputProps={{
-                                            name: 'team',
-                                            id: 'team',
-                                        }}
-                                    >
-                                        <MenuItem value=""><em>None</em></MenuItem>
-                                        {teams}
-                                    </Select>
-                                    </FormControl>
-                                   <TextField
-                                       id="secret"
-                                       name="secret"
-                                       label="Who's your favourite player?"
-                                       className={classes.textField}
-                                       type="text"
-                                       value={this.state.secret}
-                                       onChange={this.change}
-                                   />
-                                    <Typography variant="caption">
-                                        Please tell us your favourite all-time player. We will ask you this again if you forget your password.
-                                    </Typography>
+                            <FormControl className={classes.formControl}>
+                            <InputLabel htmlFor="team">Team</InputLabel>
+                            <Select
+                                value={this.state.team}
+                                onChange={this.change}
+                                inputProps={{
+                                    name: 'team',
+                                    id: 'team',
+                                }}
+                            >
+                                <MenuItem value=""><em>None</em></MenuItem>
+                                {teams}
+                            </Select>
+                            </FormControl>
+                            <TextField
+                                id="secret"
+                                name="secret"
+                                label="Who's your favourite player?"
+                                className={classes.textField}
+                                type="text"
+                                value={this.state.secret}
+                                onChange={this.change}
+                            />
+                            <Typography variant="caption">
+                                Please tell us your favourite all-time player. We will ask you this again if you forget your password.
+                            </Typography>
 
-                               </FormGroup>
-                                Already registered? <Button className={classes.button}>Log In</Button>
-                       </CardContent>
-                       <CardActions disableActionSpacing>     
-                            <Button className={classes.keepRight} component={Link} to='/' from={window.location.pathname}>Cancel</Button>      
-                            <Button variant="contained" color="primary" onClick={this.onRegister}>
-                                Register
-                            </Button>
-                       </CardActions>
-                   </Card>
-                   </Zoom>
-               </Grid>
-               <Grid item xs={false} sm={2}></Grid>
-           </Grid>
-           </Fragment>
+                        </FormGroup>
+                        Already registered? <Button className={classes.button}>Log In</Button>
+                </CardContent>
+                <CardActions disableActionSpacing>     
+                    <Button className={classes.keepRight} component={Link} to='/' from={window.location.pathname}>Cancel</Button>      
+                    <Button variant="contained" color="primary" onClick={this.onRegister}>
+                        Register
+                    </Button>
+                </CardActions>
+            </Card>
         );
     }
 }

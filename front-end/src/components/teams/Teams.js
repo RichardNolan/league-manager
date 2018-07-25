@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { post, fetchQuery } from '../../utilities/fetch'
-import { Button,Grid, LinearProgress, Paper} from '@material-ui/core';
+import { Button, LinearProgress, Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import TeamNewDialog from './TeamNewDialog';
@@ -102,11 +102,8 @@ class Teams extends Component {
                 {...this.props}
             />   }
                
-            <Grid container spacing={16}>
-                <Grid item md={12}>   
-                   {teamPanels}
-                </Grid>
-            </Grid>
+            {teamPanels}
+                
             <Snack open={this.state.snackOpen} message={this.state.snackMessage} onClose={()=>this.setState({snackOpen:false})} />
         </div>
         );

@@ -9,7 +9,8 @@ import League from '../components/leagues/League';
 import Division from '../components/divisions/Division';
 import Team from '../components/teams/Team';
 import Home from '../components/layout/Home'
-
+import {AssignmentInd,Assessment} from '@material-ui/icons'
+import HomeIcon from '@material-ui/icons/Home'
 const Routes = [
     { 
         order:0,
@@ -37,12 +38,14 @@ const Routes = [
     },
     { 
         order:6,
+        icon: Assessment,
         link: "Organisations",
         path: "organisations/", 
         component: Organisations 
     },
     { 
         order:2,
+        icon: AssignmentInd,
         link: "Register",
         path: "register/", 
         component: RegisterContainer 
@@ -67,6 +70,7 @@ const Routes = [
     },
     { 
         order:1,
+        icon: HomeIcon,
         link: "Home",
         path: "", 
         component: Home 

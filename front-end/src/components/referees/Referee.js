@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import {Grid,Card,CardHeader,Avatar,CardContent, Zoom, Typography} from '@material-ui/core'
+import {Card,CardHeader,Avatar,CardContent, Typography} from '@material-ui/core'
 import AwaitingScores from '../scores/AwaitingScores'
 class Referee extends Component {
     render() {
-        return ( <Grid container spacing={32}>
-            <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-            <Grid item xs={12} sm={10} md={8} lg={6} > 
-
-            <Zoom in={true} style={{ transitionDelay: 250 }}>
+        return ( 
                <Card>
                    <CardHeader
                        avatar={
@@ -27,11 +23,7 @@ class Referee extends Component {
                         </Typography>
                         <AwaitingScores {...this.props} />
                    </CardContent>
-               </Card>    
-            </Zoom>
-            </Grid>
-            <Grid item xs={12} sm={2} md={2} ></Grid>
-        </Grid>
+               </Card>
         );
     }
 }

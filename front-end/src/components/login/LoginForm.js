@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Switch,Tooltip,FormControlLabel, Zoom} from '@material-ui/core'
+import {TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Switch,Tooltip,FormControlLabel} from '@material-ui/core'
 
 import {Link} from 'react-router-dom'
 
@@ -31,19 +31,10 @@ class LoginForm extends Component {
     render() {
         const {classes} = this.props
         
-        return (     
-            <Grid container spacing={32}>
-                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                <Grid item xs={12} sm={10} md={8} lg={6} > 
-
-                <Zoom in={true} style={{ transitionDelay: 250 }}>
+        return ( 
                    <Card>
                        <CardHeader
-                           avatar={
-                           <Avatar>
-                               L
-                           </Avatar>
-                           }
+                           avatar={<Avatar>L</Avatar>}
                            title="Log In"
                            subheader="Login to access your team or league"
                        />
@@ -86,11 +77,7 @@ class LoginForm extends Component {
                                Login
                            </Button>
                        </CardActions>
-                   </Card>    
-                </Zoom>
-                </Grid>
-                <Grid item xs={12} sm={2} md={2} ></Grid>
-            </Grid>
+                   </Card>   
         );
     }
 }

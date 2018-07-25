@@ -1,5 +1,4 @@
-import SendIcon from '@material-ui/icons/Send';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import { Dns, ViewAgenda, Group, Home} from '@material-ui/icons';
 import AwaitingScores from '../components/scores/AwaitingScores'
 import {injectUser} from '../utilities/utils'
 import ClubOfficial from '../components/officials/ClubOfficial';
@@ -13,7 +12,7 @@ const Routes = [
     { 
         order:7,
         link: "Players",
-        icon: DraftsIcon,
+        icon: Group,
         pageTitle: "Players",
         path: "/clubofficial/players", 
         component: Players
@@ -21,14 +20,14 @@ const Routes = [
     {  
         order:4,
         link: "My Club",
-        icon: SendIcon,
+        icon: Home,
         path: "/myclub", 
         component: injectUser(Club)    
     },
     { 
         order:3,
         link: "Users",
-        icon: DraftsIcon,
+        icon: Group,
         pageTitle: "Users",
         path: "/clubofficial/users", 
         component: Users   
@@ -36,7 +35,7 @@ const Routes = [
     { 
         order:3,
         link: "Awaiting Scores",
-        icon: DraftsIcon,
+        icon: Dns,
         pageTitle: "Users",
         path: "/awaitingscores/", 
         component: injectUser(AwaitingScores)       
@@ -44,7 +43,7 @@ const Routes = [
     {  
         order:1,
         link: "Dashboard",
-        icon: SendIcon,
+        icon: ViewAgenda,
         pageTitle: "Club Official",
         path: "", 
         component: injectUser(ClubOfficial)   

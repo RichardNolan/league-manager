@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Teams from '../teams/Teams'
 import { Route} from 'react-router-dom'
 import ClubBanner from './ClubBanner'
 
-import { Grid, LinearProgress, CardContent, Card, withStyles } from '@material-ui/core';
+import { LinearProgress, CardContent, Card, withStyles } from '@material-ui/core';
 import SNACK from '../../SNACK'
 
 
@@ -34,32 +34,25 @@ class Club extends Component {
         let {club} = this.state
         let {classes} = this.props
         return (
-            <div>
+            <Fragment>
                 {this.state.progressBar && <LinearProgress/>}
-                            <Grid container spacing={16}>
-                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                                <Grid item xs={12} sm={10} md={8} lg={6} > 
-                                    <Card>
-                                    <ClubBanner club={club} />
-                                        <CardContent spacing={16} className={classes.nopadding}>                                         
-                        
-                                            <Route path="/club/:club/teams/" component={Teams} exact={false} />
-                                            <Route path="/club/:club/" exact={true} component={()=>(
-                                                <Teams club={club}/>
-                                            )} />         
-                                            <Route path="/:user(clubofficial|secretary|admin)/myclub/" exact={true} component={()=>(
-                                                <Teams club={club}/>
-                                            )} />             
-                                            <Route path="/:user(member|referee)/myclub/" exact={true} component={()=>(
-                                                <Teams club={club} nofab/>
-                                            )} />                               
-                                        </CardContent>
-                                    </Card>
-                                </Grid>                
-                                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                            </Grid>
-       
-            </div>
+                <Card>
+                    <ClubBanner club={club} />
+                    <CardContent spacing={16} className={classes.nopadding}>                                         
+    
+                        <Route path="/club/:club/teams/" component={Teams} exact={false} />
+                        <Route path="/club/:club/" exact={true} component={()=>(
+                            <Teams club={club}/>
+                        )} />         
+                        <Route path="/:user(clubofficial|secretary|admin)/myclub/" exact={true} component={()=>(
+                            <Teams club={club}/>
+                        )} />             
+                        <Route path="/:user(member|referee)/myclub/" exact={true} component={()=>(
+                            <Teams club={club} nofab/>
+                        )} />                               
+                    </CardContent>
+                </Card>
+            </Fragment>
         );
     }
 }

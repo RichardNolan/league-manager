@@ -20,11 +20,7 @@ class TeamContainer extends Component {
             .catch(err=>this.props.showSnack(err))
     }
     render() {
-        return (
-            <div>
-                <Team {...this.props} team={this.state.team} />
-            </div>
-        );
+        return <Team {...this.props} team={this.state.team} />
     }
 }
 

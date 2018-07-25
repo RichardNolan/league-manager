@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import {post} from '../../utilities/fetch'
 
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,LinearProgress,Typography,Zoom} from '@material-ui/core'
+import {TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActions,LinearProgress,Typography} from '@material-ui/core'
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
@@ -79,11 +79,6 @@ class ChangePassword extends Component {
         return (
             <Fragment>
                 {this.state.progressBar && <LinearProgress/>}
-                <Grid container spacing={32}>
-                    <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                    <Grid item xs={12} sm={10} md={8} lg={6} > 
-
-                    <Zoom in={true} style={{ transitionDelay: 250 }}>
                     <Card>
                         <CardHeader
                             avatar={
@@ -145,11 +140,7 @@ class ChangePassword extends Component {
                                 Change Password
                             </Button>
                         </CardActions>
-                    </Card>    
-                    </Zoom>
-                    </Grid>
-                    <Grid item xs={12} sm={2} md={2} ></Grid>
-                </Grid>
+                    </Card>  
             </Fragment>
         )
     }

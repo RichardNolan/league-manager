@@ -1,6 +1,3 @@
-// import React from 'react'
-import SendIcon from '@material-ui/icons/Send';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import Competitions from '../components/competitions/Competitions'
 import Clubs from '../components/clubs/Clubs'
 import Club from '../components/clubs/Club'
@@ -12,6 +9,7 @@ import Results from '../components/results/Results'
 
 import {injectUser} from '../utilities/utils'
 
+import {Dns, Assessment, ViewAgenda, DirectionsRun,LocalConvenienceStore, Alarm, Person, Group, Home } from '@material-ui/icons';
 
 
 const Fixtures = ()=>{return null}
@@ -25,14 +23,14 @@ const Routes = [
     { 
         order:11,
         link: "Awaiting Scores",
-        icon: DraftsIcon,
+        icon: Dns,
         path: "/awaitingscores/", 
         component: injectUser(AwaitingScores)       
     },
     { 
         order:10,
         link: "Referees",
-        icon: DraftsIcon,
+        icon: Person,
         pageTitle: "Referees",
         path: "/referees/", 
         component: Referees
@@ -40,7 +38,7 @@ const Routes = [
     { 
         order:9,
         link: "Competitions",
-        icon: DraftsIcon,
+        icon: Assessment,
         pageTitle: "Competitions",
         path: "/competitions/", 
         component: injectUser(Competitions)
@@ -48,7 +46,7 @@ const Routes = [
     { 
         order:0,
         link: "Tables",
-        icon: DraftsIcon,
+        icon: ViewAgenda,
         pageTitle: "Tables",
         path: "/tables/", 
         component: Tables
@@ -56,7 +54,7 @@ const Routes = [
     { 
         order:0,
         link: "Results",
-        icon: DraftsIcon,
+        icon: LocalConvenienceStore,
         pageTitle: "Results",
         path: "/results/", 
         component: injectUser(Results)
@@ -64,7 +62,7 @@ const Routes = [
     { 
         order:0,
         link: "Fixtures",
-        icon: DraftsIcon,
+        icon: Alarm,
         pageTitle: "Fixtures",
         path: "/fixtures/", 
         component: Fixtures
@@ -72,7 +70,7 @@ const Routes = [
     { 
         order:0,
         link: "Players",
-        icon: DraftsIcon,
+        icon: DirectionsRun,
         pageTitle: "Players",
         path: "/players/", 
         component: Players
@@ -80,7 +78,7 @@ const Routes = [
     { 
         order:2,
         link: "Users",
-        icon: DraftsIcon,
+        icon: Person,
         pageTitle: "Users",
         path: "/users/", 
         component: injectUser(Users), 
@@ -88,7 +86,7 @@ const Routes = [
     { 
         order:0,
         link: "Teams",
-        icon: DraftsIcon,
+        icon: Group,
         pageTitle: "Teams",
         path: "/teams/:id", 
         component: TeamContainer    
@@ -96,7 +94,6 @@ const Routes = [
     { 
         order:0,
         link: "Teams",
-        icon: DraftsIcon,
         pageTitle: "Teams",
         path: "/teams/", 
         component: Teams
@@ -104,7 +101,6 @@ const Routes = [
     { 
         order:0,
         link: "Clubs",
-        icon: DraftsIcon,
         pageTitle: "Clubs",
         path: "/clubs/:id", 
         component: Club
@@ -112,7 +108,7 @@ const Routes = [
     { 
         order:2,
         link: "Clubs",
-        icon: DraftsIcon,
+        icon: Home,
         pageTitle: "Clubs",
         path: "/clubs/", 
         component: injectUser(Clubs)   
@@ -120,7 +116,7 @@ const Routes = [
     {  
         order:1,
         link: "Dashboard",
-        icon: SendIcon,
+        icon: ViewAgenda,
         pageTitle: "League Secretary",
         path: "", 
     }

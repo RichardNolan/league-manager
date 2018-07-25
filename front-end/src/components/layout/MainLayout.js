@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Route, Switch } from "react-router-dom";
-import Sidebar from '../layout/SidebarLayout'
-import Header from '../layout/HeaderLayout'
+import Sidebar from './SidebarLayout'
+import Header from './HeaderLayout'
+import Advert from './Advert'
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import defaultRoutes from '../../routes/HomeRoutes'
@@ -9,6 +10,7 @@ import defaultRoutes from '../../routes/HomeRoutes'
 import * as soccer_03 from '../../assets/soccer_03.jpg'
 import * as soccer_04 from '../../assets/soccer_04.jpg'
 import Snack from '../Snack'
+import { Grid, Zoom, Paper } from '@material-ui/core';
 
 class MainLayout extends Component {
     state={
@@ -38,7 +40,20 @@ class MainLayout extends Component {
                     <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
-                        {Routes}
+                            
+                        <Grid container spacing={32}>
+                            <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
+                            <Grid item xs={12} sm={10} md={8} lg={6} > 
+                                <Zoom in={true} style={{ transitionDelay: 250 }}>
+                                    <Paper>
+                                        {Routes}
+                                    </Paper> 
+                                </Zoom>
+                                <Route path={`/`} component={Advert} exact={true} />
+                            </Grid>
+                            <Grid item xs={12} sm={1} md={2} ></Grid>
+                        </Grid>
+
                     </main> 
                     <Snack/>
                 </div>

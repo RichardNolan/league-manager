@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import {fetchQuery} from '../../utilities/fetch'
 import FixtureList from '../fixtures/FixtureList'
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Card } from '@material-ui/core';
 import SNACK from '../../SNACK'
 
 class RefereeFixtures extends Component {
@@ -15,7 +15,6 @@ class RefereeFixtures extends Component {
     }
 
     fetchData(){
-        let {division} = this.props
         this.setState({progressBar:true})
         fetchQuery('http:localhost:9000/api/fixture/', {referee:this.props.user._id})
             .then(res=>res.json())
@@ -35,7 +34,7 @@ class RefereeFixtures extends Component {
                 {
                     this.state.fixtures && this.state.fixtures.length===0 
                         ?   (<Fragment>
-                                <p>You don't appear to have any upcoming fixtures</p>
+                                <Card><p>You don't appear to have any upcoming fixtures</p></Card>
                             </Fragment>)
                         :   <FixtureList fixtures={this.state.fixtures} />
                 }

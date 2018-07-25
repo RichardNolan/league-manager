@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Grid,TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Typography} from '@material-ui/core'
+import {TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Typography} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import SNACK from '../../SNACK'
@@ -49,14 +49,9 @@ class ForgotMessage extends Component {
     render() {
         let {classes} = this.props
         return (  
-            <Grid container spacing={32}>
-                <Grid item xs={2} sm={3}></Grid>
-                <Grid item xs={12} sm={6}> 
                    <Card>
                        <CardHeader
-                           avatar={
-                            <Avatar className={classes.avatar}>F</Avatar>
-                           }
+                           avatar={<Avatar className={classes.avatar}>F</Avatar>}
                            title="Forgot your password?"
                            subheader="If you provide us with your email address, we'll send you a new password."
                        />
@@ -91,10 +86,6 @@ class ForgotMessage extends Component {
                         </CardActions>
                     </Card>
 
-
-                </Grid>
-                <Grid item xs={2} sm={3}></Grid>
-            </Grid>
         );
     }
 }

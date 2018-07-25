@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { LinearProgress, Button, Typography, CardContent, CardHeader, Card, Grid, Avatar } from '@material-ui/core';
+import { LinearProgress, Button, Typography, CardContent, CardHeader, Card, Avatar } from '@material-ui/core';
 import { fetchQuery, post } from '../../utilities/fetch';
 import Fixture from '../fixtures/Fixture'
 import NewScoreDialog from './NewScoreDialog';
@@ -62,12 +62,7 @@ class AwaitingScores extends Component {
     }
     render() {
         return (
-            <div>   
-            <Grid container spacing={32}>
-                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                <Grid item xs={12} sm={10} md={8} lg={6} > 
-
-
+            <Fragment>  
                    <Card>
                        <CardHeader
                            avatar={
@@ -96,16 +91,13 @@ class AwaitingScores extends Component {
                             }   
                         </CardContent>
                     </Card>
-                </Grid>                
-                <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-            </Grid>
             <NewScoreDialog 
                 open={this.state.newScoreDialogOpen} 
                 onClose={this.closeNewScoreDialog.bind(this)} 
                 onSave={this.saveScore.bind(this)} 
                 fixture={this.state.editFixture}
             />
-            </div>
+            </Fragment>
         );
     }
 }

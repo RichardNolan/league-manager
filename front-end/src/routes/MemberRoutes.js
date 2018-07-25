@@ -1,5 +1,4 @@
-import SendIcon from '@material-ui/icons/Send';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import {Group, Assessment, Home, ViewAgenda} from '@material-ui/icons';
 
 import {injectUser} from '../utilities/utils'
 
@@ -12,28 +11,28 @@ const Routes = [
     {  
         order:4,
         link: "All Competitions",
-        icon: DraftsIcon,
+        icon: Assessment,
         path: "/myorganisation", 
         component: injectUser(Organisation)    
     },
     {  
         order:4,
         link: "My Club",
-        icon: SendIcon,
+        icon: Home,
         path: "/myclub", 
         component: injectUser(Club)    
     },
     {  
         order:2,
         link: "My Team",
-        icon: SendIcon,
+        icon: Group,
         path: "/myteam", 
         component: injectUser(Team)    
     },
     {  
         order:1,
         link: "Dashboard",
-        icon: SendIcon,
+        icon: ViewAgenda,
         pageTitle: "Member",
         path: "", 
         component: injectUser(MemberHome)    

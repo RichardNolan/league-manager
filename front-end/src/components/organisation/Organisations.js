@@ -92,26 +92,22 @@ class Organisations extends React.Component {
                     component={()=>(
                             <Fragment>
                                 <PlusFab onSave={this.saveNewOrganisation.bind(this)} dialog={OrganisationNewDialog}  /> 
-                                <Grid container spacing={16}>
-                                    <Grid item xs={false} sm={1} md={2} lg={3}></Grid>
-                                    <Grid item xs={12} sm={10} md={8} lg={6} > 
-                                        <Card>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar>O</Avatar>
-                                                }
-                                                title="Organisations"
-                                                subheader="These are the different organisations in the application"
-                                            />
-                                            <CardContent spacing={16} className={classes.nopadding}>
-                                                <Grid container alignContent='space-around'> 
-                                                    {organisationsMetro}     
-                                                </Grid>                      
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>                
-                                    <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                                </Grid>
+                                
+                                <Card>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar>O</Avatar>
+                                        }
+                                        title="Organisations"
+                                        subheader="These are the different organisations in the application"
+                                    />
+                                    <CardContent spacing={16} className={classes.nopadding}>
+                                        <Grid container alignContent='space-around'> 
+                                            {organisationsMetro}     
+                                        </Grid>                      
+                                    </CardContent>
+                                </Card>
+                            
                             </Fragment>
                 )} />
                
