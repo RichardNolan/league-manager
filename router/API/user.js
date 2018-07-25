@@ -34,7 +34,13 @@ const replaceUser = (req, res, next)=>{
 
 
 const deleteUser = (req, res, next)=>{
-    res.redirect('/')
+    user
+        .deleteUser(req.params.id)
+        .then(result=>{
+            // console.log(result)
+            res.status(200).json(result)
+        })
+        .catch(next)
 }
 
 const setTeam = (req, res, next)=>{

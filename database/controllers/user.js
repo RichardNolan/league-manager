@@ -89,9 +89,14 @@ module.exports = {
     ),
     updateUser: (id, newUser)=>{
         delete newUser.password
-        user   
+        return user   
             .findByIdAndUpdate(id, newUser,{new:true})
             .then(data=> data)
             .catch(err=>console.log({error:true, message:err}))
     },
+    deleteUser: (id)=>(
+        user
+            .findByIdAndRemove(id)
+            // .catch(result=>)
+    ),
 }

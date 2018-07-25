@@ -37,13 +37,11 @@ class Users extends React.Component {
     render(){
         let userList = this.state.users ?   this.state.users.map((user, key)=>(
                                             <TableRow key={key}>
-                                                <User user={user} />
+                                                <User user={user} onUpdate={this.fetchUsers.bind(this)}/>
                                             </TableRow>
                                         ))
                                     :   []
 
-        // TO-DO POSSIBLY SOME PAGINATION HERE
-        //TO-DO CARD
         return (
             <Fragment>
             <Table>

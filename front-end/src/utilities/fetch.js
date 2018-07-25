@@ -40,6 +40,15 @@ export const fetchQuery = (url, params, options)=>{
 }
 
 
+export const del = content=>(
+    Object.assign({},
+        standard, 
+        {
+            method: 'DELETE',
+            headers: getHeaders(),
+        }
+    )
+)
 
 export const post = content=>(
     Object.assign({},
