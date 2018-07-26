@@ -75,7 +75,7 @@ class Division extends Component {
                 {this.state.progressBar && <LinearProgress/>} 
                 <AppBar position="static">
                     <Typography variant='headline'  style={{ padding: 8 * 3 }} color='inherit'>
-                        {this.state.title || 'Loading...'}
+                        {this.state.title || (this.props.division && this.props.division.title)}
                     </Typography>               
                     <Tabs 
                         value={value} 
