@@ -45,21 +45,25 @@ class LeagueTable extends React.Component {
         this.setState({progressBar:true})
         fetch(`http://localhost:9000/api/division/${this.props.division}`, getStandard())
             .then(res=>res.json())
-            .then(res=>{
+            .then(res=>{     
                 let leagueData = res.table.table
-                                    .filter(t=>{                        
+                                    .filter(t=>{                
                                         if(this.props.filter) return this.props.filter===t.team ? true : false
                                         return true
-                                    })
+                                    })      
                 leagueData.map(t=>{
                         let team = res.teams.find(tm=>tm._id===t.team)
-                        team && (t.team = team.club.title_short)    
+                        team && (t.title = team.club.title_short)    
                         return t
                     })
                 
                 //THIS IS THE FALLBACK IF NO FIXTURES HAVE BEEN PLAYED HENSE NO TABLE 
                 if(leagueData.length===0){
-                    leagueData = res.teams.map((t,i)=>({team:t,p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0}))
+                    leagueData = res.teams.map((t,i)=>({id:t._id,team:t.club.title_short,p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0}))
+                                        .filter(t=>{                
+                                            if(this.props.filter) return this.props.filter===t.id ? true : false
+                                            return true
+                                        })      
                 }
 
                 this.setState({teams:leagueData,progressBar:false})

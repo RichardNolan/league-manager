@@ -69,57 +69,57 @@ class Team extends React.Component {
         let lastResult = (team && team.lastResult && <Result result={team.lastResult} showDate {...this.props} />) || null
         let resultHeading = (team && team.lastResult && team.lastResult.division && team.division && team.division.title) || 'None found'
         let leagueTable = (team && team.table && <LeagueTable division={team.division && team.division._id} filter={this.props.match ? null : team._id} />) || null
-        // let tableHeading = team && team.lastResult && team.lastResult.division && team.division && team.division.title || 'None found'
         return (
-            <Grid container spacing={16} className={this.props.classes.root}>
+            <Fragment>
+                {!this.props.nobanner && clubBanner}
+                {!this.props.nobanner && divisionBanner}
+                                    
+                <Grid container spacing={16} className={this.props.classes.root}>
 
-                <Grid item xs={12}>
-                    {!this.props.nobanner && clubBanner}
-                    {!this.props.nobanner && divisionBanner}
-                </Grid>
-                <Grid item xs={12}>
-                    {leagueTable}
-                </Grid>
-                <Grid item xs={12}>
-                    {this.state.progressBar && <LinearProgress/>}
-                    <Grid container spacing={16}>
-                        <Grid item xs={12} sm={12} md={6}>
-                                {this.props.shortForm
-                                    ?   <Fragment>
-                                            <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
-                                                {`Next Fixture: ${fixtureHeading}`}
-                                            </Typography>
-                                            {nextFixture}
-                                        </Fragment>
-                                    :   <Fragment>
-                                            <FixtureSet 
-                                                title='Upcoming Fixtures'
-                                                fixtures={this.state.fixtures} 
-                                                showDate
-                                            />
-                                        </Fragment>
-                                } 
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6}>
-                                {this.props.shortForm
-                                    ?   <Fragment>
-                                            <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
-                                                {`Last Result: ${resultHeading}`}
-                                            </Typography>
-                                            {lastResult}
-                                        </Fragment>
-                                    :   <Fragment>
-                                            <ResultSet 
-                                                title='Recent Results'
-                                                results={this.state.results} 
-                                                showDate
-                                            />
-                                        </Fragment>
-                                } 
+                    <Grid item xs={12}>
+                        {leagueTable}
+                    </Grid>
+                    <Grid item xs={12}>
+                        {this.state.progressBar && <LinearProgress/>}
+                        <Grid container spacing={16}>
+                            <Grid item xs={12} sm={12} md={6}>
+                                    {this.props.shortForm
+                                        ?   <Fragment>
+                                                <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
+                                                    {`Next Fixture: ${fixtureHeading}`}
+                                                </Typography>
+                                                {nextFixture}
+                                            </Fragment>
+                                        :   <Fragment>
+                                                <FixtureSet 
+                                                    title='Upcoming Fixtures'
+                                                    fixtures={this.state.fixtures} 
+                                                    showDate
+                                                />
+                                            </Fragment>
+                                    } 
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={6}>
+                                    {this.props.shortForm
+                                        ?   <Fragment>
+                                                <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
+                                                    {`Last Result: ${resultHeading}`}
+                                                </Typography>
+                                                {lastResult}
+                                            </Fragment>
+                                        :   <Fragment>
+                                                <ResultSet 
+                                                    title='Recent Results'
+                                                    results={this.state.results} 
+                                                    showDate
+                                                />
+                                            </Fragment>
+                                    } 
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Fragment>
         );
     }
 };

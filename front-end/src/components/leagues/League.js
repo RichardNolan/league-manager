@@ -1,7 +1,7 @@
 import React from 'react';
 import { getStandard } from '../../utilities/fetch'
 import Divisions from '../divisions/Divisions';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, withStyles } from '@material-ui/core';
 import SNACK from '../../SNACK'
 
 class League extends React.Component {
@@ -42,7 +42,7 @@ class League extends React.Component {
     render(){ 
         let league = this.state.competition ? this.state.competition.league : null
         return (
-            <div>
+            <div className={this.props.classes.root}>
             {this.state.progressBar && <LinearProgress/>}    
                 <h1>{league && league.title}</h1>
                 {
@@ -50,11 +50,19 @@ class League extends React.Component {
                         ?   <Divisions divisions={league.divisions} {...this.props}/>  
                         :   null 
                 }
-                {/* {league && <DivisionsContainer {...this.props} league={league} />} */}
             </div>
         );
     }
 };
+
+
+const styles = theme=>({
+    root:{
+        padding:theme.spacing.unit*2,
+
+    },
+})
+
 
 // export default League;
 
@@ -63,4 +71,4 @@ const withSnack = props=>(
        {({showSnack}) => <League {...props} showSnack={showSnack} />}
     </SNACK.Consumer>
 )
- export default withSnack;
+ export default withStyles(styles)(withSnack);

@@ -12,8 +12,8 @@ const styles = (theme)=>( {
     },
 
     FAB: {
-        position: 'fixed',
-          top: theme.spacing.unit * 12,
+        position: 'absolute',
+          top: 0-theme.spacing.unit * 5,
           right: theme.spacing.unit * 4,
           zIndex: theme.zIndex.drawer + 1,
       },
@@ -56,6 +56,7 @@ class PlusFab extends Component {
                     <div className={this.props.classes.root}>
                         <Zoom
                             in={true}
+                            mountOnEnter
                             unmountOnExit
                         >
                             <Button variant="fab" color="secondary" className={this.props.classes.FAB} onClick={this.open.bind(this)} >

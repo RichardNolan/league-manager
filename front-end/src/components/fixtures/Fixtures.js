@@ -3,7 +3,7 @@ import {fetchQuery, post } from '../../utilities/fetch'
 import FixturesNewDialog from './FixturesNewDialog';
 import PlusFab from'../PlusFab'
 import FixtureList from './FixtureList'
-import { LinearProgress, Card } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 import SNACK from '../../SNACK'
 
 class Fixtures extends Component {
@@ -47,7 +47,7 @@ class Fixtures extends Component {
                 {
                     this.state.fixtures && this.state.fixtures.length===0 
                         ?   (<Fragment>
-                                <Card><p>There are no fixtures set for this division.</p></Card>
+                                <p>There are no fixtures set for this division.</p>
                             </Fragment>)
                         :   <FixtureList fixtures={this.state.fixtures} />
                 }

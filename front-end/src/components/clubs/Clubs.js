@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { post, fetchQuery } from '../../utilities/fetch'
-import { Grid, LinearProgress, CardHeader, CardContent, Card, Avatar } from '@material-ui/core';
+import { Grid, LinearProgress, Avatar, AppBar, Toolbar, Typography } from '@material-ui/core';
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import ClubNewDialog from './ClubNewDialog';
@@ -77,23 +77,19 @@ class Clubs extends Component {
                         ))
                     :   <LinearProgress />
         return (
-            <div className={classes.root}>                
-                <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog}/>
-    
-                   <Card>
-                        <CardHeader
-                            avatar={
-                                    <Avatar>C</Avatar>
-                            }
-                            title="Clubs"
-                            subheader="These are the clubs in your organisation"
-                        />
-                        <CardContent className={classes.nopadding}>
-                            <Grid container alignContent='space-around'>
-                                {clubsMetro}     
-                            </Grid>                      
-                        </CardContent>
-                    </Card>
+            <div className={classes.root}>  
+                <AppBar position="static">
+                    <Toolbar>
+                        <Avatar className={classes.avatar} >C</Avatar>
+                        <Typography variant="title" color="inherit">
+                            Clubs
+                        </Typography>
+                    </Toolbar>
+                </AppBar>              
+                <PlusFab onSave={this.saveNewClub.bind(this)} dialog={ClubNewDialog}/>    
+                <Grid container alignContent='space-around'>
+                    {clubsMetro}     
+                </Grid>    
             </div>
         );
     }
@@ -104,10 +100,9 @@ const styles = (theme)=>( {
     root: {
         flexGrow: 1,
     },
-    nopadding:{
-        padding:0,
-    },
-
+    avatar:{
+        marginRight: theme.spacing.unit*2,
+    }
 })
 
 // export default withStyles(styles)(Clubs);

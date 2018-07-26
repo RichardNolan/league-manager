@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { post, fetchQuery } from '../../utilities/fetch'
-import { Button, LinearProgress, Paper} from '@material-ui/core';
+import { LinearProgress,  Avatar, AppBar, Toolbar, Typography, IconButton} from '@material-ui/core';
+import {PlayArrow} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import TeamNewDialog from './TeamNewDialog';
@@ -75,19 +76,27 @@ class Teams extends Component {
             })
     }
     render() {
-        let {classes} = this.props
+        // let {classes} = this.props
         
         let {teams} = this.state
+        const {classes, ...rest} = this.props
         let teamPanels = teams && teams.length>0
                     ?   teams.map((team,key)=>(
-                        <Paper key={key}>
-                            <Button component={Link} to={'/team/'+team._id} variant='contained' color='primary' className={this.props.classes.fullWidth}>
-                                {/* If loaded from a club ID then use the team title otherwise use the club short title */}
-                                {(this.state.clubID && team.title) || (team.club && team.club.title_short) }
-                            </Button>
-                            <Team team={team._id} key={key} nobanner shortForm />
-                        </Paper>
-                            
+                            <Fragment key={key}>
+                                <AppBar position="static" color='default'>
+                                    <Toolbar>
+                                        <Avatar className={classes.avatar} >{((this.state.clubID && team.title) || (team.club && team.club.title_short)).charAt(0) }</Avatar>
+                                        <Typography variant="title" color="inherit" className={this.props.classes.flex}>
+                                            {/* If loaded from a club ID then use the team title otherwise use the club short title */}
+                                            {(this.state.clubID && team.title) || (team.club && team.club.title_short) }
+                                        </Typography>
+                                        <IconButton component={Link} to={'/team/'+team._id}>
+                                            <PlayArrow/>
+                                        </IconButton>
+                                    </Toolbar>
+                                </AppBar>              
+                                <Team team={team._id} key={key} nobanner shortForm />
+                            </Fragment>                            
                         ))
                     :   null
                     
@@ -99,7 +108,7 @@ class Teams extends Component {
             {!this.props.nofab && <PlusFab 
                 onSave={this.saveNewTeam.bind(this)} 
                 dialog={TeamNewDialog} 
-                {...this.props}
+                {...rest}
             />   }
                
             {teamPanels}
@@ -115,9 +124,12 @@ const styles = (theme)=>( {
     root: {
         flexGrow: 1,
     },
-    fullWidth:{
-        width:'100%',
+    flex:{
+        flexGrow:1,
     },
+    avatar:{
+        marginRight: theme.spacing.unit*2,
+    }
 })
 
 // export default withStyles(styles)(Teams);

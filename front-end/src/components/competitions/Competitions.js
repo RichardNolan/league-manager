@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {  post, fetchQuery } from '../../utilities/fetch'
 import League from '../leagues/League'
-import { Grid, LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress, AppBar, Typography, Toolbar } from '@material-ui/core';
 import {Link, Route} from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
@@ -110,6 +110,13 @@ class Competitions extends React.Component {
                     exact={true} 
                     component={()=>(
                         <Fragment> 
+                            <AppBar position="static">
+                                <Toolbar>
+                                    <Typography variant="title" color="inherit">
+                                        Competitions
+                                    </Typography>
+                                </Toolbar>
+                            </AppBar>
                             <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} /> 
                             <Grid container className={classes.root}> 
                                   

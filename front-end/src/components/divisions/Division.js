@@ -1,10 +1,12 @@
 
 import React, { Component } from 'react';
+import {getStandard} from '../../utilities/fetch'
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Tabs, Tab, Typography } from '@material-ui/core';
+import { AppBar, Tabs, Tab, Typography, LinearProgress } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
 import Fixtures from "../fixtures/Fixtures";
 import Results from "../results/Results";
+import SNACK from '../../SNACK'
 
 const styles = theme => ({
     root: {
@@ -12,9 +14,6 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.paper,
       marginBottom: theme.spacing.unit*3,
     },
-    tabPanel:{
-        // padding: theme.spacing.unit*3,
-    }
   });
 
 const tabs = [
@@ -39,13 +38,32 @@ class Division extends Component {
     state = {
       value: 0,
       teams:[],
+      division: (this.props.match && this.props.match.params.division) || null,
+      title:'',
+      progressBar:false,
     }
 
     handleTabs = (e, value) => {
       this.setState({ value });
     }
     
-  
+    componentDidMount(){
+        this.state.division && this.fetchData()
+    }
+
+  fetchData = ()=>{      
+    this.setState({progressBar:true})  
+    fetch(`http://localhost:9000/api/division/${this.state.division}`, getStandard())
+        .then(res=>res.json())
+        .then(division=>{
+            this.setState({title:division.title, progressBar:false})
+        })
+        .catch(err=>{
+            this.setState({progressBar:false})
+            this.props.showSnack(err)
+        })
+
+  }
 
     render() {
         let {classes} = this.props
@@ -53,11 +71,12 @@ class Division extends Component {
         let division = this.props.division || this.props.match.params.division
         let id = typeof division==='string' ? division : this.props.division._id
         return (
-            <div className={classes.root}>
+            <div className={classes.root}> 
+                {this.state.progressBar && <LinearProgress/>} 
                 <AppBar position="static">
-                    <Typography component="div" style={{ padding: 8 * 3 }} color='inherit'>
-                        {this.props.division && this.props.division.title}
-                    </Typography>                    
+                    <Typography variant='headline'  style={{ padding: 8 * 3 }} color='inherit'>
+                        {this.state.title || 'Loading...'}
+                    </Typography>               
                     <Tabs 
                         value={value} 
                         onChange={this.handleTabs}
@@ -72,7 +91,7 @@ class Division extends Component {
                     .map((tab, key)=>{
                         let Panel = tab.component
                         return (
-                            <div className={classes.tabPanel} key={key}>
+                            <div key={key}>
                                 <Panel division={id} />
                             </div>
                         )
@@ -83,5 +102,12 @@ class Division extends Component {
     }
 }
 
-export default withStyles(styles)(Division);
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <Division {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withStyles(styles)(withSnack);
+
+// export default withStyles(styles)(Division);
 
