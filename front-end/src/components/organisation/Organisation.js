@@ -37,7 +37,7 @@ class Organisation extends Component {
     }
 
     componentDidMount(){
-        this.fetchData()
+        this.state.id && this.fetchData()
     }
 
     componentDidUpdate(prevProps) {
@@ -46,6 +46,10 @@ class Organisation extends Component {
 
     render() {
         let org = this.state.organisation
+
+
+        if(!this.state.id) return("You never selected your league organisation")
+
         return (
             <Fragment>
                 {this.state.loader ? <LinearProgress /> : null }

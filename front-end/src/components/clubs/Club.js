@@ -14,7 +14,7 @@ class Club extends Component {
         progressBar:false
     }
     componentDidMount(){
-        this.fetchData()
+        this.state.id && this.fetchData()
     }
 
     fetchData(){  
@@ -33,6 +33,10 @@ class Club extends Component {
     render() {
         let {club} = this.state
         let {classes} = this.props
+
+
+        if(!this.state.id) return("You never selected your favourite club")
+
         return (
             <Fragment>
                 {this.state.progressBar && <LinearProgress/>}

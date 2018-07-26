@@ -15,6 +15,7 @@ module.exports = {
         skip && delete criteria.skip
         return club
             .find(criteria)
+            .sort({title:1})
             .populate({ path: 'organisation' })
             // .then(aggregate)
             .then(data=>data)
@@ -33,13 +34,13 @@ module.exports = {
     findClub: (criteria={})=>(
         club
             .findOne(criteria)
+            .sort({title:1})
             .populate({ path: 'organisation' })
             .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
 
 
-    // TRYING ASYNC/AWAIT AND PROMISES TO SEE WHICH WORKS BEST
 
     updateClub: async (id, data)=>{
         let Club = await club

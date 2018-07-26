@@ -3,6 +3,7 @@ import React from 'react';
 import Team from '../teams/Team';
 import {  Card, CardHeader, CardContent, Typography, Avatar } from '@material-ui/core';
 const MemberHome = (props) => {
+    console.log(props.user.team)
     return (
         <Card>
             <CardHeader

@@ -138,11 +138,14 @@ const checkEmail = (req, res)=> {
 const signup = (req, res)=> {
     req.body.password = req.body.password1===req.body.password2 ? req.body.password1 : ''
     var newUser = new User(req.body);
-    console.log(newUser)
+    // console.log(newUser)
     newUser.save(err=> {
-        console.log('SAVED')
-      if(err) return res.json({success: false, message: err});
-      res.json({success: true, message: 'Successful created new user.'});
+      if(err){
+        //   console.log(err)
+          return res.json({success: false, message: err});
+        }else{
+            res.json({success: true, message: 'Successful created new user.'});
+        }
     });
   
 }

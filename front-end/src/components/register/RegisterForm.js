@@ -20,6 +20,7 @@ class RegisterForm extends React.Component {
             club:'',
             team:'',
             secret:'',
+            emailOK:true,
         }
     }
   
@@ -70,11 +71,16 @@ class RegisterForm extends React.Component {
     }
 
     validate = ()=>{
+        if(!this.state.emailOK) return false
        if(!this.checkPasswords()) return false
        if(!this.state.email.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)){
             this.props.showSnack("Email Address not valid")
            return false
        } 
+       if(!this.state.secret || this.state.secret===''){
+        this.props.showSnack("You haven't provided the name of your favourite player. We need this if you forget your password.")
+        return false
+        }
        if(!this.state.title.match(/^[a-zA-Z ]+$/)){
             this.props.showSnack("Name not valid")
            return false
@@ -86,7 +92,12 @@ class RegisterForm extends React.Component {
         this.state.email && fetch('http://localhost:9000/api/checkemail/'+this.state.email, getStandard)
             .then(res=>res.json())
             .then(res=>{
-                if(res.exists) this.props.showSnack("That email is already registered")
+                if(res.exists) {
+                    this.props.showSnack("That email is already registered")
+                    this.setState({emailOK:false})
+                }else{
+                    this.setState({emailOK:true})
+                }
             })
             .catch(err=>this.props.showSnack(err))
 
@@ -112,7 +123,7 @@ class RegisterForm extends React.Component {
                             <TextField
                                 id="name"
                                 name="title"
-                                label="Full Name"
+                                label="Your Full Name"
                                 className={classes.textField}
                                 type="text"
                                 value={this.state.title}
@@ -121,17 +132,18 @@ class RegisterForm extends React.Component {
                             <TextField
                                 id="email"
                                 name="email"
-                                label="Email Address"
+                                label="Your Email Address"
                                 className={classes.textField}
                                 type="email"
                                 value={this.state.email}
                                 onChange={this.change}
                                 onBlur={this.checkEmail}
+                                style={!this.state.emailOK ? {backgroundColor:'red'} : {}}
                             />
                             <TextField
                                 id="password1"
                                 name="password1"
-                                label="Password1"
+                                label="Your Password"
                                 className={classes.textField}
                                 type="password"
                                 value={this.state.password1}
@@ -144,7 +156,7 @@ class RegisterForm extends React.Component {
                             <TextField
                                 id="password2"
                                 name="password2"
-                                label="Password2"
+                                label="Re-type your Password"
                                 className={classes.textField}
                                 type="password"
                                 value={this.state.password2}

@@ -20,7 +20,7 @@ class Team extends React.Component {
     }
 
     componentDidMount(){
-        this.fetchData()
+        this.state.id && this.fetchData()
     }
 
     fetchData(){
@@ -59,6 +59,9 @@ class Team extends React.Component {
 
     render(){ 
         let {team} = this.state
+
+        if(!this.state.id) return("You never selected your favourite team")
+
         let clubBanner = team && team.club && <ClubBanner club={team.club} />
         let divisionBanner = team && team.division && <DivisionBanner division={team.division} match={this.props.match} />
         let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate />) || null

@@ -13,18 +13,53 @@ const Schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    secret: String,
+    secret: {
+        type:String,
+        required:true,
+    },
     last_signed_in: Date,
-    isAdmin: Boolean,
-    isClubOfficial: Boolean,
-    isLeagueSecretary: Boolean,
-    isReferee: Boolean,
-    isTeamManager: Boolean,
-    isMember: Boolean,
-    team:  {type: ObjectId, ref: 'team'},
-    club:  {type: ObjectId, ref: 'club'},
-    organisation:  {type: ObjectId, ref: 'organisation'},
+    isAdmin: {
+        type:Boolean,
+        default:false,
+    },
+    isClubOfficial: {
+        type:Boolean,
+        default:false,
+    },
+    isLeagueSecretary: {
+        type:Boolean,
+        default:false,
+    },
+    isReferee: {
+        type:Boolean,
+        default:false,
+    },
+    isTeamManager: {
+        type:Boolean,
+        default:false,
+    },
+    isMember: {
+        type:Boolean,
+        default:false,
+    },
+    team:  {
+        type: ObjectId, 
+        ref: 'team',
+        required: false,
+    },
+    club:  {
+        type: ObjectId, 
+        ref: 'club',
+        required: false,
+    },
+    organisation:  {
+        type: ObjectId, 
+        ref: 'organisation',
+        required:false,
+    },
 })
+
+
 Schema.pre('save', function(next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
