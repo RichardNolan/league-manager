@@ -55,11 +55,6 @@ class Users extends React.Component {
                 <TableBody>
                     {userList}
                 </TableBody>
-                <TableFooter>
-                <TableRow>
-                    <TableCell colSpan={6}>{'footer'}</TableCell>
-                </TableRow>
-                </TableFooter>
             </Table>
             </Fragment>
         );
