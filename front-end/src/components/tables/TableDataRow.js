@@ -7,6 +7,7 @@ const TableDataRow = (props) => {
     let {size, team, classes} = props
 
     const displayForm = fStr =>{
+        if(!fStr || fStr=='') return null
         return fStr.split('').slice(-5).map((f, key)=>{
             if(f==="0")return <Avatar className={classes.lost} key={key}></Avatar>
             if(f==="1")return <Avatar className={classes.drew} key={key}></Avatar>
