@@ -1,18 +1,9 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 
-// import MemberRoutes from './MemberRoutes'
-// import AdminRoutes from './AdminRoutes'
-// import ClubOfficialRoutes from './ClubOfficialRoutes'
-// import LeagueSecretaryRoutes from './LeagueSecretaryRoutes'
-// import RefereeRoutes from './RefereeRoutes'
-// import TeamManagerRoutes from './TeamManagerRoutes'
-
 import {Drawer,List,MenuList,MenuItem,ListItemIcon,ListItemText} from '@material-ui/core'
 import { ViewAgenda} from '@material-ui/icons';
-
 import {injectUser} from '../../utilities/utils'
-
 import {Done} from '@material-ui/icons';
 import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom'
