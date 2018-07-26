@@ -12,6 +12,8 @@ import * as soccer_04 from '../../assets/soccer_04.jpg'
 import Snack from '../Snack'
 import { Grid, Zoom, Paper } from '@material-ui/core';
 
+import USER from '../../USER'
+
 class MainLayout extends Component {
     state={
         drawerOpen:false,
@@ -37,7 +39,15 @@ class MainLayout extends Component {
         return (
                 <div className={classes.wrapper}> 
                     <Header toggleDrawer={this.toggleDrawer} open={this.state.drawerOpen} />
-                    <Sidebar routes={routes} open={this.state.drawerOpen} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
+
+        <USER.Consumer>
+            { ({user})=> {
+                return <Sidebar routes={routes} open={this.state.drawerOpen} user={user} closeDrawer={this.closeDrawer} {...this.props} className={classes.drawer} /> 
+            } }
+        </USER.Consumer>
+
+
+                    
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                             

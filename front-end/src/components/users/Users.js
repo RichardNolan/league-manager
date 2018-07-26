@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {Table,TableHead,TableBody,TableFooter,TableRow,TableCell} from '@material-ui/core'
+import {Table,TableHead,TableBody,TableRow,TableCell} from '@material-ui/core'
 import User from './User'
 import { fetchQuery } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
