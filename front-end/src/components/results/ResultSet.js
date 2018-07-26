@@ -12,19 +12,32 @@ const ResultSet = (props) => {
                     />
                 ))
             : null
-    return (
-        <div>
-            <Typography variant='headline' className={props.classes.heading} gutterBottom>
-                {props.title}
+    
+    if(props.results && props.results.length<=0) {
+        return(
+            <Typography variant='subheading' className={props.classes.heading} gutterBottom >
+                There are no {props.title}
             </Typography>
-            {results}
-        </div>
-    );
+        )
+    }else if(props.results && props.results.length>0) {
+        return (
+            <div>
+                {/* TO-DO NICER BANNER */}
+                <Typography variant='headline' className={props.classes.heading} gutterBottom>
+                    {props.title}
+                </Typography>
+                {results}
+            </div>
+        )
+    }else{
+        return null
+    }
 };
 
 const styles=theme=>({
     heading:{
-        textAlign:'center', 
+        textAlign:'center',  
+        padding:16,
     }
 })
 

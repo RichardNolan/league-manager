@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import EditIcon from '@material-ui/icons/Create';
 
 import USER from '../../USER'
-// import { relative, isAbsolute } from 'path';
+import * as moment from 'moment'
 
 const Result = (props) => {
     let {result} = props
@@ -12,7 +12,7 @@ const Result = (props) => {
     const openNewScoreDialog = ()=>{
         props.openNewScoreDialog(result)
     }
-
+    let showDateTime = props.showDate ? "ddd, MMM Do" : null
     return (
         <Fragment>
         {result && (
@@ -33,7 +33,7 @@ const Result = (props) => {
                     </Typography>
                     <USER.Consumer>
                         {({user})=>{
-                            return user.user && (user.user.isAdmin || user.user.isLeagueSecretary)
+                            return !props.shortForm && user.user && (user.user.isAdmin || user.user.isLeagueSecretary)
                                 ? (
                                     <IconButton color="primary" className={props.classes.editButton} onClick={openNewScoreDialog}>
                                       <EditIcon />
@@ -42,6 +42,11 @@ const Result = (props) => {
                                 : null
                         }}
                     </USER.Consumer>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="caption" >
+                        {props.showDate && moment(result.date).format(showDateTime)}
+                    </Typography>
                 </Grid>
             </Grid>
         )}
@@ -62,6 +67,9 @@ const styles = theme=>({
     },
     left:{
         textAlign:'left',
+    },
+    center:{
+        textAlign:'center',
     },
     buttonContainer:{
         position:'relative',

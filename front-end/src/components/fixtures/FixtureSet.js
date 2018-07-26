@@ -12,19 +12,32 @@ const FixtureSet = (props) => {
                     />
                 ))
             : null
-    return (
-        <div>
-            <Typography variant='headline' className={props.classes.heading} gutterBottom >
-                {props.title}
+
+    if(props.fixtures && props.fixtures.length<=0){ 
+        return(
+            <Typography variant='subheading' className={props.classes.heading} gutterBottom >
+                There are no {props.title}
             </Typography>
-            {fixtures}
-        </div>
-    );
+        )
+    }else if(props.fixtures && props.fixtures.length>0) {
+        return (
+            <div>
+                {/* TO-DO NICER BANNER */}
+                <Typography variant='headline' className={props.classes.heading} gutterBottom >
+                    {props.title}
+                </Typography>
+                {fixtures}
+            </div>
+        )
+    }else{
+        return null
+    }
 };
 
 const styles=theme=>({
     heading:{
         textAlign:'center', 
+        padding:16,
     }
 })
 

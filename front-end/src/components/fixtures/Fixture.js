@@ -35,7 +35,7 @@ const Fixture = (props) => {
                     </Typography>
                     <USER.Consumer>
                         {({user})=>{
-                            return user.user && (user.user.isAdmin || user.user.isLeagueSecretary) && moment(fixture.date).isAfter()
+                            return !props.shortForm && user.user && (user.user.isAdmin || user.user.isLeagueSecretary) && moment(fixture.date).isAfter()
                                 ? (
                                     <IconButton color="primary" className={props.classes.editButton} onClick={openEditFixtureDialog}>
                                       <EditIcon />

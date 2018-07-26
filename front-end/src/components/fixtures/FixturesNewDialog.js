@@ -1,10 +1,11 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Tooltip, FormControlLabel, Switch, Grid, Paper, withStyles, Typography } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogActions, TextField, Tooltip, FormControlLabel, Switch, Grid, withStyles, Typography } from '@material-ui/core';
 import TimeInput from 'material-ui-time-picker'
 import SNACK from '../../SNACK'
 
 import { fetchQuery } from '../../utilities/fetch';
-import Teams from '../teams/Teams'
+// import Teams from '../teams/Teams'
+import LeagueTable from '../tables/LeagueTable'
 class FixturesNewDialog extends React.Component {
 state={
     title:'',
@@ -67,15 +68,18 @@ render(){
             <Grid container>
                 <Grid item xs={12} >
                     <DialogContentText>
-                        This will create a new fixture list for the teams in this division, this will not replace any existing fixtures.
+                        This will create a new fixture list for the teams in this division, this will not replace any existing fixtures, rather merge them.
                     </DialogContentText>
                 </Grid>
-                <Grid item xs={12} >
-                    <Paper className={classes.teams}>
+                {/* <Grid item xs={12} >
+                    <Paper className={classes.space}>
                         <Grid container>
                             <Teams division={this.props.division} nofab />
                         </Grid>
                     </Paper>
+                </Grid> */}
+                <Grid item xs={12} className={classes.space}>
+                    <LeagueTable  division={this.props.division} />
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <TextField
@@ -157,8 +161,8 @@ const styles = (theme)=>({
     root:{
 
     },
-    teams: {
-        padding: theme.spacing.unit*2,
+    space: {
+        // padding: theme.spacing.unit*2,
         marginTop: theme.spacing.unit*2,
         marginBottom: theme.spacing.unit*2,
     },

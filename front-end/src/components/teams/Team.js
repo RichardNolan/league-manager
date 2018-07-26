@@ -9,7 +9,7 @@ import ResultSet from '../results/ResultSet'
 import SNACK from '../../SNACK'
 // import Division from '../divisions/Division'
 
-import { LinearProgress, withStyles, Typography, Grid, Paper } from '@material-ui/core';
+import { LinearProgress, withStyles, Typography, Grid } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
 
 class Team extends React.Component {
@@ -62,16 +62,16 @@ class Team extends React.Component {
 
         if(!this.state.id) return("You never selected your favourite team")
 
-        let clubBanner = team && team.club && <ClubBanner club={team.club} />
+        let clubBanner = team && team.club && <ClubBanner club={team.club} team={team.title} />
         let divisionBanner = team && team.division && <DivisionBanner division={team.division} match={this.props.match} />
-        let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate />) || null
+        let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate {...this.props}/>) || null
         let fixtureHeading = (team && team.nextFixture && team.nextFixture.division && team.division && team.division.title) || 'None found'
-        let lastResult = (team && team.lastResult && <Result result={team.lastResult} />) || null
+        let lastResult = (team && team.lastResult && <Result result={team.lastResult} showDate {...this.props} />) || null
         let resultHeading = (team && team.lastResult && team.lastResult.division && team.division && team.division.title) || 'None found'
         let leagueTable = (team && team.table && <LeagueTable division={team.division && team.division._id} filter={this.props.match ? null : team._id} />) || null
         // let tableHeading = team && team.lastResult && team.lastResult.division && team.division && team.division.title || 'None found'
         return (
-            <Grid container spacing={16}>
+            <Grid container spacing={16} className={this.props.classes.root}>
 
                 <Grid item xs={12}>
                     {!this.props.nobanner && clubBanner}
@@ -84,7 +84,6 @@ class Team extends React.Component {
                     {this.state.progressBar && <LinearProgress/>}
                     <Grid container spacing={16}>
                         <Grid item xs={12} sm={12} md={6}>
-                            <Paper>
                                 {this.props.shortForm
                                     ?   <Fragment>
                                             <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
@@ -92,32 +91,33 @@ class Team extends React.Component {
                                             </Typography>
                                             {nextFixture}
                                         </Fragment>
-                                    :   <FixtureSet 
-                                            title='Upcoming Fixtures'
-                                            fixtures={this.state.fixtures} 
-                                            showDate
-                                        />
+                                    :   <Fragment>
+                                            <FixtureSet 
+                                                title='Upcoming Fixtures'
+                                                fixtures={this.state.fixtures} 
+                                                showDate
+                                            />
+                                        </Fragment>
                                 } 
-                            </Paper>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6}>
                                 {this.props.shortForm
-                                    ?   <Paper>
+                                    ?   <Fragment>
                                             <Typography variant='subheading' gutterBottom className={this.props.classes.center}>
                                                 {`Last Result: ${resultHeading}`}
                                             </Typography>
                                             {lastResult}
-                                        </Paper>
-                                    :   <Paper>
+                                        </Fragment>
+                                    :   <Fragment>
                                             <ResultSet 
                                                 title='Recent Results'
                                                 results={this.state.results} 
+                                                showDate
                                             />
-                                        </Paper>
+                                        </Fragment>
                                 } 
                         </Grid>
                     </Grid>
-
                 </Grid>
             </Grid>
         );
@@ -125,7 +125,9 @@ class Team extends React.Component {
 };
 
 const styles = theme=>({
-
+    root:{
+        padding:16,
+    },
     center:{
         textAlign:'center',
     },

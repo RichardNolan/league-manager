@@ -30,7 +30,8 @@ class LeagueTable extends React.Component {
         if(innerWidth<320) return 0
         else if(innerWidth<360) return 1
         else if(innerWidth<450) return 2
-        else if(innerWidth>=450) return 3
+        else if(innerWidth<1200) return 3
+        else return 4
     }
 
     changeWidth = ()=>{
@@ -77,8 +78,9 @@ class LeagueTable extends React.Component {
                     {this.props.title || null}
                 </Typography>
                 {this.state.progressBar && <LinearProgress/>}
+
                 <Paper className={this.props.classes.root}>
-                
+                { (this.getSizeFromWidth()!==4) &&
                                 <FormControlLabel control={
                                                         <Tooltip id="tooltip-icon" title="See the full table, with home and away details, form, etc.">
                                                             <Switch
@@ -90,6 +92,7 @@ class LeagueTable extends React.Component {
                                                         }
                                     label="See a full table"
                                 />
+                }
                         <TableMain size={size} teams={this.state.teams} />
                 </Paper>
             </div>

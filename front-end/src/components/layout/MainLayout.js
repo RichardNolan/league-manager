@@ -52,8 +52,8 @@ class MainLayout extends Component {
                         <div className={classes.toolbar} />
                             
                         <Grid container spacing={32}>
-                            <Grid item xs={12} sm={1} md={2} lg={3}></Grid>
-                            <Grid item xs={12} sm={10} md={8} lg={6} > 
+                            <Grid item xs={12} sm={1} md={2} lg={2}></Grid>
+                            <Grid item xs={12} sm={10} md={8} lg={8} > 
                                 <Zoom in={true} style={{ transitionDelay: 250 }}>
                                     <Paper>
                                         {Routes}
@@ -61,7 +61,7 @@ class MainLayout extends Component {
                                 </Zoom>
                                 <Route path={`/`} component={Advert} exact={true} />
                             </Grid>
-                            <Grid item xs={12} sm={1} md={2} ></Grid>
+                            <Grid item xs={12} sm={1} md={2} lg={2}></Grid>
                         </Grid>
 
                     </main> 
