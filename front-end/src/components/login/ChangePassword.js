@@ -6,6 +6,7 @@ import {TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActio
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
+import { URL } from '../../utilities/fetch';
 
 import SNACK from '../../SNACK'
 
@@ -57,7 +58,7 @@ class ChangePassword extends Component {
     onChangePassword = ()=>{
         if(!this.checkEverything()) return;
         this.setState({progressBar:true})  
-        fetch('http://localhost:9000/api/changepassword',post(this.state))
+        fetch(URL+'/api/changepassword',post(this.state))
             .then(res=>res.json())
             .then(res=>{
                 if(!res.success) throw(res.message)

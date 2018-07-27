@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import {  post, fetchQuery } from '../../utilities/fetch'
+import {  post, fetchQuery, URL } from '../../utilities/fetch'
 import League from '../leagues/League'
 import { Grid, LinearProgress, AppBar, Typography, Toolbar } from '@material-ui/core';
 import {Link, Route} from 'react-router-dom'
@@ -50,7 +50,7 @@ class Competitions extends React.Component {
             category:newCompetition.category,
             organisation:this.state.organisation
         }
-        fetch('http://localhost:9000/api/competition', post(body))            
+        fetch(URL+'/api/competition', post(body))            
             .then(res=>res.json())
             .then(res=>{
                 let competitions = [...this.state.competitions]
@@ -66,7 +66,7 @@ class Competitions extends React.Component {
 
     fetchData(){     
         this.setState({progressBar:true})   
-        fetchQuery('http://localhost:9000/api/competition', {organisation:this.state.organisation})
+        fetchQuery(URL+'/api/competition', {organisation:this.state.organisation})
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)

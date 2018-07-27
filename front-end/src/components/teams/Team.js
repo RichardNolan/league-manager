@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {getStandard} from '../../utilities/fetch'
+import {getStandard, URL} from '../../utilities/fetch'
 import ClubBanner from '../clubs/ClubBanner'
 import DivisionBanner from '../divisions/DivisionBanner'
 import Fixture from '../fixtures/Fixture'
@@ -25,7 +25,7 @@ class Team extends React.Component {
 
     fetchData(){
         this.setState({progressBar:true})  
-        fetch(`http://localhost:9000/api/team/${this.state.id}`, getStandard())
+        fetch(`${URL}/api/team/${this.state.id}`, getStandard())
             .then(res=>res.json())
             .then(team=>{
                 team.table = team.table && team.table.table
@@ -36,7 +36,7 @@ class Team extends React.Component {
                 this.props.showSnack(err)
             })
 
-        fetch(`http://localhost:9000/api/fixture/team/${this.state.id}`, getStandard())
+        fetch(`${URL}/api/fixture/team/${this.state.id}`, getStandard())
             .then(res=>res.json())
             .then(fixtures=>{
                 this.state && this.setState({fixtures, progressBar:false})
@@ -46,7 +46,7 @@ class Team extends React.Component {
                 this.props.showSnack(err)
             })
 
-        fetch(`http://localhost:9000/api/result/team/${this.state.id}`, getStandard())
+        fetch(`${URL}/api/result/team/${this.state.id}`, getStandard())
             .then(res=>res.json())
             .then(results=>{
                 this.state && this.setState({results, progressBar:false})

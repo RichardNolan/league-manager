@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import {getStandard} from '../../utilities/fetch'
+import {getStandard, URL} from '../../utilities/fetch'
 import { withStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Tab, Typography, LinearProgress } from '@material-ui/core';
 import LeagueTable from '../tables/LeagueTable';
@@ -53,7 +53,7 @@ class Division extends Component {
 
   fetchData = ()=>{      
     this.setState({progressBar:true})  
-    fetch(`http://localhost:9000/api/division/${this.state.division}`, getStandard())
+    fetch(`${URL}/api/division/${this.state.division}`, getStandard())
         .then(res=>res.json())
         .then(division=>{
             this.setState({title:division.title, progressBar:false})

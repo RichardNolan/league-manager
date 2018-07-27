@@ -1,5 +1,5 @@
 import React from 'react';
-import { getStandard } from '../../utilities/fetch'
+import { getStandard, URL } from '../../utilities/fetch'
 import Divisions from '../divisions/Divisions';
 import { LinearProgress, withStyles } from '@material-ui/core';
 import SNACK from '../../SNACK'
@@ -21,7 +21,7 @@ class League extends React.Component {
     fetchData(){
         this.setState({progressBar:true})
 
-        let url = `http://localhost:9000/api/`
+        let url = `${URL}/api/`
         if(this.state.competitionID) url += `competition/${this.state.competitionID}`
         else if(this.state.leagueID) url += `league/${this.state.leagueID}`
 

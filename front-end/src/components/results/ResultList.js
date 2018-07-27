@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import { AppBar, Tabs, Tab, LinearProgress } from '@material-ui/core';
 import ResultSet from './ResultSet';
 import NewScoreDialog from '../scores/NewScoreDialog';
-import {  post } from '../../utilities/fetch';
+import {  post, URL } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 class ResultList extends React.Component {
@@ -37,7 +37,7 @@ class ResultList extends React.Component {
 
         let body = Object.assign({fixture:_id, status:'result'}, scores)
 
-        fetch('http://localhost:9000/api/score', post(body))
+        fetch(URL+'/api/score', post(body))
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)

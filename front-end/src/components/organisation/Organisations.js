@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Organisation from './Organisation'
-import { post, getStandard} from '../../utilities/fetch'
+import { post, getStandard, URL} from '../../utilities/fetch'
 import {Link, Route} from 'react-router-dom'
 
 import { Grid, LinearProgress, Avatar, AppBar, Toolbar, Typography  } from '@material-ui/core';
@@ -44,7 +44,7 @@ class Organisations extends React.Component {
     }
     saveNewOrganisation=(title)=>{
         this.closeNewOrganisationDialog()        
-        fetch('http://localhost:9000/api/organisation', post({title}))            
+        fetch(URL+'/api/organisation', post({title}))            
         .then(res=>res.json())
         .then(newOrganisation=>{
             let organisations = [...this.state.organisations]
@@ -54,7 +54,7 @@ class Organisations extends React.Component {
         .catch(err=>this.props.showSnack(err))
     }
     componentDidMount(){
-        fetch('http://localhost:9000/api/organisation', getStandard())            
+        fetch(URL+'/api/organisation', getStandard())            
         .then(res=>res.json())
         .then(organisations=>this.setState({organisations}))
         .catch(err=>this.props.showSnack(err))   

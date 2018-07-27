@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem, withStyles, Button, Menu } from '@material-ui/core';
-import { fetchQuery } from '../../utilities/fetch';
+import { fetchQuery, URL } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 const styles={
@@ -32,7 +32,7 @@ class ClubMenu extends React.Component {
     }
     
     componentDidMount(){
-        fetchQuery('http://localhost:9000/api/club', {organisation:this.props.organisation})
+        fetchQuery(URL+'/api/club', {organisation:this.props.organisation})
             .then(result=>result.json())
             .then(result=>{
                 if(result.error) throw(result.message)

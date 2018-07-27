@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Team from './Team'
 import SNACK from '../../SNACK'
 
-import { getStandard } from '../../utilities/fetch'
+import { getStandard, URL } from '../../utilities/fetch'
 
 class TeamContainer extends Component {
     state ={
@@ -12,7 +12,7 @@ class TeamContainer extends Component {
         this.getTeamDetails()
     }
     getTeamDetails(){
-        fetch(`http://localhost:9000/api/team/${this.props.match.params.id}`, getStandard())
+        fetch(`${URL}/api/team/${this.props.match.params.id}`, getStandard())
             .then(res=>res.json())
             .then(team=>{
                 this.setState({team})

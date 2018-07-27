@@ -3,7 +3,7 @@ import {TextField,FormGroup,Card,CardHeader,Avatar, Button,CardContent,CardActio
 
 import { withStyles } from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
-import { getStandard, fetchQuery } from '../../utilities/fetch'
+import { getStandard, fetchQuery, URL } from '../../utilities/fetch'
 import SNACK from '../../SNACK'
 class RegisterForm extends React.Component {
     constructor(){
@@ -26,7 +26,7 @@ class RegisterForm extends React.Component {
   
     async componentDidMount(){
         this.setState({
-            organisations: await fetch('http://localhost:9000/api/organisation', getStandard)
+            organisations: await fetch(URL+'/api/organisation', getStandard)
                             .then(res=>res.json()),
             clubs:[],
             teams:[],
@@ -34,7 +34,7 @@ class RegisterForm extends React.Component {
     }
     async getClubs(org){
         if(org) this.setState({
-                        clubs: await fetch('http://localhost:9000/api/organisation/'+org, getStandard)
+                        clubs: await fetch(URL+'/api/organisation/'+org, getStandard)
                                         .then(res=>res.json())
                                         .then(res=>res.clubs)
                                         .catch(err=>this.props.showSnack(err)),
@@ -43,7 +43,7 @@ class RegisterForm extends React.Component {
     }
     async getTeams(club){
         if(club) this.setState({
-                    teams: await fetchQuery('http://localhost:9000/api/team', {club})
+                    teams: await fetchQuery(URL+'/api/team', {club})
                                     .then(res=>res.json())
                                     .catch(err=>this.props.showSnack(err))
                 })
@@ -89,7 +89,7 @@ class RegisterForm extends React.Component {
     }
 
     checkEmail = ()=>{
-        this.state.email && fetch('http://localhost:9000/api/checkemail/'+this.state.email, getStandard)
+        this.state.email && fetch(URL+'/api/checkemail/'+this.state.email, getStandard)
             .then(res=>res.json())
             .then(res=>{
                 if(res.exists) {

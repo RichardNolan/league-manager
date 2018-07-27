@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { post } from '../../utilities/fetch'
+import { post, URL } from '../../utilities/fetch'
 import RegisterForm from './RegisterForm'
 import SNACK from '../../SNACK'
 class RegisterContainer extends Component {
@@ -8,7 +8,7 @@ class RegisterContainer extends Component {
         if(organisation==='')organisation=null
         if(club==='')club=null
         if(team==='')team=null
-        fetch('http://localhost:9000/api/signup/', post({title, email, password1, password2, organisation, club, team, secret, isMember:true}))
+        fetch(URL+'/api/signup/', post({title, email, password1, password2, organisation, club, team, secret, isMember:true}))
         .then(res=>res.json())
         .then(res=>this.props.showSnack(res.message))
         .then(res=>document.location.href='/login')

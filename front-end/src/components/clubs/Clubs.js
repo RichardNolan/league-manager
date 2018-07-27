@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { post, fetchQuery } from '../../utilities/fetch'
+import { post, fetchQuery, URL } from '../../utilities/fetch'
 import { Grid, LinearProgress, Avatar, AppBar, Toolbar, Typography } from '@material-ui/core';
 import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
@@ -37,7 +37,7 @@ class Clubs extends Component {
             secondary_color: newClub.secondary_color,
             organisation: this.state.organisation
         }
-        fetch('http://localhost:9000/api/club', post(body))            
+        fetch(URL+'/api/club', post(body))            
             .then(res=>res.json())
             .then(res=>{
                 let clubs = [...this.state.clubs]
@@ -49,7 +49,7 @@ class Clubs extends Component {
     
     fetchData(){   
         let {organisation} = this.state
-        fetchQuery('http://localhost:9000/api/club', { organisation} )
+        fetchQuery(URL+'/api/club', { organisation} )
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)

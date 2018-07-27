@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {Stepper,Step,StepLabel,Button,Typography,  LinearProgress, Hidden} from '@material-ui/core';
 import Finished from './NewLeague/Finished'
 import steps from './NewLeague/steps'
-import { post } from '../../utilities/fetch';
+import { post, URL } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 
@@ -48,7 +48,7 @@ class NewLeague extends Component {
             divisions:this.state.divisionsObject
         }
         
-        fetch('http://localhost:9000/api/league', post(league))
+        fetch(URL+'/api/league', post(league))
             .then(res=>res.json())
             .then(res=>{
                 this.props.showSnack("League saved...")

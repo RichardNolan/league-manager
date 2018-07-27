@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { post, fetchQuery } from '../../utilities/fetch'
+import { post, fetchQuery, URL } from '../../utilities/fetch'
 import { LinearProgress,  Avatar, AppBar, Toolbar, Typography, IconButton} from '@material-ui/core';
 import {PlayArrow} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
@@ -34,7 +34,7 @@ class Teams extends Component {
         // query.skip = 5
         if(query){
             this.setState({progressBar:true})   
-            fetchQuery('http://localhost:9000/api/team', query  )
+            fetchQuery(URL+'/api/team', query  )
                 .then(res=>res.json())
                 .then(res=>{
                     if(res.error) throw(res.message)
@@ -61,7 +61,7 @@ class Teams extends Component {
             organisation: (this.props.club && this.props.club.organisation) || (this.props.user && this.props.user.organisation),
         }
         // this.props.showSnack(body)
-        fetch('http://localhost:9000/api/team', post(body))            
+        fetch(URL+'/api/team', post(body))            
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)

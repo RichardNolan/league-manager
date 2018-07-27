@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import { AppBar, Tabs, Tab, LinearProgress } from '@material-ui/core';
 import FixtureSet from './FixtureSet';
 import EditFixtureDialog from './EditFixtureDialog';
-import {  post } from '../../utilities/fetch';
+import {  post, URL } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 class FixtureList extends React.Component {
@@ -33,7 +33,7 @@ class FixtureList extends React.Component {
         let fixture = this.state.fixtureToEdit
         fixture.date = newFixture.date
         fixture.referee = newFixture.referee
-        fetch(`http://localhost:9000/api/fixture/${fixture._id}`, post({date:newFixture.date, referee:newFixture.referee}))
+        fetch(`${URL}/api/fixture/${fixture._id}`, post({date:newFixture.date, referee:newFixture.referee}))
             .then(res=>{
                 this.setState({progressBar:false})
                 return res
