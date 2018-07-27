@@ -2,7 +2,7 @@
 import React from 'react';
 import { MenuItem, withStyles, IconButton, Menu, TextField,InputAdornment } from '@material-ui/core';
 import {KeyboardArrowDown} from '@material-ui/icons'
-import { fetchQuery, URL } from '../../utilities/fetch';
+import { fetchQuery, DB_HOST } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 const styles={
@@ -35,7 +35,7 @@ class UserMenu extends React.Component {
     }
     
     componentDidMount(){
-        fetchQuery(URL+'/api/user', {['is'+this.props.user]:true})
+        fetchQuery(DB_HOST+'/api/user', {['is'+this.props.user]:true})
             .then(result=>result.json())
             .then(result=>{
                 if(result.error) throw(result.message)

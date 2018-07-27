@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Paper, List, ListItem, ListItemText, LinearProgress, Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles'
-import {fetchQuery, URL} from '../../../utilities/fetch'
+import {fetchQuery, DB_HOST} from '../../../utilities/fetch'
 import {Delete} from '@material-ui/icons'
 import SNACK from '../../../SNACK'
 
@@ -92,7 +92,7 @@ class DivideTeams extends React.Component {
     fetchData=(cb)=>{       
         let org = (this.props.competition && this.props.competition.organisation) || null
         if(org){
-            fetchQuery(URL+'/api/team', {organisation:org, category:this.props.competition.league.category})
+            fetchQuery(DB_HOST+'/api/team', {organisation:org, category:this.props.competition.league.category})
                 .then(res=>res.json())
                 .then(res=>{
                     if(res.error) throw(res.message)

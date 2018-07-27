@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {TextField,FormGroup,Card,CardHeader,Avatar,Button,CardContent,CardActions,Typography} from '@material-ui/core'
 import {Link} from 'react-router-dom'
-import { URL } from '../../utilities/fetch';
+import { DB_HOST } from '../../utilities/fetch';
 import { withStyles } from '@material-ui/core/styles'
 import SNACK from '../../SNACK'
  
@@ -22,7 +22,7 @@ class ForgotMessage extends Component {
         this.props.showSnack('')
         let {email, secret} = this.state
         if(!email || !secret) return;
-        fetch(URL+'/api/forgotpassword',
+        fetch(DB_HOST+'/api/forgotpassword',
         // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
             method: 'POST',

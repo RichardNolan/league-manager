@@ -1,6 +1,6 @@
 import React from 'react';
 import TableMain from './TableMain'
-import {getStandard, URL } from '../../utilities/fetch'
+import {getStandard, DB_HOST } from '../../utilities/fetch'
 import { Paper, LinearProgress, Typography,FormControlLabel,Tooltip,Switch} from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles'
 import SNACK from '../../SNACK'
@@ -43,7 +43,7 @@ class LeagueTable extends React.Component {
     }
     fetchData(){
         this.setState({progressBar:true})
-        fetch(`${URL}/api/division/${this.props.division}`, getStandard())
+        fetch(`${DB_HOST}/api/division/${this.props.division}`, getStandard())
             .then(res=>res.json())
             .then(res=>{     
                 let leagueData = res.table.table

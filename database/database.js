@@ -5,6 +5,7 @@ const connStrAdmin = `mongodb://${process.env.DB_ADMIN_USERNAME}:${process.env.D
 const connStrPublic = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}`
 
 let connStr = connStrPublic
+// let connStr = connStrLocal
 console.log("Connecting to " + connStr)
 
 mongoose.connect(connStr)

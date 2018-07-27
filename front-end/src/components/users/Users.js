@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import {Table,TableHead,TableBody,TableRow,TableCell} from '@material-ui/core'
 import User from './User'
-import { fetchQuery, URL } from '../../utilities/fetch';
+import { fetchQuery, DB_HOST } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
 
 
@@ -25,7 +25,7 @@ class Users extends React.Component {
     fetchUsers(){
         let query = {}
         if(this.state.user.isLeagueSecretary) query.organisation = this.state.user.organisation 
-        fetchQuery(URL+'/api/user/', query)
+        fetchQuery(DB_HOST+'/api/user/', query)
             .then(res=>res.json())
             .then(users=>{
                 if(users.error) throw(users.message)

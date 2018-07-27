@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Divisions from './Divisions';
-import {fetchQuery, URL} from '../../utilities/fetch'
+import {fetchQuery, DB_HOST} from '../../utilities/fetch'
 import SNACK from '../../SNACK'
 
 class DivisionsContainer extends Component {
@@ -11,7 +11,7 @@ class DivisionsContainer extends Component {
 
 
     getData(){ 
-        fetchQuery(URL+'/api/division', {league:this.props.league._id})
+        fetchQuery(DB_HOST+'/api/division', {league:this.props.league._id})
             .then(res=>res.json())
             .then(res=>{
                 if(res.error) throw(res.message)

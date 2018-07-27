@@ -3,7 +3,7 @@ import {fetchQuery, post } from '../../utilities/fetch'
 import FixturesNewDialog from './FixturesNewDialog';
 import PlusFab from'../PlusFab'
 import FixtureList from './FixtureList'
-import { URL } from '../../utilities/fetch';
+import { DB_HOST } from '../../utilities/fetch';
 import { LinearProgress } from '@material-ui/core';
 import SNACK from '../../SNACK'
 
@@ -18,7 +18,7 @@ class Fixtures extends Component {
     }
 
     saveNewFixtures(options){
-        fetch(URL+'/api/fixture', post(options))            
+        fetch(DB_HOST+'/api/fixture', post(options))            
             .then(res=>res.json())
             .then(response=>{   
                 response.success===true && this.fetchData() 

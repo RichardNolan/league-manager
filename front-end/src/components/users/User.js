@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import { put, del, URL } from '../../utilities/fetch'
+import { put, del, DB_HOST } from '../../utilities/fetch'
 import SNACK from '../../SNACK'
 
 import {TableCell,IconButton} from '@material-ui/core'
@@ -28,7 +28,7 @@ class User extends React.Component {
         this.setState({progressBar:true})  
         this.closeDialogs()
 
-        fetch(URL+'/api/user/'+user._id, put({user}))            
+        fetch(DB_HOST+'/api/user/'+user._id, put({user}))            
         .then(res=>res.json())
         .then(user=>{
             this.setState({progressBar:false})   
@@ -45,7 +45,7 @@ class User extends React.Component {
         this.setState({progressBar:true})   
         this.closeDialogs()
 
-        fetch(URL+'/api/user/'+this.props.user._id, del())
+        fetch(DB_HOST+'/api/user/'+this.props.user._id, del())
             .then(res=>res.json())
             .then(res=>{
                 if(!res) throw(res.message)

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Teams from '../teams/Teams'
 import { Route} from 'react-router-dom'
 import ClubBanner from './ClubBanner'
-import {  URL } from '../../utilities/fetch';
+import {  DB_HOST } from '../../utilities/fetch';
 
 import { LinearProgress, withStyles } from '@material-ui/core';
 import SNACK from '../../SNACK'
@@ -20,7 +20,7 @@ class Club extends Component {
 
     fetchData(){  
         this.setState({progressBar:true})     
-        fetch(URL+'/api/club/'+this.state.id)
+        fetch(DB_HOST+'/api/club/'+this.state.id)
             .then(res=>res.json())
             .then(res=>{
                 this.setState({club:res,progressBar:false})

@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, Button, DialogContentText, DialogAc
 import TimeInput from 'material-ui-time-picker'
 import SNACK from '../../SNACK'
 
-import { fetchQuery, URL } from '../../utilities/fetch';
+import { fetchQuery, DB_HOST } from '../../utilities/fetch';
 import LeagueTable from '../tables/LeagueTable'
 class FixturesNewDialog extends React.Component {
 state={
@@ -48,7 +48,7 @@ fetchData = ()=>{
     this.setState({kickoff:defaultTime})
 
     let {division} = this.props
-    fetchQuery(URL+'/api/team', {division})
+    fetchQuery(DB_HOST+'/api/team', {division})
         .then(res=>res.json())
         .then(teams=>{
             if(teams.error) throw(teams.message)

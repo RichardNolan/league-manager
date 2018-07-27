@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import LoginForm from './LoginForm'
 import {validateEmail} from '../../utilities/validation'
-import {setAuthorization, URL} from '../../utilities/fetch'
+import {setAuthorization, DB_HOST} from '../../utilities/fetch'
 import {typeOfUser} from '../../utilities/utils'
 import ls from '../../utilities/localStorage'
 import { LinearProgress } from '@material-ui/core';
@@ -23,7 +23,7 @@ class LoginContainer extends Component {
         }
         this.setState({progressBar:true})  
         if( !validateEmail( email ) ) return;
-        fetch(URL+'/api/signin',
+        fetch(DB_HOST+'/api/signin',
         // TO-DO EASY Make a standardPost object in utilities/fetch  
         {
             method: 'POST',

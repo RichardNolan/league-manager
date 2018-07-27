@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import League from "./League";
-import {fetchQuery, URL} from '../../utilities/fetch'
+import {fetchQuery, DB_HOST} from '../../utilities/fetch'
 import SNACK from '../../SNACK'
 
 class LeagueContainer extends Component {
@@ -29,7 +29,7 @@ class LeagueContainer extends Component {
 
 
     fetchData(newComp=this.props.competition){
-        fetchQuery(URL+'/api/league/', {competition:newComp})
+        fetchQuery(DB_HOST+'/api/league/', {competition:newComp})
             .then(res=>res.json())
             .then(res=>{
                 if(res){

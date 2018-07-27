@@ -11,7 +11,7 @@ import { Grid, LinearProgress, Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles'
 import Competitions from '../competitions/Competitions';
 import SNACK from '../../SNACK'
-import { URL } from '../../utilities/fetch';
+import { DB_HOST } from '../../utilities/fetch';
 
 class Organisation extends Component {
     state={
@@ -28,7 +28,7 @@ class Organisation extends Component {
 
     fetchData(){   
         this.setState({loader:true})     
-        fetch(URL+'/api/organisation/'+this.state.id, getStandard())            
+        fetch(DB_HOST+'/api/organisation/'+this.state.id, getStandard())            
         .then(res=>res.json())
         .then(organisation=>this.setState({organisation, loader:false}))
         .catch(err=>{

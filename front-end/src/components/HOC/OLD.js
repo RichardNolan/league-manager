@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchQuery, URL } from '../../utilities/fetch'
+import { fetchQuery, DB_HOST } from '../../utilities/fetch'
 
 export const LoadList = (api_route='', query={}) => (Child)=>{
     return class Container extends Component {
@@ -8,7 +8,7 @@ export const LoadList = (api_route='', query={}) => (Child)=>{
         }
     
         componentDidMount(){
-            fetchQuery(URL+'/api/'+api_route,query)            
+            fetchQuery(DB_HOST+'/api/'+api_route,query)            
             .then(res=>res.json())
             .then(list=>{
                 if(list.error) throw(list.message)

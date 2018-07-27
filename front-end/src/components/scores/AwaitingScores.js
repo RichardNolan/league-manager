@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { LinearProgress, Button, Typography, CardContent, CardHeader, Card, Avatar } from '@material-ui/core';
-import { fetchQuery, post, URL } from '../../utilities/fetch';
+import { fetchQuery, post, DB_HOST } from '../../utilities/fetch';
 import Fixture from '../fixtures/Fixture'
 import NewScoreDialog from './NewScoreDialog';
 import SNACK from '../../SNACK'
@@ -21,7 +21,7 @@ class AwaitingScores extends Component {
 
     fetchData(){
         this.setState({progressBar:true})
-        fetchQuery(URL+'/api/awaitingscore', {})
+        fetchQuery(DB_HOST+'/api/awaitingscore', {})
             .then(res=>res.json())
             .then(fixtures=>{
                 if(fixtures.error) throw(fixtures.message)
@@ -53,7 +53,7 @@ class AwaitingScores extends Component {
         this.props.user.isLeagueSecretary && (scores.status = 'result')
 
         let body = Object.assign({fixture:this.state.editFixture._id}, scores)
-        fetch(URL+'/api/score', post(body))
+        fetch(DB_HOST+'/api/score', post(body))
             .then(res=>res.json())
             .then(res=>{
                 this.fetchData()
