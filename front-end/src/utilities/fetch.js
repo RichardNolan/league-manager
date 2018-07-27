@@ -15,7 +15,8 @@ const getHeaders = ()=>(
 )
 
 
-export const DB_HOST = 'http://localhost:9000'
+// export const DB_HOST = 'http://localhost:9000'
+export const DB_HOST = ''
 // export const url = ''
 
 export const getStandard = ()=>(
