@@ -75,8 +75,8 @@ class NewLeague extends Component {
         )
 
         let finished = this.state.activeStep === steps.length  
-        console.log( finished, this.state.activeStep, steps.length)           
-        console.log( this.state.divisionsObject )           
+        // console.log( finished, this.state.activeStep, steps.length)           
+        // console.log( this.state.divisionsObject )           
         let ActiveStepComponent = finished ? Finished : steps[activeStep].component
         return (
                 <div className={classes.root}>

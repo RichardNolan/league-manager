@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import { Dialog, DialogTitle, DialogActions, Button, DialogContent, TextField, Grid, Typography } from '@material-ui/core';
 import TimeInput from 'material-ui-time-picker'
+import SNACK from '../../SNACK'
+
+import UserMenu from '../users/UserMenu';
 
 class EditFixtureDialog extends Component {
     constructor(props){
         super(props)
-
-     
-
         this.state={
             newFixtureDate: null,
             kickoff:null,
+            referee:null,
         }
     }
+
     changeDate=(e)=>{
         this.setState({[e.target.name]:e.target.value})
     }
+
     changeTime = kickoff=>{
         this.setState({kickoff})
     }
+
+    changeReferee=(referee)=>{
+        this.setState({referee})
+    }
+
     save=()=>{
         let date = this.props.fixture && new Date(this.props.fixture.date)
         let day, month, formattedDate
@@ -37,16 +45,15 @@ class EditFixtureDialog extends Component {
             formattedDate = this.state.newFixtureDate
         }
 
-
         let fullDate = formattedDate+" "+hours+":"+minutes
         this.setState({newFixtureDate:null,kickoff:null})
-        this.props.onSave(fullDate)
+        this.props.onSave({date:fullDate, referee:this.state.referee})
     }
+
     render() { 
         
         let date = this.props.fixture && new Date(this.props.fixture.date)
         let day, month, formattedDate, defaultTime 
-
 
         if(date){
             day = date.getDate()
@@ -62,10 +69,10 @@ class EditFixtureDialog extends Component {
                 open={this.props.open}
                 onClose={this.props.onClose}
             >
-                <DialogTitle id="alert-dialog-title">Are you sure you want to log out?</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Change the details for this fixture?</DialogTitle>
                 <DialogContent>
-                    <Grid container>
-                        <Grid item xs={12} md={6}>
+                    <Grid container spacing={16}>
+                        <Grid item xs={12} sm={6} md={6} lg={4}>
                             <TextField
                                 defaultValue={formattedDate}
                                 label="Reschedule Fixture"
@@ -77,7 +84,7 @@ class EditFixtureDialog extends Component {
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} sm={6} md={6} lg={4}>
                             <Typography variant='caption'>
                                     Kick-off time
                             </Typography>
@@ -86,16 +93,26 @@ class EditFixtureDialog extends Component {
                                 defaultValue={defaultTime}
                                 onChange={kickoff=>this.changeTime(kickoff)}
                             />
-                    </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={6} lg={4}>
+                            <Typography variant='caption'>
+                                    Referee
+                            </Typography>
+                            <UserMenu 
+                                user='Referee'                                 
+                                onChange={this.changeReferee}
+                                default={(this.props.fixture && this.props.fixture.referee) || ''}
+                            />
+                        </Grid>
                     </Grid>
 
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose} color="primary">
-                    Cancel
+                        Cancel
                     </Button>
                     <Button onClick={this.save} color="primary" autoFocus>
-                    Change Fixture Date
+                        Change Details
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -103,4 +120,10 @@ class EditFixtureDialog extends Component {
     }
 }
 
-export default EditFixtureDialog;
+// export default EditFixtureDialog;
+const withSnack = props=>(
+    <SNACK.Consumer>
+       {({showSnack}) => <EditFixtureDialog {...props} showSnack={showSnack} />}
+    </SNACK.Consumer>
+)
+ export default withSnack;

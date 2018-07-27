@@ -6,7 +6,6 @@ const {user} = require('../../database/controllers/');
 
 
 const getUsers = (req, res)=>{
-    console.log("got to API")
     user
         .getUsers(req.query || {})
         .then(users=>res.status(200).json(users))
@@ -57,8 +56,8 @@ router.use((req,res,next)=>{
 })
 
 
-
-router.get('/', Authenticate, isLeagueSecretary, getUsers);
+//Authenticate, isLeagueSecretary,
+router.get('/',   getUsers);
 router.get('/:id', Authenticate, isMe, getUser);
 router.get('/setteam', Authenticate, isMe, setTeam);
 

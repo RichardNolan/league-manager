@@ -28,11 +28,12 @@ class FixtureList extends React.Component {
     closeEditFixtureDialog(){
         this.setState({editFixtureDialogOpen:false})
     }
-    newFixtureDate(newDate){
+    saveFixture(newFixture){
         this.setState({editFixtureDialogOpen:false, progressBar:true})
         let fixture = this.state.fixtureToEdit
-        fixture.date = newDate
-        fetch(`http://localhost:9000/api/fixture/${fixture._id}`, post({date:newDate}))
+        fixture.date = newFixture.date
+        fixture.referee = newFixture.referee
+        fetch(`http://localhost:9000/api/fixture/${fixture._id}`, post({date:newFixture.date, referee:newFixture.referee}))
             .then(res=>{
                 this.setState({progressBar:false})
                 return res
@@ -83,7 +84,7 @@ class FixtureList extends React.Component {
             <EditFixtureDialog 
                 open={this.state.editFixtureDialogOpen} 
                 onClose={this.closeEditFixtureDialog.bind(this)} 
-                onSave={this.newFixtureDate.bind(this)} 
+                onSave={this.saveFixture.bind(this)} 
                 fixture={this.state.fixtureToEdit}
             />
             </div>

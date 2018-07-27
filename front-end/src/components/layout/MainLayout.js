@@ -11,9 +11,9 @@ import * as soccer_03 from '../../assets/soccer_03.jpg'
 import * as soccer_04 from '../../assets/soccer_04.jpg'
 import Snack from '../Snack'
 import { Grid, Zoom, Paper } from '@material-ui/core';
+// import UserMenu from '../users/UserMenu';
 
 import USER from '../../USER'
-import NewLeague from '../leagues/NewLeague';
 
 class MainLayout extends Component {
     state={
