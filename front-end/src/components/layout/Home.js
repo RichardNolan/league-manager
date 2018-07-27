@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Typography, Paper, withStyles } from '@material-ui/core';
-
  
 const Home = (props) => {
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Card, TextField, Grid, Typography } from '@material-ui/core';
 
 class Division extends React.Component{
@@ -17,10 +17,9 @@ class Division extends React.Component{
         ) this.setState({[data.name]:data.value})
     }
     render(){
-    return (
-        <Grid item xs={12} sm={12} md={6}> 
+        return (
             <Card style={{padding:'16px'}}>
-                <Typography variant='subheading'>
+                <Typography variant='caption'>
                     Enter a name for Division {(this.props.index+1)}
                 </Typography>
                 <TextField
@@ -30,8 +29,8 @@ class Division extends React.Component{
                     onChange={this.onChangeName}
                 />
             </Card>
-        </Grid>
-    )}
+        )
+    }
 }
     
 
@@ -66,30 +65,22 @@ class CreateDivisions extends React.Component {
     render(){
         let newDivisions = this.state.divisions.map((el, key)=>{
             let nextEl = this.state.divisions[key+1] || {}
-            return <Division onChangeName={this.onChangeName.bind(this)} index={key} data={nextEl} key={key} />
+            return(
+                <Grid item xs={12} sm={6} md={4} lg={3} key={key}>
+                    <Division onChangeName={this.onChangeName.bind(this)} index={key} data={nextEl} />
+                </Grid>
+            )
         })
         return (
-            <div>
-                <Grid container spacing={0}>
-
-                    <Grid item xs={false} sm={1} md={3}></Grid>
-                    <Grid item xs={12} sm={10} md={6}>
-                        <Typography variant='subheading'>
-                            Its important to put the divisions in order as promotion and relegation will follow this order in future release of this application.
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={false} sm={1} md={3}></Grid>
+            <Fragment>                
+                <Typography variant='subheading'>
+                    Its important to put the divisions in order as promotion and relegation will follow this order in future release of this application.
+                </Typography>
                     
-                    <Grid item xs={false} sm={1} md={3}></Grid>
-                    <Grid item xs={false} sm={10} md={6}>
-                        <Grid container spacing={16}>
-                            {newDivisions}
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={false} sm={1} md={3}></Grid>
-
+                <Grid container spacing={16}>
+                        {newDivisions}
                 </Grid>
-            </div>
+            </Fragment>
         );
     }
 };

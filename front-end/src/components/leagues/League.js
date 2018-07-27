@@ -3,6 +3,7 @@ import { getStandard } from '../../utilities/fetch'
 import Divisions from '../divisions/Divisions';
 import { LinearProgress, withStyles } from '@material-ui/core';
 import SNACK from '../../SNACK'
+import NewLeague from './NewLeague';
 
 class League extends React.Component {
 
@@ -45,10 +46,10 @@ class League extends React.Component {
             <div className={this.props.classes.root}>
             {this.state.progressBar && <LinearProgress/>}    
                 <h1>{league && league.title}</h1>
-                {
-                    league && league.divisions 
+                {                    
+                    league && league.divisions && league.divisions.length>0
                         ?   <Divisions divisions={league.divisions} {...this.props}/>  
-                        :   null 
+                        :   <NewLeague competition={this.state.competition}/> 
                 }
             </div>
         );

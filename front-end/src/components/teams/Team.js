@@ -59,14 +59,14 @@ class Team extends React.Component {
 
     render(){ 
         let {team} = this.state
-
+        let {classes, ...rest} = this.props
         if(!this.state.id) return("You never selected your favourite team")
 
         let clubBanner = team && team.club && <ClubBanner club={team.club} team={team.title} />
         let divisionBanner = team && team.division && <DivisionBanner division={team.division} match={this.props.match} />
-        let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate {...this.props}/>) || null
+        let nextFixture = (team && team.nextFixture && <Fixture fixture={team.nextFixture} showDate {...rest}/>) || null
         let fixtureHeading = (team && team.nextFixture && team.nextFixture.division && team.division && team.division.title) || 'None found'
-        let lastResult = (team && team.lastResult && <Result result={team.lastResult} showDate {...this.props} />) || null
+        let lastResult = (team && team.lastResult && <Result result={team.lastResult} showDate {...rest} />) || null
         let resultHeading = (team && team.lastResult && team.lastResult.division && team.division && team.division.title) || 'None found'
         let leagueTable = (team && team.table && <LeagueTable division={team.division && team.division._id} filter={this.props.match ? null : team._id} />) || null
         return (

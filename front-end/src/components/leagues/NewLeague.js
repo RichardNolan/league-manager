@@ -1,26 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import {Link} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
-import {Stepper,Step,StepLabel,Button,Typography, Paper, LinearProgress, Hidden} from '@material-ui/core';
+import {Stepper,Step,StepLabel,Button,Typography,  LinearProgress, Hidden} from '@material-ui/core';
 import Finished from './NewLeague/Finished'
 import steps from './NewLeague/steps'
 import { post } from '../../utilities/fetch';
 import SNACK from '../../SNACK'
-
-const styles = theme => ({
-//   root: {
-//     width: '100%',
-//   },
-  backButton: {
-    marginRight: theme.spacing.unit,
-  },
-  instructions: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-  },
-  activeStepComponent:{
-    padding: theme.spacing.unit*2,
-  }
-});
 
 
 class NewLeague extends Component {
@@ -32,7 +17,6 @@ class NewLeague extends Component {
 
     handleNext=()=>{
         if(this.state.activeStep === steps.length - 1){
-            this.props.showSnack('post here')
             this.onSaveLeague()
         }else{
             this.setState((prevState) => ({
@@ -67,18 +51,19 @@ class NewLeague extends Component {
         fetch('http://localhost:9000/api/league', post(league))
             .then(res=>res.json())
             .then(res=>{
-                this.props.showSnack(res)
+                this.props.showSnack("League saved...")
                 this.setState((prevState) => ({
                     activeStep: prevState.activeStep + 1,
                     loader:false
                 }));
             })
-            .catch(err=>this.props.showSnack(err))
-
-        
+            .catch(err=>{                
+                this.props.showSnack(err)
+                // set loader false
+            })        
     }
 
-    render() {
+    render() {            
         const { classes } = this.props;
         const { activeStep } = this.state;
 
@@ -89,61 +74,79 @@ class NewLeague extends Component {
             )
         )
 
-        let finished = this.state.activeStep === steps.length
+        let finished = this.state.activeStep === steps.length  
+        console.log( finished, this.state.activeStep, steps.length)           
+        console.log( this.state.divisionsObject )           
         let ActiveStepComponent = finished ? Finished : steps[activeStep].component
         return (
-            <div className={classes.root}>
+                <div className={classes.root}>
+                    
+                        <Hidden mdUp>
+                            <Typography variant='subheading' color='secondary'>
+                                This section of the website is not compatible with small screens, simply because there is a lot of elements to move around. It has been left enabled for you to try, but it really isn't advised.
+                            </Typography>
+                        </Hidden>
+                                    
+                        <Stepper activeStep={activeStep} alternativeLabel>
+                            {stepIcons}
+                        </Stepper>
+                        {this.state.loader ? <LinearProgress /> : null }
+                        <ActiveStepComponent 
+                            onChange={this.onChange.bind(this)} 
+                            divisions={this.state.divisions}
+                            divisionsObject={this.state.divisionsObject}
+                            competition={this.props.competition}
+                        />
 
-                <Paper className={classes.activeStepComponent} >
-                
-                    <Hidden mdUp>
-                        <Typography variant='subheading' color='secondary'>
-                            This section of the website is not compatible with small screens, simply because there is a lot of elements to move around. It has been left enabled for you to try, but it really isn't advised.
+                    <div>
+                        <Typography className={classes.instructions}>
+                            {finished ? "All steps completed - you're finished" : steps[activeStep].helperText }                                    
                         </Typography>
-                    </Hidden>
-                                
-                    <Stepper activeStep={activeStep} alternativeLabel>
-                        {stepIcons}
-                    </Stepper>
-                    {this.state.loader ? <LinearProgress /> : null }
-                    <ActiveStepComponent 
-                        onChange={this.onChange.bind(this)} 
-                        divisions={this.state.divisions}
-                        divisionsObject={this.state.divisionsObject}
-                        competition={this.props.competition}
-                    />
-                </Paper>
-
-                <div>
-                    <Typography className={classes.instructions}>
-                        {finished ? "All steps completed - you're finished" : steps[activeStep].helperText }                                    
-                    </Typography>
-                        {finished 
-                            ? <Button onClick={this.handleReset}>Reset</Button> 
-                            : (  <div>                        
-                                    <Button
-                                        disabled={activeStep === 0}
-                                        onClick={this.handleBack}
-                                        className={classes.backButton}
-                                    >
-                                        Back
-                                    </Button>
-                                    <Button 
-                                        variant="contained" 
-                                        color="primary" 
-                                        onClick={this.handleNext}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                    </Button>
-                                </div>
-                            ) 
-                        }
+                        <div className={classes.keepRight}>
+                            {finished 
+                                ? <Button component={Link} to={`/organisations/${this.props.competition.organisation}/competitions/${this.props.competition._id}/league/`}>Proceed to new League</Button> 
+                                : ( <Fragment>                        
+                                        <Button
+                                            disabled={activeStep === 0}
+                                            onClick={this.handleBack}
+                                            className={classes.backButton}
+                                        >
+                                            Back
+                                        </Button>
+                                        <Button 
+                                            variant="contained" 
+                                            color="primary" 
+                                            onClick={this.handleNext}
+                                        >
+                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                        </Button>
+                                    </Fragment>
+                                ) 
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
         )
     }
 }
 
+const styles = theme => ({
+      root: {
+        padding: theme.spacing.unit*2,
+      },
+      backButton: {
+        marginRight: theme.spacing.unit,
+      },
+      instructions: {
+        marginTop: theme.spacing.unit,
+        marginBottom: theme.spacing.unit,
+      },
+      keepRight:{
+          display:'flex',
+          justifyContent:'flex-end'
+      }
+    });
+    
 // export default withStyles(styles)(NewLeague);
 
 const withSnack = props=>(

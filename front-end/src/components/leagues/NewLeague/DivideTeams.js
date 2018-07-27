@@ -11,6 +11,7 @@ class DivideTeams extends React.Component {
        divisions:this.props.divisionsObject, 
        progressBar:false,
        teams:[],
+    //    teams:['Man utd', 'Arsenal', 'Spurs'],
    }
 
     allowDrag = (e)=> {
@@ -112,7 +113,7 @@ render(){
         ?   this.props.divisions.map((division, key)=>{            
                 return division.value
                     ?   (
-                            <Grid item xs={6} md={4} key={key}>
+                            <Grid item xs={12} sm={6} md={4} lg={3} key={key}>
                                 <Paper className={classes.division}>
                                     <Typography variant='title'>
                                         {division.value}                                  
@@ -137,7 +138,9 @@ render(){
 
     let teams = this.state.teams.map((team, key)=>{
         return (
+            
                 <ListItem key={key} draggable={true} onDragStart={this.onDragStart} id={team._id} className={classes.team} >
+                    {/* <ListItemText primary={team}/> */}
                     <ListItemText primary={team.club.title_short}/>
                 </ListItem>
                 )
@@ -145,17 +148,22 @@ render(){
     return (
         <Grid container>
             {this.state.progressBar && <LinearProgress/>}
-            <Grid item xs={12} md={10}>
-                <Grid container spacing={16}>
+            <Grid item xs={12}>            
+                <Grid container spacing={16} className={classes.divisions}>
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <Paper className={classes.availableTeams}>
+                        <Typography variant='caption'>
+                            Available Teams                                 
+                        </Typography>
+                        <List dense={true} className={classes.teams} id="teams-list">
+                            {teams}
+                        </List>
+                    </Paper>   
+                    </Grid>
                     {divisions}
                 </Grid>
             </Grid>
-            <Grid item xs={12} md={2}>    
-                <List dense={true} className={classes.teams} id="teams-list">
-                  {teams}
-                </List>
-            </Grid>
-            <Grid item>
+            <Grid item xs={12}>
                 <Delete 
                     onDrop={this.onDelete} 
                     onDragOver={this.allowDelete} 
@@ -178,9 +186,18 @@ const styles = (theme)=> ({
     root:{
 
     },
+    divisions:{
+        display:'flex',
+        justifyContent:'flex-end'
+    },
     division:{
         padding:theme.spacing.unit*2,
-        width:200,
+        width:'100%',
+    },
+    availableTeams:{
+        backgroundColor: 'default',  
+        padding:theme.spacing.unit*2,
+        width:'100%',
     },
     dropzone:{
         width:'100%',
@@ -195,7 +212,7 @@ const styles = (theme)=> ({
     },
     teams:{        
         overflow: 'auto',
-        maxHeight: 400,
+        maxHeight: 208,
     },
     team:{
         backgroundColor: theme.palette.background.default,

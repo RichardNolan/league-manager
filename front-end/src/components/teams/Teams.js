@@ -60,7 +60,7 @@ class Teams extends Component {
             club: this.state.clubID || newTeam.club,   // TO-DO I THINK THE ID IS NEEDED NOW
             organisation: (this.props.club && this.props.club.organisation) || (this.props.user && this.props.user.organisation),
         }
-        this.props.showSnack(body)
+        // this.props.showSnack(body)
         fetch('http://localhost:9000/api/team', post(body))            
             .then(res=>res.json())
             .then(res=>{

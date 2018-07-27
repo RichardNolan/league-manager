@@ -59,7 +59,7 @@ class LeagueTable extends React.Component {
                 
                 //THIS IS THE FALLBACK IF NO FIXTURES HAVE BEEN PLAYED HENSE NO TABLE 
                 if(leagueData.length===0){
-                    leagueData = res.teams.map((t,i)=>({id:t._id,team:t.club.title_short,p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0}))
+                    leagueData = res.teams.map((t,i)=>({id:t._id,title:t.club.title_short,p:0, w:0, d:0, l:0, f:0, a:0, gd:0, pts:0}))
                                         .filter(t=>{                
                                             if(this.props.filter) return this.props.filter===t.id ? true : false
                                             return true
@@ -109,7 +109,7 @@ class LeagueTable extends React.Component {
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    // marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
   },
 });

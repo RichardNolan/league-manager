@@ -4,7 +4,6 @@ import TimeInput from 'material-ui-time-picker'
 import SNACK from '../../SNACK'
 
 import { fetchQuery } from '../../utilities/fetch';
-// import Teams from '../teams/Teams'
 import LeagueTable from '../tables/LeagueTable'
 class FixturesNewDialog extends React.Component {
 state={
@@ -18,13 +17,16 @@ state={
     kickoff: null
 }
 onSave = ()=>{
-    let kickoff = this.state.kickoff.getHours()+":"+this.state.kickoff.getMinutes()
+    let minutes = this.state.kickoff.getMinutes()
+    let hours = this.state.kickoff.getHours()
+    minutes = minutes<10  ? '0'+minutes : minutes
+    hours = hours<10  ? '0'+hours : hours
+    let kickoff = hours+":"+minutes
     let start = this.state.season_start+" "+kickoff
     let end = this.state.season_end+" "+kickoff
     this.setState({season_start:start, season_end:end}, ()=>{
         this.props.onSave(this.state)
     })
-    // this.setState({title:''})
 }
 changeDate=(e)=>{
     this.setState({[e.target.name]:e.target.value})
@@ -71,13 +73,6 @@ render(){
                         This will create a new fixture list for the teams in this division, this will not replace any existing fixtures, rather merge them.
                     </DialogContentText>
                 </Grid>
-                {/* <Grid item xs={12} >
-                    <Paper className={classes.space}>
-                        <Grid container>
-                            <Teams division={this.props.division} nofab />
-                        </Grid>
-                    </Paper>
-                </Grid> */}
                 <Grid item xs={12} className={classes.space}>
                     <LeagueTable  division={this.props.division} />
                 </Grid>
@@ -162,7 +157,6 @@ const styles = (theme)=>({
 
     },
     space: {
-        // padding: theme.spacing.unit*2,
         marginTop: theme.spacing.unit*2,
         marginBottom: theme.spacing.unit*2,
     },

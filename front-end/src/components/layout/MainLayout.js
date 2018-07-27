@@ -13,6 +13,7 @@ import Snack from '../Snack'
 import { Grid, Zoom, Paper } from '@material-ui/core';
 
 import USER from '../../USER'
+import NewLeague from '../leagues/NewLeague';
 
 class MainLayout extends Component {
     state={
@@ -55,7 +56,8 @@ class MainLayout extends Component {
                             <Grid item xs={12} sm={1} md={2} lg={2}></Grid>
                             <Grid item xs={12} sm={10} md={8} lg={8} > 
                                 <Zoom in={true} style={{ transitionDelay: 250 }}>
-                                    <Paper>
+                                    <Paper>                                        
+                                        {/* <NewLeague/> */}
                                         {Routes}
                                     </Paper> 
                                 </Zoom>

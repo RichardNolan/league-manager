@@ -117,7 +117,7 @@ class Competitions extends React.Component {
                                     </Typography>
                                 </Toolbar>
                             </AppBar>
-                            <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} /> 
+                            {!isNewCompetition && <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} /> }
                             <Grid container className={classes.root}> 
                                   
                             {
