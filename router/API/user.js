@@ -56,8 +56,8 @@ router.use((req,res,next)=>{
 })
 
 
-//Authenticate, isLeagueSecretary,
-router.get('/',   getUsers);
+//
+router.get('/', Authenticate, isLeagueSecretary,  getUsers);
 router.get('/:id', Authenticate, isMe, getUser);
 router.get('/setteam', Authenticate, isMe, setTeam);
 

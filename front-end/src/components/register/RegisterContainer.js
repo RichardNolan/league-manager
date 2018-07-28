@@ -10,8 +10,11 @@ class RegisterContainer extends Component {
         if(team==='')team=null
         fetch(DB_HOST+'/api/signup/', post({title, email, password1, password2, organisation, club, team, secret, isMember:true}))
         .then(res=>res.json())
-        .then(res=>this.props.showSnack(res.message))
-        .then(res=>document.location.href='/login')
+        .then(res=>{
+            console.log(res)
+            this.props.showSnack(res.message)
+        })
+        // .then(res=>document.location.href='/login')
         .catch(err=>this.props.showSnack(err))
     }
 
