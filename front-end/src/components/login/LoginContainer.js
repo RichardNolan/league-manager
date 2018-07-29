@@ -23,18 +23,9 @@ class LoginContainer extends Component {
         }
         this.setState({progressBar:true})  
         if( !validateEmail( email ) ) return;
+        console.log("DB_HOST", DB_HOST)
+
         fetch(DB_HOST+'/api/signin', post({email, password, rememberMe}))
-        // TO-DO EASY Make a standardPost object in utilities/fetch  
-        // {
-        //     method: 'POST',
-        //     body: JSON.stringify(),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     mode: 'cors',
-        //     cache: 'no-cache',
-        //     credentials: 'include',
-        // })
         .then(res=>res.json())
         .then(res=>{
             if(!res.success) throw(res.message)
