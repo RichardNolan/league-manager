@@ -57,7 +57,7 @@ class Teams extends Component {
         let body = {
             title: newTeam.title,
             category: newTeam.category,
-            club: this.state.clubID || newTeam.club,   // TO-DO I THINK THE ID IS NEEDED NOW
+            club: this.state.clubID || newTeam.club,  
             organisation: (this.props.club && this.props.club.organisation) || (this.props.user && this.props.user.organisation),
         }
         // this.props.showSnack(body)

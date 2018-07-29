@@ -36,7 +36,6 @@ class TeamNewDialog extends React.Component {
                     Please provide a name title for the Team you wish to add.
                 </DialogContentText>
                 <Grid container>
-                    {/* TO-DO make the menu and see what has to be returned */}
                     {
                         this.props.club || (this.props.match && this.props.match.params.club)
                             ? null 

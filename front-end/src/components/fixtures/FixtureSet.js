@@ -22,7 +22,6 @@ const FixtureSet = (props) => {
     }else if(props.fixtures && props.fixtures.length>0) {
         return (
             <div>
-                {/* TO-DO NICER BANNER */}
                 <Typography variant='headline' className={props.classes.heading} gutterBottom >
                     {props.title}
                 </Typography>

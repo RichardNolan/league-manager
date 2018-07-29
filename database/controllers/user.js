@@ -9,8 +9,6 @@ module.exports = {
         user
             .find(criteria)
             .then(data=>{
-                // TO-DO EASY STRIP THE PASSWORD OFF EVERY USER IN DATA
-                console.log(data)
                 delete data.password
                 return data
             })

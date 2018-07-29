@@ -15,7 +15,6 @@ const aggregate = async data=>{
     return data
 }
 
-// TO-DO DONE this is triggered when you update a fixture, it should trigger when you update a score
 const updateTable = async division=>{
     let fixtures = await result.getResults({division, status:'result'}).catch(err=>console.log(err))
     let leagueTable = createTable(fixtures)

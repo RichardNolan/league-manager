@@ -22,7 +22,6 @@ const ResultSet = (props) => {
     }else if(props.results && props.results.length>0) {
         return (
             <div>
-                {/* TO-DO NICER BANNER */}
                 <Typography variant='headline' className={props.classes.heading} gutterBottom>
                     {props.title}
                 </Typography>

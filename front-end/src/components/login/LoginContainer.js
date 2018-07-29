@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import LoginForm from './LoginForm'
 import {validateEmail} from '../../utilities/validation'
-import {setAuthorization, DB_HOST} from '../../utilities/fetch'
+import {setAuthorization,post, DB_HOST} from '../../utilities/fetch'
 import {typeOfUser} from '../../utilities/utils'
 import ls from '../../utilities/localStorage'
 import { LinearProgress } from '@material-ui/core';
@@ -23,18 +23,18 @@ class LoginContainer extends Component {
         }
         this.setState({progressBar:true})  
         if( !validateEmail( email ) ) return;
-        fetch(DB_HOST+'/api/signin',
+        fetch(DB_HOST+'/api/signin', post({email, password, rememberMe}))
         // TO-DO EASY Make a standardPost object in utilities/fetch  
-        {
-            method: 'POST',
-            body: JSON.stringify({email, password, rememberMe}),
-            headers: {
-                'content-type': 'application/json'
-            },
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'include',
-        })
+        // {
+        //     method: 'POST',
+        //     body: JSON.stringify(),
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     mode: 'cors',
+        //     cache: 'no-cache',
+        //     credentials: 'include',
+        // })
         .then(res=>res.json())
         .then(res=>{
             if(!res.success) throw(res.message)
