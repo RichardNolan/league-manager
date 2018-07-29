@@ -16,7 +16,7 @@ const getHeaders = ()=>(
 
 
 // export const DB_HOST = 'http://localhost:9000'
-export const DB_HOST = ''
+export const DB_HOST = 'https://ncileaguemanager.herokuapp.com'
 
 export const getStandard = ()=>(
     Object.assign({},
@@ -38,6 +38,7 @@ export const getRequest = body=>(
 )
 
 export const fetchQuery = (url, params, options)=>{
+    console.log(url)
     url = new URL(url)
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     return fetch(url, getStandard())
