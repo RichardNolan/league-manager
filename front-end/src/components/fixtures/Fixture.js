@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Grid, Typography, IconButton } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles'
 import EditIcon from '@material-ui/icons/Create';
-
+import {Link} from 'react-router-dom'
 import USER from '../../USER'
 import * as moment from 'moment'
 
@@ -19,7 +19,7 @@ const Fixture = (props) => {
             <Grid container className={props.classes.root} >
                 <Grid item xs={4}>
                     <Typography variant="subheading"  className={props.classes.right} >
-                        {fixture.home_team.club.title_short}
+                        <Link to={`/team/${fixture.home_team._id}`}>{fixture.home_team.club.title_short}</Link>
                     </Typography>
                 </Grid>
                 <Grid item xs={4} className={props.classes.v}>
@@ -31,7 +31,7 @@ const Fixture = (props) => {
                 </Grid>
                 <Grid item xs={4} className={props.classes.buttonContainer}>
                     <Typography variant="subheading"  className={props.classes.left} >
-                        {fixture.away_team.club.title_short}
+                        <Link to={`/team/${fixture.away_team._id}`}>{fixture.away_team.club.title_short}</Link>
                     </Typography>
                     <USER.Consumer>
                         {({user})=>{

@@ -7,7 +7,7 @@ const connStrPublic = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PAS
 // let connStr = connStrPublic
 let connStr = connStrAdmin
 // let connStr = connStrLocal
-console.log("Connecting to " + connStr)
+// console.log("Connecting to " + connStr)
 
 mongoose.connect(connStr)
     .then(connection=>console.log("Database connected"))

@@ -57,6 +57,15 @@ class Team extends React.Component {
             })
     }
 
+    componentWillUpdate(nextProps, prevState){
+        let newTeam = nextProps.team || (nextProps.match && nextProps.match.params.team) || (nextProps.user && nextProps.user.team)
+        if(prevState.id !== newTeam){
+            this.setState({id:newTeam},()=>{
+                this.fetchData()
+            })
+        }
+    }
+
     render(){ 
         let {team} = this.state
         let {classes, ...rest} = this.props

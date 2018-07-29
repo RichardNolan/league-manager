@@ -10,6 +10,7 @@ import Results from '../components/results/Results'
 import {injectUser} from '../utilities/utils'
 
 import {Dns, Assessment, ViewAgenda, DirectionsRun,LocalConvenienceStore, Alarm, Person, Group, Home } from '@material-ui/icons';
+import UserHome from '../components/users/UserHome';
 
 
 const Fixtures = ()=>{return null}
@@ -119,6 +120,7 @@ const Routes = [
         icon: ViewAgenda,
         pageTitle: "League Secretary",
         path: "", 
+        component: injectUser(UserHome)
     }
 ];
 

@@ -4,10 +4,9 @@ import Users from "../components/users/Users";
 import {injectUser} from '../utilities/utils'
 import SendIcon from '@material-ui/icons/Send';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import React from 'react'
+import UserHome from "../components/users/UserHome";
 
 
-const Home = ()=><div>Admin</div>
 const Routes = [
     { 
         order:3,
@@ -32,16 +31,8 @@ const Routes = [
         icon: SendIcon,
         pageTitle: "Administration Dashboard",
         path: "", 
-        component: Home  
-    },
-    // {  
-    //     order:0,
-    //     link: "Home",
-    //     icon: SendIcon,
-    //     pageTitle: "Homepage",
-    //     path: "/", 
-    //     component: MainLayout 
-    // },
+        component: injectUser(UserHome), 
+    }
 ];
 
 export default Routes;
