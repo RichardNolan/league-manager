@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {fetchQuery, post } from '../../utilities/fetch'
+import {fetchQuery, post, DB_HOST } from '../../utilities/fetch'
 import FixturesNewDialog from './FixturesNewDialog';
 import PlusFab from'../PlusFab'
 import FixtureList from './FixtureList'
@@ -29,7 +29,7 @@ class Fixtures extends Component {
     fetchData(){
         let {division} = this.props
         this.setState({progressBar:true})
-        fetchQuery('http:localhost:9000/api/fixture/', {division})
+        fetchQuery(DB_HOST+'/api/fixture/', {division})
             .then(res=>res.json())
             .then(fixtures=>{
                 if(fixtures.error) throw(fixtures.message)

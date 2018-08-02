@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {fetchQuery} from '../../utilities/fetch'
+import {fetchQuery, DB_HOST } from '../../utilities/fetch'
 import ResultList from './ResultList'
 import { LinearProgress } from '@material-ui/core';
 import SNACK from '../../SNACK'
@@ -23,7 +23,7 @@ class Results extends Component {
         competition && (criteria.competition = competition)
 
         this.setState({progressBar:true})
-        fetchQuery('http:localhost:9000/api/result', criteria)
+        fetchQuery(DB_HOST+'/api/result', criteria)
             .then(res=>res.json())
             .then(results=>{
                 if(results.error) throw(results.message)

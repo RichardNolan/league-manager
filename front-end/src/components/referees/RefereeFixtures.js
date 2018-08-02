@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {fetchQuery} from '../../utilities/fetch'
+import {fetchQuery, DB_HOST } from '../../utilities/fetch'
 import FixtureList from '../fixtures/FixtureList'
 import { LinearProgress, Card } from '@material-ui/core';
 import SNACK from '../../SNACK'
@@ -16,7 +16,7 @@ class RefereeFixtures extends Component {
 
     fetchData(){
         this.setState({progressBar:true})
-        fetchQuery('http:localhost:9000/api/fixture/', {referee:this.props.user._id})
+        fetchQuery(DB_HOST+'/api/fixture/', {referee:this.props.user._id})
             .then(res=>res.json())
             .then(fixtures=>{
                 if(fixtures.error) throw(fixtures.message)
