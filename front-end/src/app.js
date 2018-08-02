@@ -46,6 +46,9 @@ class App extends Component {
         (typeof message === "string") && (msg = message)
         message.message && (typeof message.message === "string") && (msg = message.message)
         
+        if(msg === "Failed to fetch") msg = "Oops... We're having some difficulty at the moment, try again soon."
+        if(msg === "Cannot read property 'table' of null") msg = "We can't show you a table just yet, as there is none."
+        
         this.setState({snack:{show:true, message:msg}})
     }
     hideSnack = (e,reason)=>{

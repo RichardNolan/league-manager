@@ -38,8 +38,7 @@ app.use(function (err, req, res, next) {
 let port = process.env.PORT || 9000
 app.listen(port, ()=>{
     console.log("Server started on port " + port);
-    require('./tests')();
-
+    //require('./tests')();
 });
 
 module.exports = app
