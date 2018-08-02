@@ -19,21 +19,10 @@ class ForgotMessage extends Component {
     }
 
     onSendPassword = ()=>{
-        this.props.showSnack('')
         let {email, secret} = this.state
         if(!email || !secret) return;
         fetch(DB_HOST+'/api/forgotpassword', post({email, secret}))
-        // TO-DO EASY Make a standardPost object in utilities/fetch  
-        // {
-        //     method: 'POST',
-        //     body: JSON.stringify(),
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     mode: 'cors',
-        //     cache: 'no-cache',
-        //     credentials: 'include',
-        // })
+
         .then(res=>res.json())
         .then(res=>{
            if(!res.success) throw res.message
