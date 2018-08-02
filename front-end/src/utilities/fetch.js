@@ -15,8 +15,8 @@ const getHeaders = ()=>(
 )
 
 
-// export const DB_HOST = 'http://localhost:9000'
-export const DB_HOST = 'https://ncileaguemanager.herokuapp.com'
+export const DB_HOST = 'http://localhost:9000'
+// export const DB_HOST = 'https://ncileaguemanager.herokuapp.com'
 
 export const getStandard = ()=>(
     Object.assign({},
