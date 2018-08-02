@@ -1,6 +1,6 @@
 const request = require('supertest');
 var assert = require('assert');
-const DB_HOST = 'http://localhost:9000'
+// const DB_HOST = 'http://localhost:9000'
 const routes = ['division', 'fixture', 'league', 'organisation', 'player', 'referee', 'team', 'user', 'venue']
 // const routes = ['user']
 routes.forEach(route=>{

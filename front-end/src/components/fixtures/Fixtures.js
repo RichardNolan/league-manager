@@ -3,7 +3,6 @@ import {fetchQuery, post, DB_HOST } from '../../utilities/fetch'
 import FixturesNewDialog from './FixturesNewDialog';
 import PlusFab from'../PlusFab'
 import FixtureList from './FixtureList'
-import { DB_HOST } from '../../utilities/fetch';
 import { LinearProgress } from '@material-ui/core';
 import SNACK from '../../SNACK'
 

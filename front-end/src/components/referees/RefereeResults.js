@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {fetchQuery} from '../../utilities/fetch'
+import {fetchQuery, DB_HOST} from '../../utilities/fetch'
 import ResultList from '../results/ResultList'
 import { LinearProgress, Card } from '@material-ui/core';
 import SNACK from '../../SNACK'
@@ -16,7 +16,7 @@ class RefereeResults extends Component {
 
     fetchData(){
         this.setState({progressBar:true})
-        fetchQuery('http:localhost:9000/api/result/', {referee:this.props.user._id})
+        fetchQuery(DB_HOST+'/api/result/', {referee:this.props.user._id})
             .then(res=>res.json())
             .then(results=>{
                 if(results.error) throw(results.message)
