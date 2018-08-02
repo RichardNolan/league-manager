@@ -32,7 +32,7 @@ const ClubsPanel = (props) => {
                         </IconButton>
                     }
                     title="Clubs"
-                    subheader={"Clubs in the "+title}
+                    subheader={"Clubs in the "+props.organisation.title}
                 />
                 <CardContent>                
                     <List component="nav" className={classes.list}>
