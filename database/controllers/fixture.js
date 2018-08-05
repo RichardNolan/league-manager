@@ -173,20 +173,15 @@ module.exports = {
             .populate({ path: 'home_team', populate:{path:'club', select:'_id title_short venue'} })
             .populate({ path: 'away_team', populate:{path:'club', select:'_id title_short'} })
             .then(data=>{
-                console.log("got data")
                 // CLUB DETAILS CAN'T BE FILTERED IN THE QUERY SO ARE FILTERED HERE PRIOR TO SENDING THE DATA
                 if(user.isClubOfficial){
-                    console.log("official")
                     return data.filter(fixture=>{
-                        console.log(fixture)
                         let valid = (
                                 (fixture.home_team.club._id.toString() === user.club.toString()) 
                             || (fixture.away_team.club._id.toString() === user.club.toString())
                         ) && (
                                 isNaN(fixture.club_official_away) || isNaN(fixture.club_official_home)
                         )
-                        console.log("valid", valid)
-                        // console.log("NAN", isNaN(fixture.club_official_away), isNaN(fixture.club_official_home))
                         return valid
                     })
                 }
@@ -196,7 +191,6 @@ module.exports = {
     },
 
     upsertScore: (body)=>{
-        console.log("UPSERT")
         let id = body.fixture
         delete body.fixture
         return fixture
@@ -223,7 +217,6 @@ module.exports = {
         deleteMany: (criteria)=>(
             fixture.
                     deleteMany(criteria)
-                    // .then(next)
         ),
     
 }
