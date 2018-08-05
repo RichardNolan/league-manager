@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 
 const ClubsPanel = (props) => {
-    let {classes, clubs=[], title} = props
+    let {classes, clubs=[]} = props
     let clubList = clubs
                         .sort((a,b)=>{
                             if(a.title>b.title) return 1

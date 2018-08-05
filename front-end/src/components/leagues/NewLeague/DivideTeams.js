@@ -92,7 +92,7 @@ class DivideTeams extends React.Component {
     fetchData=(cb)=>{       
         let org = (this.props.competition && this.props.competition.organisation) || null
         if(org){
-            fetchQuery(DB_HOST+'/api/team', {organisation:org, category:this.props.competition.league.category})
+            fetchQuery(DB_HOST+'/api/team', {organisation:org, category:this.props.competition.league.category, division:null})
                 .then(res=>res.json())
                 .then(res=>{
                     if(res.error) throw(res.message)

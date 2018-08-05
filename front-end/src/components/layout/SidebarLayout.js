@@ -43,7 +43,6 @@ const Sidebar = (props)=>{
                 >
                     <ListItemIcon className={classes.icon}>
                         <Icon/>
-                        {/* <img src={'/images/icons/'+route.icon+'.svg'} /> */}
                     </ListItemIcon>
                     <ListItemText classes={{ primary: classes.primary }} inset primary={route.link} />
                 </MenuItem>

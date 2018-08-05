@@ -5,6 +5,7 @@ module.exports = {
         let {limit,skip} = criteria
         limit && delete criteria.limit
         skip && delete criteria.skip
+        if(criteria.division==='null') criteria.division=null
         return team
             .find(criteria)
             .skip(parseInt(skip) || 0)

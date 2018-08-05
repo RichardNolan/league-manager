@@ -14,7 +14,7 @@ class LoginForm extends Component {
             rememberMe:false,
         }
     }
-   
+
     changeEmail = (e)=>{
         this.setState({email: e.target.value})
     }

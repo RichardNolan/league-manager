@@ -24,7 +24,7 @@ class AwaitingScores extends Component {
         fetchQuery(DB_HOST+'/api/awaitingscore', {})
             .then(res=>res.json())
             .then(fixtures=>{
-                if(fixtures.error) throw(fixtures.message)
+                if(fixtures && fixtures.error) throw(fixtures.message)
                 this.setState({fixtures, progressBar:false})
             })
             .catch(err=>{
