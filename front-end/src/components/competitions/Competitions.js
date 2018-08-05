@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
-import {  post, fetchQuery, DB_HOST } from '../../utilities/fetch'
+import {  post, fetchQuery, DB_HOST, del } from '../../utilities/fetch'
 import League from '../leagues/League'
-import { Grid, LinearProgress, AppBar, Typography, Toolbar } from '@material-ui/core';
+import { Grid, LinearProgress, AppBar, Typography, Toolbar, Table, TableCell, TableRow, TableBody, IconButton } from '@material-ui/core';
+import {DeleteForever} from '@material-ui/icons'
 import {Link, Route} from 'react-router-dom'
 
 import { withStyles } from '@material-ui/core/styles';
@@ -10,6 +11,7 @@ import NewLeague from '../leagues/NewLeague';
 import PlusFab from'../PlusFab'
 import ClubButton from '../clubs/ClubButton';
 import SNACK from '../../SNACK'
+import DeleteCompetitionDialog from './DeleteCompetitionDialog';
 
 
 class Competitions extends React.Component {
@@ -21,8 +23,36 @@ class Competitions extends React.Component {
             competition : null,
             competition_title: '',
             progressBar:false,
+            deleteDialogOpen:false,
+            deleteWhichCompetition:null,
     }
     
+    openDeleteCompetitionDialog = (competition)=>{
+        this.setState({deleteDialogOpen:true, deleteWhichCompetition:competition._id})
+    }
+    closeDeleteCompetitionDialog = ()=>{
+        this.setState({deleteDialogOpen:false, deleteWhichCompetition:null})
+    }
+    confirmDeleteCompetition=()=>{
+        this.setState({progressBar:true})   
+        let id = this.state.deleteWhichCompetition
+        this.closeDeleteCompetitionDialog()                 
+
+        fetch(DB_HOST+'/api/competition/'+id, del())
+            .then(res=>res.json())
+            .then(res=>{
+                if(!res) throw(res.message)
+                return res
+            })
+            .then(res=>{
+                this.setState({progressBar:false})  
+                this.fetchData()
+            })
+            .catch(err=>{
+                this.setState({progressBar:false})  
+                this.props.showSnack(err)
+            })
+    }
     openNewCompetitionDialog = () => {
         this.setState({ newCompetitionDialogOpen: true });
     };
@@ -94,10 +124,30 @@ class Competitions extends React.Component {
                                 text={competition.title} 
                                 component={Link} 
                                 to={competition.type==='league' ? `${this.props.match.url}${competition._id}/league/` : `${this.props.match.path}${competition._id}/cup/`} 
-                               
                             />
                         ))
                     :   null
+        
+        let competitionsRow = competitions ? competitions.map((competition, key)=>(
+                                                <TableRow key={key}>
+                                                    <TableCell>
+                                                        <Link 
+                                                            to={competition.type==='league' ? `${this.props.match.url}${competition._id}/league/` : `${this.props.match.path}${competition._id}/cup/`} 
+                                                            competition={competition} 
+                                                            organisation={organisation}
+                                                        >
+                                                            {competition.title}
+                                                        </Link>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <IconButton color="default" onClick={()=>this.openDeleteCompetitionDialog(competition)}>
+                                                            <DeleteForever/>
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))
+                                        :   []
+
         return (
             <div className={classes.root}>
 
@@ -118,12 +168,33 @@ class Competitions extends React.Component {
                                 </Toolbar>
                             </AppBar>
                             {!isNewCompetition && <PlusFab onSave={this.saveNewCompetition.bind(this)} dialog={CompetitionNewDialog} /> }
+                            <DeleteCompetitionDialog 
+                                open={this.state.deleteDialogOpen} 
+                                onClose={this.closeDeleteCompetitionDialog} 
+                                onConfirm={this.confirmDeleteCompetition}
+                            /> 
                             <Grid container className={classes.root}> 
                                   
                             {
                                 (isNewCompetition && competitionType==='league')
                                     ? <NewLeague competition={competitions[competition]} {...this.props}/>
-                                    : <Fragment>{competitionsMetro ? competitionsMetro : null}</Fragment>
+                                    : (
+                                        this.props.user && (this.props.user.isLeagueSecretary || this.props.user.isAdmin) ? (
+                                                        <Fragment>
+                                                            <Table>
+                                                                <TableBody>
+                                                                    {competitionsRow}
+                                                                </TableBody>
+                                                            </Table>
+                                                        </Fragment>
+                                                    )
+                                                :   (
+                                                    <Fragment>
+                                                        {competitionsMetro ? competitionsMetro : null}
+                                                    </Fragment>
+                                                )
+                                    )
+                                    
                             }   
                                    
                             </Grid>

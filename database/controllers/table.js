@@ -49,4 +49,12 @@ module.exports = {
                 .then(result=>result)
                 .catch(err=>console.log({error:true, message:"Error creating organisation"}))
     ),
+
+    
+    deleteMany: (criteria)=>(
+        table.
+                deleteMany(criteria)
+                // .then(next)
+    ),
+
 }

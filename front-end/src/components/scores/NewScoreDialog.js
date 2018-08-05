@@ -38,7 +38,7 @@ render(){
                     </Grid>
                     <Grid item md={2}>
                         <Grid container>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={this.props.classes.centerButton}>
                                 <IconButton onClick={()=>this.changeScore('home', 1)}>
                                     <KeyboardArrowUp />
                                 </IconButton>
@@ -46,7 +46,7 @@ render(){
                             <Grid item xs={12}>
                                 <Typography variant='headline' className={this.props.classes.score}>{this.state.home}</Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={this.props.classes.centerButton}>
                                 <IconButton onClick={()=>this.changeScore('home', -1)}>
                                     <KeyboardArrowDown />
                                 </IconButton>
@@ -55,7 +55,7 @@ render(){
                     </Grid>
                     <Grid item md={2}>
                         <Grid container>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={this.props.classes.centerButton}>
                                 <IconButton onClick={()=>this.changeScore('away', 1)}>
                                     <KeyboardArrowUp />
                                 </IconButton>
@@ -63,7 +63,7 @@ render(){
                             <Grid item xs={12}>
                                 <Typography variant='headline' className={this.props.classes.score}>{this.state.away}</Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} className={this.props.classes.centerButton}>
                                 <IconButton onClick={()=>this.changeScore('away', -1)}>
                                     <KeyboardArrowDown />
                                 </IconButton>
@@ -110,6 +110,10 @@ const styles = theme=>({
     },
     score:{
         textAlign:'center',
+    },
+    centerButton:{
+        display:'flex',
+        justifyContent:'space-around'
     },
     team:{
         display:'flex',

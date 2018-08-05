@@ -77,21 +77,8 @@ module.exports = {
             .catch(err=>console.log({error:true, message:err}))
     ),
 
-    // updateFixture: async (id, data)=>{
-    //     fixture
-    //         .findByIdAndUpdate(id, { $set: data}, { new: false })
-    //         .then(siblings)
-    //         .catch(err=>console.log({error:true, message:err}))
-    // },   
+ 
     updateFixture: async (_id, data)=>{  
-        // let foundTime_slot = null  
-        // if(data.date){
-        //     await time_slot
-        //             .findOneAndUpdate({fixture:_id}, {date:data.date, slot:100})
-        //             .then(result=>{
-        //                 // data.slot = utils.updateTime_slot(result)   
-        //             })
-        // }   
         return fixture
             .findByIdAndUpdate(_id, data, { new: true })
             .then(result=>{      
@@ -104,7 +91,6 @@ module.exports = {
     replaceFixture: async (data)=>{        
         let Fixture = await fixture
             .findByIdAndUpdate(id, { $set: data}, { new: true })
-
         if(!Fixture) return {error:true, message:"Couldn't update fixture"}
         else return Fixture
     },
@@ -151,15 +137,6 @@ module.exports = {
         })
         return fixture.collection.insert(fixtures)
             .then(res=>{
-
-
-                // GET SLOTS
-
-                // res.ops.forEach(fixture=>{
-                //     utils.availableTime_slot(fixture)
-                // })
-                
-
                 return {success:true, fixturesAdded:res.ops.length}
             })
             .catch(err=>console.log(err))
@@ -243,6 +220,10 @@ module.exports = {
             .catch(err=>console.log(err))
         },
 
-    
+        deleteMany: (criteria)=>(
+            fixture.
+                    deleteMany(criteria)
+                    // .then(next)
+        ),
     
 }

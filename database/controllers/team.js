@@ -37,6 +37,14 @@ module.exports = {
             .catch(err=>console.log({error:true, message:"Error getting teams"}))
     ),
 
+    updateTeams: (criteria, newValue)=>{
+        return team
+            .where(criteria)
+            .setOptions({ multi: true, overwrite: true })
+            .update({ $set: newValue})
+            .exec()
+    },
+
     newTeam: ({title, club, title_short, category, organisation})=>(
         new team({
                     title, 
@@ -109,48 +117,3 @@ const getLastResult = async team=>{
             return team
         })
 }
-
-
-
-// nextFixture:await 
-
-// latestNews: async id=>{
-//     let thisClub = await club.findById(id)
-//                             .then(aggregate)
-//                             .catch(err=>console.log({error:true, message:err}))
-// let teams = thisClub.teams.map(t=>t._id)
-
-// let fixtures= await fixture.find({home_team: {$in:teams}})
-//                         .where('date')
-//                         .gt(Date.now())
-//                         .sort({date:1})
-//                         // .limit(1)      
-                                
-                                
-                                
-//           let news = []
-
-//             news.push({
-// console.log("fixtures", fixtures)
-//                 team:team,
-
-//                 lastResult:await fixture
-//                     .find()
-//                     .where('date')
-//                     .lt(Date.now())
-//                     .sort({date:-1})
-//                     .limit(1)
-//                     .or([{home_team:team._id}, {away_team:team._id}])
-//                     .populate({ path: 'division', select:'_id title', populate:{path:'league', select:'_id title'} })
-//                     .populate({ path: 'home_team', populate:{path:'club', select:'_id title_short venue'} })
-//                     .populate({ path: 'away_team', populate:{path:'club', select:'_id title_short'} })
-//                     .then(data=>{
-//                         // console.log("Result", data)
-//                         return data
-//                     })
-//                     .catch(err=>console.log(err))
-//             })
-
-//     console.log(news)
-//     return Promise.all(news)
-// },

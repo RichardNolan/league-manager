@@ -35,7 +35,12 @@ const updateCompetition = (req, res, next)=>{
 }
 
 const deleteCompetition = (req, res, next)=>{
-    res.redirect('/')
+    competition
+        .deleteCompetition(req.params.id)
+        .then(response=>{
+            res.status(200).json(response)
+        })
+        .catch(next)    
 }
 
 router.use((req, res, next)=>{

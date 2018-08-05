@@ -58,32 +58,10 @@ module.exports = {
                 .catch(err=>console.log({error:true, message:"Error creating division"}))
     ),
 
-    // createFixtureList: (division_id)=>{
-    //     return new Promise(async (resolve, reject)=>{   
-    //         let division  = await module.exports.getDivision(division_id)
-    //         console.log("=========================================")
-    //         console.log(division)
-    //         console.log("=========================================")
-    //         let fixtures = createFixtureList(division.teams)
-    //         let {schedule} = createSchedule(fixtures)
-
-    //         fixtures = fixtures.map(async fixture=>{
-    //             let date = schedule['round_'+fixture.round]
-    //             fixture.date = date.year()+"-"+(date.month()+1)+"-"+date.date()
-    //             fixture.division = division_id
-    //             fixture.status =  'ON'  
-    //             fixture.competition = division.competition
-    //             // fixture.club = await club.getClub(fixture.club)
-    //         console.log("=========================================")
-    //         console.log(fixture)
-    //         console.log("=========================================")
-    //             return fixture
-    //         })
-
-    //         // let venues = determineVenues(fixtures)
-    //         // let referees = determineReferees(fixtures)
-    //         resolve(fixtures)
-    //     })
-    // }
+    deleteMany: (criteria)=>(
+        division.
+                deleteMany(criteria)
+                // .then(next)
+    ),
     
 }

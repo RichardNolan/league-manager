@@ -3,6 +3,9 @@ const division = require('./division')
 const {team, table} = require('../models')
 
 const aggregate =  async data=>{
+    // console.log("=================== AGG LEAGUE")
+    // console.log(data)
+    // console.log("===================")
     data.divisions = await division.getDivisions({league:data._id})
     return data
 }
@@ -27,7 +30,12 @@ module.exports = {
 
     findLeague: (criteria)=>(
         league.findOne(criteria)
-            .populate({path: 'divisions'})
+            // .populate({path: 'divisions'})
+            // .then(l=>{
+            //     console.log('================== L')
+            //     console.log(l, criteria)
+            //     return l
+            // })
             .then(aggregate)
             .catch(err=>console.log({error:true, message:err}))
     ),
@@ -51,10 +59,11 @@ module.exports = {
                                 if(err) console.log(err)
                                 else console.log(res)
                             })
-                            new table({team:t._id, division})
-                                .save()
-                                .then(result=>result)
-                                .catch(err=>console.log({error:true, message:"Error creating table entry"}))
+                            console.log("====== CREATE TABLE ", {team:t._id, division})
+                            // new table({team:t._id, division})
+                            //     .save()
+                            //     .then(result=>result)
+                            //     .catch(err=>console.log({error:true, message:"Error creating table entry"}))
                         })
                         return result
                     })

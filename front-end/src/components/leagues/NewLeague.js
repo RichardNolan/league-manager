@@ -13,6 +13,7 @@ class NewLeague extends Component {
     state = {
         activeStep: 0,
         loader:false,
+        done:false,
     };
 
     handleNext=()=>{
@@ -52,20 +53,17 @@ class NewLeague extends Component {
             .then(res=>res.json())
             .then(res=>{
                 this.props.showSnack("League saved...")
-                this.setState((prevState) => ({
-                    activeStep: prevState.activeStep + 1,
-                    loader:false
-                }));
+                this.setState({loader:false, done:true});
             })
             .catch(err=>{                
                 this.props.showSnack(err)
-                // set loader false
+                this.setState({loader:false});
             })        
     }
 
     render() {            
         const { classes } = this.props;
-        const { activeStep } = this.state;
+        const { activeStep, done } = this.state;
 
         let stepIcons = steps.map((step, key) => (
             <Step key={key}>
@@ -74,7 +72,7 @@ class NewLeague extends Component {
             )
         )
 
-        let finished = this.state.activeStep === steps.length  
+        let finished = this.state.activeStep >= steps.length  
         // console.log( finished, this.state.activeStep, steps.length)           
         // console.log( this.state.divisionsObject )           
         let ActiveStepComponent = finished ? Finished : steps[activeStep].component
@@ -103,7 +101,7 @@ class NewLeague extends Component {
                             {finished ? "All steps completed - you're finished" : steps[activeStep].helperText }                                    
                         </Typography>
                         <div className={classes.keepRight}>
-                            {finished 
+                            {(finished || done)
                                 ? <Button component={Link} to={`/organisations/${this.props.competition.organisation}/competitions/${this.props.competition._id}/league/`}>Proceed to new League</Button> 
                                 : ( <Fragment>                        
                                         <Button
