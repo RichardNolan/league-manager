@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Typography, Paper, withStyles } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
  
 const Home = (props) => {
 
     return (
-        <Paper className={props.classes.paper}>
+        <div className={props.classes.paper}>
             <Typography variant='display3' className={props.classes.heading} gutterBottom>
                 League Manager
             </Typography>
@@ -15,14 +15,14 @@ const Home = (props) => {
             <Typography variant='subheading'>
                 Just the essentials
             </Typography>
-        </Paper>
+        </div>
     );
 };
 
 
 const styles = theme=>({
     paper:{
-        padding:theme.spacing.unit*3,
+        padding:theme.spacing.unit*4,
     },
     heading:{
         color:theme.palette.primary.main,

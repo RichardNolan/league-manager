@@ -53,15 +53,15 @@ class MainLayout extends Component {
                         <div className={classes.toolbar} />
                             
                         <Grid container spacing={32}>
-                            <Grid item xs={12} sm={1} md={2} lg={2}></Grid>
-                            <Grid item xs={12} sm={10} md={8} lg={8} > 
+                            <Grid item xs={12} sm={1} md={3} lg={3}></Grid>
+                            <Grid item xs={12} sm={10} md={6} lg={6} > 
                                 <Zoom in={true} style={{ transitionDelay: 250 }}>
                                     <Paper>                                        
                                         {/* <NewLeague/> */}
                                         {Routes}
+                                        <Route path={`/`} component={Advert} exact={true} />
                                     </Paper> 
                                 </Zoom>
-                                <Route path={`/`} component={Advert} exact={true} />
                             </Grid>
                             <Grid item xs={12} sm={1} md={2} lg={2}></Grid>
                         </Grid>

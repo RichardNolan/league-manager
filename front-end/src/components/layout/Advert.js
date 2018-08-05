@@ -28,7 +28,7 @@ const Advert = (props) => {
             </Grid>
             <Grid item xs={12} sm={4}>
                 <Slide direction="up" in={true} mountOnEnter unmountOnExit style={{transitionDelay:700}}>
-                    <Paper className={props.classes.circle}>
+                    <Paper className={props.classes.circle} >
                         <Typography variant='display1' className={props.classes.circleText}>
                             Free
                         </Typography>
@@ -40,15 +40,21 @@ const Advert = (props) => {
                 <Grid item  sm={4} className={props.classes.sideImage}></Grid>
             </Hidden>
             <Grid item xs={12} sm={8}>
-                <Typography variant='title'>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <Typography variant='title' gutterBottom>
+                    League manager allows you to administer your soccer league and communicate with your audience all in one place. 
+                </Typography>
+                <Typography variant='subheading'>
+                    If all parties fulfil their own responsibilites the application is entire self-administering. If referee's and club officials all agree on a score, then that will be the final score. No longer does the league secretary need to sit and collate the hundreds of results coming in by text, email or by phone call. 
+                </Typography>
+                <Typography variant='subheading'>
+                    Just set up the fixtures and everything will be visible to everyone.
                 </Typography>
             </Grid>
         </Grid>
     );
 };
 
-const styles = {
+const styles = theme=>({
     root:{
         display:'flex', 
         justifyContent:'space-between',
@@ -60,8 +66,10 @@ const styles = {
         width:150,
         height:150,
         margin:'auto',
+        backgroundColor:theme.palette.primary.main
     },
     circleText:{
+        color:'white',
         textAlign:'center',
         lineHeight:'150px',
     }, 
@@ -72,6 +80,6 @@ const styles = {
         minHeight:300,
         // maxHeight:400,
     }
-}
+})
 
 export default withStyles(styles)(Advert)
